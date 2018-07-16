@@ -1,0 +1,32 @@
+{
+  "name": "addressbook",
+  "version": "0.0.1",
+  "description": "An address and birthday tool that actually works",
+  "main": "server.js",
+  "repository": "https://revdancatt@github.com/revdancatt/addressbook.git",
+  "author": "revdancatt <github@revdancatt.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "colors": "^1.1.2",
+    "command-line-args": "^5.0.2",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^5.0.1",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "is-running": "^2.1.0",
+    "moment": "^2.22.2",
+    "node-sass": "^4.8.3",
+    "prompt-sync": "^4.1.6",
+    "sane": "^2.5.2",
+    "session-file-store": "^1.2.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5",
+    "opn": "^5.3.0",
+    "standard": "^11.0.1"
+  }
+}
