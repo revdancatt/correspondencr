@@ -408,3 +408,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 http.createServer(app).listen(process.env.PORT)
+
+const facebookFetcher = require('./app/modules/facebook-fetcher')
+facebookFetcher.startCheckingFacebook()
