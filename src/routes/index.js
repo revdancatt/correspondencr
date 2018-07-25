@@ -31,6 +31,7 @@ router.use(function (req, res, next) {
 // ############################################################################
 
 router.get('/', main.index)
+router.post('/', main.posted)
 
 
 module.exports = router
