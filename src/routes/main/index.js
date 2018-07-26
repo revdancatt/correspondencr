@@ -1,5 +1,6 @@
 const Config = require('../../classes/config')
 const facebookFetcher = require('../../modules/facebook-fetcher')
+const people = require('../../modules/people')
 
 exports.index = (req, res) => {
   req.templateValues.msg = 'Hello World'
@@ -7,6 +8,15 @@ exports.index = (req, res) => {
   //  Check to see if we have a facebook feed setup
   req.templateValues.hasFacebookFeed = 'facebookFeed' in req.config
 
+  //  Grab all the latest people we have found in the last week
+  const newPeople = people.getDiscoveredExternally()
+  if (newPeople.length > 0) {
+    if (newPeople.length < 10) {
+      req.templateValues.newPeople = newPeople
+    } else {
+      req.templateValues.tooManyNewPeople = true
+    }
+  }
   return res.render('main/index', req.templateValues)
 }
 

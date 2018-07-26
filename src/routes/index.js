@@ -4,6 +4,7 @@ const Config = require('../classes/config')
 
 // Break out all the seperate parts of the site
 /* eslint-disable import/no-unresolved */
+const discovered = require('./discovered')
 const main = require('./main')
 
 // ############################################################################
@@ -32,6 +33,7 @@ router.use(function (req, res, next) {
 
 router.get('/', main.index)
 router.post('/', main.posted)
+router.get('/discovered', discovered.index)
 
 
 module.exports = router

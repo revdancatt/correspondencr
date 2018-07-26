@@ -39,6 +39,7 @@ const checkFacebook = async () => {
     const person = new Person(entry.name)
     person.set('month', entry.month)
     person.set('day', entry.day)
+    person.set('source', 'facebook')
     person.save()
   })
 

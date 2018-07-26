@@ -5,6 +5,9 @@
     {{> head}}
   </head>
   <body>
+
+    {{> nav}}
+
     <section class="hero">
       <div class="hero-body">
         <div class="container">
@@ -49,6 +52,28 @@
           </div>
         </form>    
       </div>
+    </section>
+    {{/if}}
+
+    {{#if newPeople}}
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Newly discovered people</h1>
+        <h2 class="subtitle">Here are the people we have found in the last 7 days</h2>
+        <ul>
+          {{#each newPeople}}
+          <li><strong>{{fullname}}</strong> <small>({{timeAgo created}})</small></li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+    {{/if}}
+
+    {{#if tooManyNewPeople}}
+    <section class="section">
+        <div class="container notification is-info">
+          We have found lots of new people, too many to display here. Go to the <a href="/discovered">newly discovered</a> page to see them all.
+        </div>
     </section>
     {{/if}}
 
