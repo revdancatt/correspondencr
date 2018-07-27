@@ -99,6 +99,11 @@ exports.timePretty = t => {
   return moment(t).format('dddd, MMMM Do YYYY, h:mm:ss a')
 }
 
+exports.datePretty = t => {
+  if (t === null || t === undefined) return ''
+  return moment(t).format('dddd, MMMM Do YYYY')
+}
+
 exports.timeAgo = backThen => {
   if (backThen === null || backThen === undefined) return ''
   return moment(backThen).fromNow()
@@ -120,4 +125,3 @@ exports.dumpJSON = object => {
   pre += '</pre>'
   return pre
 }
-
