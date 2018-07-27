@@ -1,16 +1,30 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        Home
-      </a>
-  
+<nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      Home
+    </a>
+    <div class="navbar-burger burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </div>
+  </div>
 
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="/discovered">
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/upcoming">
+        <span>
+          Upcoming
+        </span>
+      </a>
+      <a class="navbar-item" href="/discovered">
+        <span class="is-hidden-touch is-hidden-widescreen">
+          New!
+        </span>
+        <span class="is-hidden-desktop-only">
           Newly discovered
-        </a>
-      </div>
+        </span>
+      </a>
     </div>
-  </nav>
+  </div>
+</nav>

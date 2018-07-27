@@ -1,82 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>main</title>
-    {{> head}}
-  </head>
-  <body>
 
-    {{> nav}}
+<head>
+  <title>main</title>
+  {{> head}}
+</head>
 
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-              Address Book!
-          </h1>
-        </div>
-      </div>
-    </section>
+<body>
 
-    {{#if hasFacebookFeed}}
-    {{else}}
-    <section class="section">
-      <div class="container notification is-primary">
-        <h1 class="title">Facebook Feed</h1>
-        <h2 class="subtitle">You have no facebook birthday webcal feed set up, you should do that now</h2>
-      </div>
+  {{> nav}}
 
+  <section class="hero">
+    <div class="hero-body">
       <div class="container">
-        <form method="POST">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Webcal Feed</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="text" name="facebookFeed">
-                </p>
-              </div>
+        <h1 class="title">
+          Address Book!
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  {{#if hasFacebookFeed}} {{else}}
+  <section class="section">
+    <div class="container notification is-primary">
+      <h1 class="title">Facebook Feed</h1>
+      <h2 class="subtitle">You have no facebook birthday webcal feed set up, you should do that now</h2>
+    </div>
+
+    <div class="container">
+      <form method="POST">
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Webcal Feed</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <input class="input" type="text" name="facebookFeed">
+              </p>
             </div>
           </div>
-          <div class="control field is-horizontal">
-            <div class="field-label">
-              &nbsp;
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <button class="button is-link" name="action" value="saveWebcal">Submit</button>
-              </div>
+        </div>
+        <div class="control field is-horizontal">
+          <div class="field-label">
+            &nbsp;
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <button class="button is-link" name="action" value="saveWebcal">Submit</button>
             </div>
           </div>
-        </form>    
-      </div>
-    </section>
-    {{/if}}
-
-    {{#if newPeople}}
-    <section class="section">
-      <div class="container">
-        <h1 class="title">Newly discovered people</h1>
-        <h2 class="subtitle">Here are the people we have found in the last 7 days</h2>
-        <ul>
-          {{#each newPeople}}
-          <li><strong>{{fullname}}</strong> <small>({{timeAgo created}})</small></li>
-          {{/each}}
-        </ul>
-      </div>
-    </section>
-    {{/if}}
-
-    {{#if tooManyNewPeople}}
-    <section class="section">
-        <div class="container notification is-info">
-          We have found lots of new people, too many to display here. Go to the <a href="/discovered">newly discovered</a> page to see them all.
         </div>
-    </section>
-    {{/if}}
+      </form>
+    </div>
+  </section>
+  {{/if}} {{#if birthdayPeople}}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Upcoming birthdays</h1>
+      <h2 class="subtitle">Here are some upcoming birthdays</h2>
+      <ul>
+        {{#each birthdayPeople}}
+        <li class="level">
+          <span class="level-left">
+            <span class="level-item">
+              <strong>{{fullname}}</strong>
+            </span>
+            <span class="level-item">{{datePretty birthday}}</span>
+          </span>
+          <small>({{timeAgo birthday}})</small>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="container content">
+      <br /> You can see more
+      <a href="/upcoming">upcoming birthdays here</a>.
+    </div>
+  </section>
+  {{/if}} {{#if newPeople}}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Newly discovered people</h1>
+      <h2 class="subtitle">Here are the people we have found in the last 7 days</h2>
+      <ul>
+        {{#each newPeople}}
+        <li>
+          <strong>{{fullname}}</strong>
+          <small>({{timeAgo created}})</small>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
+  {{/if}} {{#if tooManyNewPeople}}
+  <section class="section">
+    <div class="container notification is-info">
+      We have found lots of new people, too many to display here. Go to the
+      <a href="/discovered">newly discovered</a> page to see them all.
+    </div>
+  </section>
+  {{/if}} {{>footer}}
+</body>
 
-    {{>footer}}
-  </body>
 </html>

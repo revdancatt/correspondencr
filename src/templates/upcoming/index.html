@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Upcoming</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Upcoming birthdays
+        </h1>
+        <h2 class="subtitle">
+          Here are some upcoming birthdays
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  {{#if birthdayPeople}}
+  <section class="section">
+    <div class="container">
+      <ul>
+        {{#each birthdayPeople}}
+        <li class="level">
+          <span class="level-left">
+            <span class="level-item">
+              <strong>{{fullname}}</strong>
+            </span>
+            <span class="level-item">{{datePretty birthday}}</span>
+          </span>
+          <small>({{timeAgo birthday}})</small>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
+  {{/if}} {{>footer}}
+</body>
+
+</html>
