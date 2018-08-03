@@ -6,6 +6,7 @@ const Config = require('../classes/config')
 /* eslint-disable import/no-unresolved */
 const discovered = require('./discovered')
 const main = require('./main')
+const person = require('./person')
 const upcoming = require('./upcoming')
 
 // ############################################################################
@@ -36,5 +37,6 @@ router.get('/', main.index)
 router.post('/', main.posted)
 router.get('/discovered', discovered.index)
 router.get('/upcoming', upcoming.index)
+router.get('/person/:id', person.index)
 
 module.exports = router

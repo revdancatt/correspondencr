@@ -24,7 +24,9 @@
       <ul>
         {{#each newPeople}}
         <li>
-          <strong>{{fullname}}</strong>
+          <strong>
+            <a href="/person/{{id}}">{{fullname}}</a>
+          </strong>
           <small>({{timeAgo created}})</small>
         </li>
         {{/each}}

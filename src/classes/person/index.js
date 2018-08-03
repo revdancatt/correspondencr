@@ -10,17 +10,25 @@ class Person {
    */
   constructor (nameOrId) {
     let person = null
-    if (typeof(nameOrId === 'number')) {
+    if (typeof (nameOrId) === 'number') {
       person = this.getPersonById(nameOrId)
     }
-    if (typeof(nameOrId === 'string')) {
+    if (typeof (nameOrId) === 'string') {
       person = this.getPersonByFullname(nameOrId)
     }
+    //  This cannot be the correct way of doing this!
+    Object.assign(this, person)
+    person.nextBirthday = this.getUpcomingBirthday()
     Object.assign(this, person)
   }
 
   getPersonById (id) {
-
+    const peopleJSON = this.loadPeopleJSON()
+    let person = null
+    if (id in peopleJSON) {
+      person = peopleJSON[id]
+    }
+    return person
   }
 
   getPersonByFullname (fullname) {
@@ -57,7 +65,7 @@ class Person {
         firstname,
         lastname,
         created: new Date(),
-        updated: new Date(),
+        updated: new Date()
       }
       //  Reload in the JSON, add the person and then save
       peopleJSON = this.loadPeopleJSON()
@@ -96,7 +104,7 @@ class Person {
 
     //  Now read in the file
     const peopleRaw = fs.readFileSync(peopleFile, 'utf-8')
-    return JSON.parse(peopleRaw)    
+    return JSON.parse(peopleRaw)
   }
 
   savePeopleJSON (peopleJSON) {
@@ -118,8 +126,20 @@ class Person {
   save () {
     let peopleJSON = this.loadPeopleJSON()
     peopleJSON[this.id] = JSON.parse(JSON.stringify(this))
+    //  Make sure we remove the dynamically created entries
+    delete peopleJSON[this.id].nextBirthday
     this.savePeopleJSON(peopleJSON)
   }
 
+  getUpcomingBirthday () {
+    const thisYear = new Date().getFullYear()
+    const nextYear = new Date().getFullYear() + 1
+    const thisYearBirthday = new Date(thisYear, this.month - 1, this.day, 12, 0, 0)
+    const nextYearBirthday = new Date(nextYear, this.month - 1, this.day, 12, 0, 0)
+    const thisDiff = thisYearBirthday.getTime() - new Date().getTime()
+    let thisBirthday = thisYearBirthday
+    if (thisDiff < 0) thisBirthday = nextYearBirthday
+    return thisBirthday
+  }
 }
 module.exports = Person

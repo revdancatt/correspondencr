@@ -44,7 +44,7 @@ export const getUpcomingBirthdays = (days = 30) => {
   const msDiff = 1000 * 60 * 60 * 24 * days
   const birthdayPeople = []
   const thisYear = new Date().getFullYear()
-  const nextYear = new Date().getFullYear()
+  const nextYear = new Date().getFullYear() + 1
 
   Object.entries(peopleJSON).forEach((_, i) => {
     const person = peopleJSON[i]

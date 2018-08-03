@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>{{fullname}}</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{person.fullname}}
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Birthday</strong>
+        </div>
+        <div class="column">{{datePretty person.nextBirthday}}
+          <small>({{timeAgo person.nextBirthday}})</small>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Address</strong>
+        </div>
+        <div class="column">{{person.address}}</div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Country</strong>
+        </div>
+        <div class="column">{{person.country}}</div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Notes</strong>
+        </div>
+        <div class="column">{{person.notes}}</div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Source</strong>
+        </div>
+        <div class="column">{{person.source}}</div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Last updated</strong>
+        </div>
+        <div class="column">{{datePretty person.updated}}
+          <small>({{timeAgo person.updated}})</small>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Created</strong>
+        </div>
+        <div class="column">{{datePretty person.created}}
+          <small>({{timeAgo person.created}})</small>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{>footer}}
+</body>
+
+</html>
