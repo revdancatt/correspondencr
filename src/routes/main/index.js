@@ -20,7 +20,6 @@ exports.index = (req, res) => {
 
   //  Grab all upcoming birthdays
   const birthdayPeople = people.getUpcomingBirthdays()
-  console.log(birthdayPeople)
   req.templateValues.birthdayPeople = birthdayPeople
 
   return res.render('main/index', req.templateValues)

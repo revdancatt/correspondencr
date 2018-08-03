@@ -3,7 +3,6 @@ const Person = require('../../classes/person')
 const request = require('request-promise')
 
 const checkFacebook = async () => {
-  console.log('Checking facebook')
   const config = new Config()
   const facebookFeed = config.get('facebookFeed')
   if (facebookFeed === null) return
@@ -20,12 +19,12 @@ const checkFacebook = async () => {
       bdaySplit.shift()
       const bdays = bdaySplit.map((entry) => {
         const bdaySplit = entry.split('\r\n')
-        const name = bdaySplit[2].replace('SUMMARY:','').replace('\'s birthday','')
-        let date = bdaySplit[1].replace('DTSTART:','')
+        const name = bdaySplit[2].replace('SUMMARY:', '').replace('\'s birthday', '')
+        let date = bdaySplit[1].replace('DTSTART:', '')
         return {
           name,
-          month: parseInt(date.slice(4,6), 10),
-          day: parseInt(date.slice(6,8), 10)
+          month: parseInt(date.slice(4, 6), 10),
+          day: parseInt(date.slice(6, 8), 10)
         }
       })
       return bdays
@@ -42,7 +41,6 @@ const checkFacebook = async () => {
     person.set('source', 'facebook')
     person.save()
   })
-
 }
 exports.checkFacebook = checkFacebook
 
@@ -53,4 +51,3 @@ exports.startCheckingFacebook = () => {
   }, 1000 * 60 * 60 * 8) // Once every 8 hours
   checkFacebook()
 }
-
