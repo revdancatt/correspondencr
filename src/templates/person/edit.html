@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>{{fullname}}</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Edit: {{person.fullname}}
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <form method="POST" action="/person/{{person.id}}">
+
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Name</label>
+          </div>
+          <div class="column control">
+            <input class="input" type="text" name="fullname" placeholder="Person's name" value="{{person.fullname}}">
+          </div>
+        </div>
+  
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Month</label>
+          </div>
+          <div class="column control select">
+            <select name="month">
+              <option {{#ifEqual 1 person.month}}selected{{/ifEqual}} value='1'>01 - Janaury</option>
+              <option {{#ifEqual 2 person.month}}selected{{/ifEqual}} value='2'>02 - February</option>
+              <option {{#ifEqual 3 person.month}}selected{{/ifEqual}} value='3'>03 - March</option>
+              <option {{#ifEqual 4 person.month}}selected{{/ifEqual}} value='4'>04 - April</option>
+              <option {{#ifEqual 5 person.month}}selected{{/ifEqual}} value='5'>05 - May</option>
+              <option {{#ifEqual 6 person.month}}selected{{/ifEqual}} value='6'>06 - June</option>
+              <option {{#ifEqual 7 person.month}}selected{{/ifEqual}} value='7'>07 - July</option>
+              <option {{#ifEqual 8 person.month}}selected{{/ifEqual}} value='8'>08 - August</option>
+              <option {{#ifEqual 9 person.month}}selected{{/ifEqual}} value='9'>09 - September</option>
+              <option {{#ifEqual 10 person.month}}selected{{/ifEqual}} value='10'>10 - October</option>
+              <option {{#ifEqual 11 person.month}}selected{{/ifEqual}} value='11'>11 - November</option>
+              <option {{#ifEqual 12 person.month}}selected{{/ifEqual}} value='12'>12 - December</option>
+            </select> 
+          </div>
+        </div>
+
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Day</label>
+          </div>
+          <div class="column control">
+            <input class="input" type="number" min="1" max="31" name="day" placeholder="1" value="{{person.day}}">
+          </div>      
+        </div>
+    
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Address</label>
+          </div>
+          <div class="column control">
+            <textarea class="textarea" name="address" placeholder="Enter the address">{{person.address}}</textarea>
+          </div>      
+        </div>
+    
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Country</label>
+          </div>
+          <div class="column control">
+            <input class="input" type="text" name="country" placeholder="Enter a country" value="{{person.country}}">
+          </div>      
+        </div>
+        
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            &nbsp;
+          </div>
+          <div class="column control">
+            <input class="button is-primary" type="submit" name="action" value="Update">
+          </div>      
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+  {{>footer}}
+</body>
+
+</html>

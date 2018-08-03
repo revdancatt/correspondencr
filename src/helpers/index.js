@@ -125,3 +125,7 @@ exports.dumpJSON = object => {
   pre += '</pre>'
   return pre
 }
+
+exports.addReturns = text => {
+  return text.replace(/\n/g, "<br />")
+}

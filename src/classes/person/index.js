@@ -38,7 +38,8 @@ class Person {
     //  Look through all the users until we find one with the name that
     //  matches
     let person = null
-    Object.entries(peopleJSON.people).forEach(([id, thisPerson]) => {
+    Object.entries(peopleJSON.people).forEach(([id, _]) => {
+      const thisPerson = peopleJSON[id]
       if (thisPerson.fullname === fullname) {
         person = thisPerson
       }
