@@ -38,5 +38,7 @@ router.post('/', main.posted)
 router.get('/discovered', discovered.index)
 router.get('/upcoming', upcoming.index)
 router.get('/person/:id', person.index)
+router.get('/person/:id/edit', person.edit)
+router.post('/person/:id', person.update)
 
 module.exports = router
