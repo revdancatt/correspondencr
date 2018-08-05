@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Login
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  {{#if error}}
+    <section class="section">
+      <div class="container">
+        <div class="notification is-warning">
+          {{error}}
+        </div>
+      </div>
+    </section>
+  {{/if}}
+
+  <section class="section">
+    <div class="container">
+
+      <form method="POST" action="/login">
+
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Username</label>
+          </div>
+          <div class="column control">
+              <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username" value="{{username}}" {{#ifEqual focus 'username'}}autofocus{{/ifEqual}}>
+            </div>
+        </div>
+  
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Password</label>
+          </div>
+          <div class="column control">
+            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password" {{#ifEqual focus 'password'}}autofocus{{/ifEqual}}>
+          </div>
+        </div>
+
+        
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            &nbsp;
+          </div>
+          <div class="column control">
+            <input class="button is-primary" type="submit" name="action" value="Login">
+          </div>      
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+  {{>footer}}
+</body>
+
+</html>

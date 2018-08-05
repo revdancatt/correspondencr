@@ -1,8 +1,10 @@
 <nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      Home
-    </a>
+    {{#if loggedIn}}
+      <a class="navbar-item" href="/">
+        Home
+      </a>
+    {{/if}}
     <div class="navbar-burger burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -10,21 +12,40 @@
     </div>
   </div>
 
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/upcoming">
-        <span>
-          Upcoming
-        </span>
-      </a>
-      <a class="navbar-item" href="/discovered">
-        <span class="is-hidden-touch is-hidden-widescreen">
-          New!
-        </span>
-        <span class="is-hidden-desktop-only">
-          Newly discovered
-        </span>
-      </a>
+  {{#if loggedIn}}
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/upcoming">
+          <span>
+            Upcoming
+          </span>
+        </a>
+        <a class="navbar-item" href="/discovered">
+          <span class="is-hidden-touch is-hidden-widescreen">
+            New!
+          </span>
+          <span class="is-hidden-desktop-only">
+            Newly discovered
+          </span>
+        </a>
+      </div>
+      <div class="navbar-end">
+        <a class="navbar-item" href="/logout">
+          <span>
+            Logout
+          </span>
+        </a>
+      </div>
     </div>
-  </div>
+  {{else}}
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/login">
+          <span>
+            Login
+          </span>
+        </a>
+      </div>
+    </div>
+  {{/if}}
 </nav>

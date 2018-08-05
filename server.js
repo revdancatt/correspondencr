@@ -134,6 +134,7 @@ if (!fs.existsSync(path.join(rootDir, '.env'))) {
 PORT=${port}
 HOST=${host}
 NODE_ENV=${nodeEnv}
+SALT=${new Date().getTime()}${Math.random()}
 `
   fs.writeFileSync(path.join(rootDir, '.env'), env, 'utf-8')
 }

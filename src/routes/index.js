@@ -4,6 +4,7 @@ const Config = require('../classes/config')
 
 // Break out all the seperate parts of the site
 /* eslint-disable import/no-unresolved */
+const auth = require('./auth')
 const discovered = require('./discovered')
 const main = require('./main')
 const person = require('./person')
@@ -21,9 +22,25 @@ const upcoming = require('./upcoming')
 router.use(function (req, res, next) {
   req.templateValues = {}
   const configObj = new Config()
+
   req.config = configObj
   req.templateValues.config = req.config
   req.templateValues.NODE_ENV = process.env.NODE_ENV
+
+  //  If there is no username/password in conf then we need to redirect to
+  //  the login page
+  if ((configObj.get('username') === null || configObj.get('password') === null || configObj.get('password') === '') && req.url !== '/login') {
+    return res.redirect('/login')    
+  }
+
+  //  If there's no user session then we redirect to the login page
+  if ((!('loggedin' in req.session) || req.session.loggedin === false) && req.url !== '/login') {
+    return res.redirect('/login')    
+  }
+
+  //  Make a note of us being logged in or not
+  req.templateValues.loggedIn = ('loggedin' in req.session && req.session.loggedin === true)
+
   next()
 })
 
@@ -35,6 +52,9 @@ router.use(function (req, res, next) {
 
 router.get('/', main.index)
 router.post('/', main.posted)
+router.get('/login', auth.index)
+router.post('/login', auth.index)
+router.get('/logout', auth.logout)
 router.get('/discovered', discovered.index)
 router.get('/upcoming', upcoming.index)
 router.get('/person/:id', person.index)
