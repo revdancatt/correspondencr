@@ -17,16 +17,18 @@ class Person {
       person = this.getPersonByFullname(nameOrId)
     }
     //  This cannot be the correct way of doing this!
-    Object.assign(this, person)
-    person.nextBirthday = this.getUpcomingBirthday()
-    Object.assign(this, person)
+    if (person !== null) {
+      Object.assign(this, person)
+      person.nextBirthday = this.getUpcomingBirthday()
+      Object.assign(this, person)
+    }
   }
 
   getPersonById (id) {
     const peopleJSON = this.loadPeopleJSON()
     let person = null
-    if (id in peopleJSON) {
-      person = peopleJSON[id]
+    if (id in peopleJSON.people) {
+      person = peopleJSON.people[id]
     }
     return person
   }
@@ -38,8 +40,10 @@ class Person {
     //  Look through all the users until we find one with the name that
     //  matches
     let person = null
-    Object.entries(peopleJSON.people).forEach(([id, _]) => {
-      const thisPerson = peopleJSON[id]
+    const people = Object.entries(peopleJSON.people).map((person) => {
+      return person[1]
+    })
+    people.forEach((thisPerson) => {
       if (thisPerson.fullname === fullname) {
         person = thisPerson
       }
@@ -73,7 +77,6 @@ class Person {
       peopleJSON.people[id] = person
       this.savePeopleJSON(peopleJSON)
     }
-
     return person
   }
 
@@ -126,9 +129,9 @@ class Person {
 
   save () {
     let peopleJSON = this.loadPeopleJSON()
-    peopleJSON[this.id] = JSON.parse(JSON.stringify(this))
+    peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))
     //  Make sure we remove the dynamically created entries
-    delete peopleJSON[this.id].nextBirthday
+    delete peopleJSON.people[this.id].nextBirthday
     this.savePeopleJSON(peopleJSON)
   }
 

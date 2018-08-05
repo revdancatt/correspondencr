@@ -20,6 +20,19 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="container level">
+      {{#each a2z}}
+      <div class="level-item has-text-centered" style="text-transform: uppercase">
+        {{#ifgt @this 0}}
+          <a href="/people/{{@key}}"><strong>{{@key}}</strong></a>
+        {{else}}
+          {{@key}}
+        {{/ifgt}}
+      </div>
+      {{/each}}
+    </div>
+  </section>
   {{#if hasFacebookFeed}} {{else}}
   <section class="section">
     <div class="container notification is-primary">
@@ -61,17 +74,7 @@
       <h2 class="subtitle">Here are some upcoming birthdays</h2>
       <ul>
         {{#each birthdayPeople}}
-        <li class="level">
-          <span class="level-left">
-            <span class="level-item">
-              <strong>
-                <a href="/person/{{id}}">{{fullname}}</a>
-              </strong>
-            </span>
-            <span class="level-item">{{datePretty birthday}}</span>
-          </span>
-          <small>({{timeAgo birthday}})</small>
-        </li>
+          {{>person @this}}
         {{/each}}
       </ul>
     </div>

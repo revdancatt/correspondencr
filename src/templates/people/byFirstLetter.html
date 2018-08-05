@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Upcoming</title>
+  <title>By letter {{letter}}</title>
   {{> head}}
 </head>
 
@@ -14,20 +14,17 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Upcoming birthdays
+          {{letter}}
         </h1>
-        <h2 class="subtitle">
-          Here are some upcoming birthdays
-        </h2>
       </div>
     </div>
   </section>
 
-  {{#if birthdayPeople}}
+  {{#if people}}
   <section class="section">
     <div class="container">
       <ul>
-        {{#each birthdayPeople}}
+        {{#each people}}
           {{>person @this}}
         {{/each}}
       </ul>

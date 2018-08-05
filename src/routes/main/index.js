@@ -22,6 +22,8 @@ exports.index = (req, res) => {
   const birthdayPeople = people.getUpcomingBirthdays()
   req.templateValues.birthdayPeople = birthdayPeople
 
+  //  Grab the a-z
+  req.templateValues.a2z = people.getA2Z()
   return res.render('main/index', req.templateValues)
 }
 
