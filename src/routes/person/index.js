@@ -16,15 +16,22 @@ exports.edit = (req, res) => {
 
 exports.update = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
-  person.fullname = req.body.fullname
-  person.month = parseInt(req.body.month, 10)
-  person.day = parseInt(req.body.day, 10)
-  person.address = req.body.address
-  person.country = req.body.country
 
-  const nameSplit = req.body.fullname.split(' ')
-  if (nameSplit.length > 0) person.firstname = nameSplit[0]
-  if (nameSplit.length > 1) person.lastname = nameSplit[1]
+  //  Find out if we are doing notes or details
+  if ('notes' in req.body) {
+    person.notes = req.body.notes
+  } else {
+    person.fullname = req.body.fullname
+    person.month = parseInt(req.body.month, 10)
+    person.day = parseInt(req.body.day, 10)
+    person.address = req.body.address
+    person.country = req.body.country
+
+    const nameSplit = req.body.fullname.split(' ')
+    if (nameSplit.length > 0) person.firstname = nameSplit[0]
+    if (nameSplit.length > 1) person.lastname = nameSplit[1]
+  }
+
   person.updated = new Date()
   person.save()
   return res.redirect(`/person/${req.params.id}`)

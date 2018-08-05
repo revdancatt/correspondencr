@@ -127,5 +127,6 @@ exports.dumpJSON = object => {
 }
 
 exports.addReturns = text => {
+  if (text === null || text === undefined) return ''
   return text.replace(/\n/g, "<br />")
 }

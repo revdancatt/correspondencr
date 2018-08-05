@@ -23,7 +23,9 @@
   <section class="section">
     <div class="container">
 
-      <div class="columns">
+      <form method="POST" action="/person/{{person.id}}">
+
+        <div class="columns">
         <div class="column is-one-quarter">
           <strong>Birthday</strong>
         </div>
@@ -50,7 +52,9 @@
         <div class="column is-one-quarter">
           <strong>Notes</strong>
         </div>
-        <div class="column">{{person.notes}}</div>
+        <div class="column control">
+          <textarea class="textarea is-small" name="notes" placeholder="Notes go here" rows="12">{{person.notes}}</textarea>
+        </div>      
       </div>
 
       <div class="columns">
@@ -83,11 +87,14 @@
         <div class="column">
           <div class="level">
             <div class="level-left">
-            <div class="level-item"><a class="button is-link" href="/person/{{person.id}}/edit">Edit</a></div>
+              <div class="level-item"><input class="button is-primary" type="submit" name="action" value="Update"></div>
+              <div class="level-item"><a class="button is-link" href="/person/{{person.id}}/edit">Edit</a></div>
+            </div>
           </div>
         </div>
       </div>
 
+    </form>
     </div>
   </section>
   {{>footer}}
