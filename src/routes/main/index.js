@@ -1,15 +1,16 @@
 const Config = require('../../classes/config')
+const People = require('../../classes/people')
 const facebookFetcher = require('../../modules/facebook-fetcher')
-const people = require('../../modules/people')
 
 exports.index = (req, res) => {
   req.templateValues.msg = 'Hello World'
 
   //  Check to see if we have a facebook feed setup
   req.templateValues.hasFacebookFeed = 'facebookFeed' in req.config
+  const allPeople = new People()
 
   //  Grab all the latest people we have found in the last week
-  const newPeople = people.getDiscoveredExternally()
+  const newPeople = allPeople.getDiscoveredExternally()
   if (newPeople.length > 0) {
     if (newPeople.length < 10) {
       req.templateValues.newPeople = newPeople
@@ -19,11 +20,8 @@ exports.index = (req, res) => {
   }
 
   //  Grab all upcoming birthdays
-  const birthdayPeople = people.getUpcomingBirthdays()
-  req.templateValues.birthdayPeople = birthdayPeople
+  req.templateValues.birthdayPeople = allPeople.getUpcomingBirthdays()
 
-  //  Grab the a-z
-  req.templateValues.a2z = people.getA2Z()
   return res.render('main/index', req.templateValues)
 }
 

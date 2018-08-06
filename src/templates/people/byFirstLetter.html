@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>By letter {{letter}}</title>
+  <title>By letter {{toUpperCase letter}}</title>
   {{> head}}
 </head>
 
@@ -14,10 +14,11 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          {{letter}}
+          {{toUpperCase letter}}
         </h1>
       </div>
     </div>
+    {{> a2z-hero}}
   </section>
 
   {{#if people}}

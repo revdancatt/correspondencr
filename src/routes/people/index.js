@@ -1,7 +1,12 @@
-const people = require('../../modules/people')
+const People = require('../../classes/people')
 
 exports.index = (req, res) => {
-  //  Grab all upcoming birthdays
-  req.templateValues.people = people.getByFirstLetter(req.params.letter, 'lastname')
+  req.templateValues.people = new People().people
+  return res.render('people/index', req.templateValues)
+}
+
+exports.byFirstLetter = (req, res) => {
+  req.templateValues.letter = req.params.letter
+  req.templateValues.people = new People().getByFirstLetter(req.params.letter, 'lastname')
   return res.render('people/byFirstLetter', req.templateValues)
 }
