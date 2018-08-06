@@ -1,9 +1,7 @@
-const Config = require('../../classes/config')
-const people = require('../../modules/people')
+const People = require('../../classes/people')
 
 exports.index = (req, res) => {
   //  Grab all the latest people we have found in the last week
-  const newPeople = people.getDiscoveredExternally()
-  req.templateValues.newPeople = newPeople
+  req.templateValues.newPeople = new People().getDiscoveredExternally()
   return res.render('discovered/index', req.templateValues)
 }

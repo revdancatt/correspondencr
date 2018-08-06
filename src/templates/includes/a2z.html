@@ -1,0 +1,9 @@
+{{#each a2z}}
+<div class="level-item has-text-centered" style="text-transform: uppercase">
+  {{#ifgt @this 0}}
+    <a href="/people/{{@key}}"><strong>{{@key}}</strong></a>
+  {{else}}
+    {{@key}}
+  {{/ifgt}}
+</div>
+{{/each}}

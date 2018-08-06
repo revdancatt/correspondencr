@@ -1,12 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const Config = require('../classes/config')
+const People = require('../classes/people')
 
 // Break out all the seperate parts of the site
 /* eslint-disable import/no-unresolved */
 const auth = require('./auth')
 const discovered = require('./discovered')
 const main = require('./main')
+const people = require('./people')
 const person = require('./person')
 const upcoming = require('./upcoming')
 
@@ -40,6 +42,7 @@ router.use(function (req, res, next) {
 
   //  Make a note of us being logged in or not
   req.templateValues.loggedIn = ('loggedin' in req.session && req.session.loggedin === true)
+  req.templateValues.a2z = new People().getA2Z()
 
   next()
 })
@@ -57,6 +60,9 @@ router.post('/login', auth.index)
 router.get('/logout', auth.logout)
 router.get('/discovered', discovered.index)
 router.get('/upcoming', upcoming.index)
+router.get('/everyone', people.index)
+router.get('/people', people.index)
+router.get('/people/:letter', people.byFirstLetter)
 router.get('/person/:id', person.index)
 router.get('/person/:id/edit', person.edit)
 router.post('/person/:id', person.update)

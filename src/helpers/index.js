@@ -130,3 +130,8 @@ exports.addReturns = text => {
   if (text === null || text === undefined) return ''
   return text.replace(/\n/g, "<br />")
 }
+
+exports.toUpperCase = text => {
+  if (text === null || text === undefined) return ''
+  return text.toUpperCase()
+}
