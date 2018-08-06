@@ -7,9 +7,11 @@
     </span>
     <span class="level-item">{{datePretty nextBirthday}}</span>
   </span>
+  {{#if nextBirthday}}
   <span class="level-right">
     <span class="level-item">
       <small>({{timeAgo nextBirthday}})</small>
     </span>
   </span>
+  {{/if}}
 </li>

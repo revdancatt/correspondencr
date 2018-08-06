@@ -1,9 +1,9 @@
 <nav id="navbar" class="navbar has-background-light" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     {{#if loggedIn}}
-      <a class="navbar-item" href="/">
-        Home
-      </a>
+    <a class="navbar-item" href="/">
+      Home
+    </a>
     {{/if}}
     <div class="navbar-burger burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
       <span aria-hidden="true"></span>
@@ -13,44 +13,48 @@
   </div>
 
   {{#if loggedIn}}
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="/upcoming">
-          <span>
-            Upcoming
-          </span>
-        </a>
-        <a class="navbar-item" href="/everyone">
-          <span>
-            Everyone
-          </span>
-        </a>
-        <a class="navbar-item" href="/discovered">
-          <span class="is-hidden-touch is-hidden-widescreen">
-            New!
-          </span>
-          <span class="is-hidden-desktop-only">
-            Newly discovered
-          </span>
-        </a>
-      </div>
-      <div class="navbar-end">
-        <a class="navbar-item" href="/logout">
-          <span>
-            Logout
-          </span>
-        </a>
-      </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/upcoming">
+        Upcoming
+      </a>
+      <a class="navbar-item" href="/everyone">
+        Everyone
+      </a>
+      <a class="navbar-item" href="/discovered">
+        <span class="is-hidden-touch is-hidden-widescreen">
+          New!
+        </span>
+        <span class="is-hidden-desktop-only">
+          Newly discovered
+        </span>
+      </a>
+      <a class="navbar-item" href="/person/add">
+        <span class="is-hidden-touch is-hidden-widescreen button is-link">
+          Add
+        </span>
+        <span class="is-hidden-desktop-only button is-link">
+          Add new person
+        </span>
+      </a>
     </div>
+    <div class="navbar-end">
+      <a class="navbar-item" href="/logout">
+        <span>
+          Logout
+        </span>
+      </a>
+    </div>
+  </div>
   {{else}}
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="/login">
-          <span>
-            Login
-          </span>
-        </a>
-      </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/login">
+        <span>
+          Login
+        </span>
+      </a>
     </div>
+  </div>
   {{/if}}
 </nav>
