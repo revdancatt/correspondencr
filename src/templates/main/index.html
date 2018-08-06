@@ -14,7 +14,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Address Book!
+          Address Book
         </h1>
       </div>
     </div>
@@ -61,9 +61,7 @@
       <h1 class="title">Upcoming birthdays</h1>
       <h2 class="subtitle">Here are some upcoming birthdays</h2>
       <ul>
-        {{#each birthdayPeople}}
-          {{>person @this}}
-        {{/each}}
+        {{#each birthdayPeople}} {{>person @this}} {{/each}}
       </ul>
     </div>
     <div class="container content">
@@ -90,10 +88,29 @@
   </section>
   {{/if}} {{#if tooManyNewPeople}}
   <section class="section">
-    <div class="container notification is-info">
-      We have found lots of new people, too many to display here. Go to the
-      <a href="/discovered">newly discovered</a> page to see them all.
+    <div class="container">
+      <h1 class="title">Newly discovered people</h1>
+      <div class="notification is-info">
+        We have found lots of new people, too many to display here. Go to the
+        <a href="/discovered">newly discovered</a> page to see them all.
+      </div>
     </div>
+  </section>
+  {{/if}} {{#if missingBirthdays}}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Missing birthdays</h1>
+      <h2 class="subtitle">Here's a handful of people you don't have birthday's for, perhaps you can go ask them.</h2>
+      <ul>
+        {{#each missingBirthdays}} {{>person @this}} {{/each}}
+      </ul>
+    </div>
+    {{#if showMoreMissingBirthdays}}
+    <div class="container content">
+      <br /> You can see more
+      <a href="/people/missing-birthdays">missing birthdays here</a>.
+    </div>
+    {{/if}}
   </section>
   {{/if}} {{>footer}}
 </body>

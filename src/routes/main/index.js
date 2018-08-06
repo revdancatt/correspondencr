@@ -19,6 +19,17 @@ exports.index = (req, res) => {
     }
   }
 
+  const missingBirthdays = allPeople.getMissingBirthdays().map(a => [Math.random(), a])
+    .sort((a, b) => a[0] - b[0])
+    .map(a => a[1])
+  const maxMissingBirthdays = 5
+  if (missingBirthdays.length > maxMissingBirthdays) {
+    req.templateValues.missingBirthdays = missingBirthdays.slice(0, maxMissingBirthdays)
+    req.templateValues.showMoreMissingBirthdays = true
+  } else {
+    req.templateValues.missingBirthdays = missingBirthdays
+  }
+
   //  Grab all upcoming birthdays
   req.templateValues.birthdayPeople = allPeople.getUpcomingBirthdays()
 
