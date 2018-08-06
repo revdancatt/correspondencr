@@ -50,6 +50,15 @@ class People {
     })
   }
 
+  getMissingAddresses () {
+    return this.people.filter((person) => {
+      return (person.address === null || person.address === undefined || person.address === '')
+    }).sort(function (a, b) {
+      if (a.lastname > b.lastname) return 1
+      return -1
+    })
+  }
+
   getA2Z () {
     const alphabet = 'abcdefghijklmnopqrstuvwxyz'
     let index = {}

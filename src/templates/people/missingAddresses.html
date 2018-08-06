@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Missing Addresses</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Missing Addresses
+        </h1>
+        <h2 class="subtitle">
+          These are all the people we are missing addresses for.
+        </h2>
+      </div>
+    </div>
+    {{> a2z-hero}}
+  </section>
+
+  {{#if people}}
+  <section class="section">
+    <div class="container">
+      <ul>
+        {{#each people}} {{>person @this}} {{/each}}
+      </ul>
+    </div>
+  </section>
+  {{/if}} {{>footer}}
+</body>
+
+</html>
