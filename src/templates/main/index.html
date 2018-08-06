@@ -112,6 +112,22 @@
     </div>
     {{/if}}
   </section>
+  {{/if}} {{#if missingAddresses}}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Missing addresses</h1>
+      <h2 class="subtitle">Here's a handful of people you don't have an address for, perhaps you can go ask them.</h2>
+      <ul>
+        {{#each missingAddresses}} {{>person @this}} {{/each}}
+      </ul>
+    </div>
+    {{#if showMoreMissingAddresses}}
+    <div class="container content">
+      <br /> You can see more
+      <a href="/people/missing-addresses">missing addresses here</a>.
+    </div>
+    {{/if}}
+  </section>
   {{/if}} {{>footer}}
 </body>
 

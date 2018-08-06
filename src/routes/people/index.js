@@ -15,3 +15,8 @@ exports.missingBirthdays = (req, res) => {
   req.templateValues.people = new People().getMissingBirthdays()
   return res.render('people/missingBirthdays', req.templateValues)
 }
+
+exports.missingAddresses = (req, res) => {
+  req.templateValues.people = new People().getMissingAddresses()
+  return res.render('people/missingAddresses', req.templateValues)
+}
