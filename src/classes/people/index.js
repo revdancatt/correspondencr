@@ -41,6 +41,15 @@ class People {
     })
   }
 
+  getMissingBirthdays () {
+    return this.people.filter((person) => {
+      return (person.nextBirthday === null || person.nextBirthday === undefined)
+    }).sort(function (a, b) {
+      if (a.lastname > b.lastname) return 1
+      return -1
+    })
+  }
+
   getA2Z () {
     const alphabet = 'abcdefghijklmnopqrstuvwxyz'
     let index = {}
