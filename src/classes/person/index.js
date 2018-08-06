@@ -136,6 +136,9 @@ class Person {
   }
 
   getUpcomingBirthday () {
+    if (this.day === null || this.day === undefined || this.month === null || this.month === undefined) {
+      return null
+    }
     const thisYear = new Date().getFullYear()
     const nextYear = new Date().getFullYear() + 1
     const thisYearBirthday = new Date(thisYear, this.month - 1, this.day, 12, 0, 0)

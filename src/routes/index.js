@@ -32,12 +32,12 @@ router.use(function (req, res, next) {
   //  If there is no username/password in conf then we need to redirect to
   //  the login page
   if ((configObj.get('username') === null || configObj.get('password') === null || configObj.get('password') === '') && req.url !== '/login') {
-    return res.redirect('/login')    
+    return res.redirect('/login')
   }
 
   //  If there's no user session then we redirect to the login page
   if ((!('loggedin' in req.session) || req.session.loggedin === false) && req.url !== '/login') {
-    return res.redirect('/login')    
+    return res.redirect('/login')
   }
 
   //  Make a note of us being logged in or not
@@ -63,6 +63,8 @@ router.get('/upcoming', upcoming.index)
 router.get('/everyone', people.index)
 router.get('/people', people.index)
 router.get('/people/:letter', people.byFirstLetter)
+router.get('/person/add', person.add)
+router.post('/person/add', person.add)
 router.get('/person/:id', person.index)
 router.get('/person/:id/edit', person.edit)
 router.post('/person/:id', person.update)

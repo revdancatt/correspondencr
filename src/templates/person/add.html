@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>{{fullname}}</title>
+  <title>Add new person</title>
   {{> head}}
 </head>
 
@@ -14,7 +14,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Edit: {{person.fullname}}
+          Add new person
         </h1>
       </div>
     </div>
@@ -23,7 +23,7 @@
   <section class="section">
     <div class="container">
 
-      <form method="POST" action="/person/{{person.id}}">
+      <form method="POST" action="/person/add">
 
         <div class="columns field">
           <div class="column is-one-quarter">
@@ -71,7 +71,7 @@
           </div>
           <div class="column control">
             <label class="checkbox">
-              <input type="checkbox" name="idontknowbirthday" value="true" {{#unless person.day}}checked{{/unless}}> I don't know the birthday
+              <input type="checkbox" name="idontknowbirthday" value="true"> I don't know the birthday
             </label>
           </div>
         </div>
@@ -99,7 +99,7 @@
             &nbsp;
           </div>
           <div class="column control">
-            <input class="button is-primary" type="submit" name="action" value="Update">
+            <input class="button is-primary" type="submit" name="action" value="Add">
           </div>
         </div>
 

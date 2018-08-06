@@ -26,75 +26,81 @@
       <form method="POST" action="/person/{{person.id}}">
 
         <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Birthday</strong>
+          <div class="column is-one-quarter">
+            <strong>Birthday</strong>
+          </div>
+          <div class="column">
+            {{#if person.nextBirthday}} {{datePretty person.nextBirthday}}
+            <small>({{timeAgo person.nextBirthday}})</small>
+            {{/if}}
+          </div>
         </div>
-        <div class="column">{{datePretty person.nextBirthday}}
-          <small>({{timeAgo person.nextBirthday}})</small>
-        </div>
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Address</strong>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <strong>Address</strong>
+          </div>
+          <div class="column">{{{addReturns person.address}}}</div>
         </div>
-        <div class="column">{{{addReturns person.address}}}</div>
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Country</strong>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <strong>Country</strong>
+          </div>
+          <div class="column">{{person.country}}</div>
         </div>
-        <div class="column">{{person.country}}</div>
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Notes</strong>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <strong>Notes</strong>
+          </div>
+          <div class="column control">
+            <textarea class="textarea is-small" name="notes" placeholder="Notes go here" rows="12">{{person.notes}}</textarea>
+          </div>
         </div>
-        <div class="column control">
-          <textarea class="textarea is-small" name="notes" placeholder="Notes go here" rows="12">{{person.notes}}</textarea>
-        </div>      
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Source</strong>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <strong>Source</strong>
+          </div>
+          <div class="column">{{person.source}}</div>
         </div>
-        <div class="column">{{person.source}}</div>
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Last updated</strong>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <strong>Last updated</strong>
+          </div>
+          <div class="column">{{datePretty person.updated}}
+            <small>({{timeAgo person.updated}})</small>
+          </div>
         </div>
-        <div class="column">{{datePretty person.updated}}
-          <small>({{timeAgo person.updated}})</small>
-        </div>
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Created</strong>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <strong>Created</strong>
+          </div>
+          <div class="column">{{datePretty person.created}}
+            <small>({{timeAgo person.created}})</small>
+          </div>
         </div>
-        <div class="column">{{datePretty person.created}}
-          <small>({{timeAgo person.created}})</small>
-        </div>
-      </div>
 
-      <div class="columns">
-        <div class="column is-one-quarter">&nbsp;</div>
-        <div class="column">
-          <div class="level">
-            <div class="level-left">
-              <div class="level-item"><input class="button is-primary" type="submit" name="action" value="Update"></div>
-              <div class="level-item"><a class="button is-link" href="/person/{{person.id}}/edit">Edit</a></div>
+        <div class="columns">
+          <div class="column is-one-quarter">&nbsp;</div>
+          <div class="column">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <input class="button is-primary" type="submit" name="action" value="Update">
+                </div>
+                <div class="level-item">
+                  <a class="button is-link" href="/person/{{person.id}}/edit">Edit</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </form>
+      </form>
     </div>
   </section>
   {{>footer}}

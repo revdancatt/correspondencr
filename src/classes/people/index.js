@@ -33,6 +33,7 @@ class People {
     const msDiff = 1000 * 60 * 60 * 24 * days
     const futureDate = new Date(new Date().getTime() + msDiff)
     return this.people.filter((person) => {
+      if (person.nextBirthday === null || person.nextBirthday === undefined) return false
       return person.nextBirthday <= futureDate
     }).sort(function (a, b) {
       if (new Date(a.nextBirthday).getTime() > new Date(b.nextBirthday).getTime()) return 1
