@@ -18,13 +18,12 @@ class People {
     if (!fs.existsSync(filename)) return []
     const peopleRaw = fs.readFileSync(filename, 'utf-8')
     const peopleJSON = JSON.parse(peopleRaw)
-    return Object.entries(peopleJSON.people).map((person) => {   
+    return Object.entries(peopleJSON.people).map((person) => {
       return new Person(parseInt(person[0], 10))
     })
   }
 
   getDiscoveredExternally (days = 7) {
-    const msDiff = 1000 * 60 * 60 * 24 * days
     return this.people.filter((person) => {
       return person.source === 'facebook'
     })
@@ -53,10 +52,10 @@ class People {
     return index
   }
 
-  getByFirstLetter (letter, letterpart='lastname') {
+  getByFirstLetter (letter, letterpart = 'lastname') {
     return this.people.filter((person) => {
       if (letterpart in person && person[letterpart].length > 0) {
-        return person[letterpart][0].toLowerCase() === letter 
+        return person[letterpart][0].toLowerCase() === letter
       }
       return false
     })
