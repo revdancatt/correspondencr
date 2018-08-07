@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Delete {{fullname}}</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Delete {{person.fullname}}
+        </h1>
+        <h2 class="subtitle">
+          Delete this person from the whole system
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <form method="POST" action="/person/{{person.id}}/delete">
+
+    <section class="section">
+      <div class="container">
+
+        <div class="columns">
+          {{#ifEqual person.source 'facebook'}}
+          <div class="column notification is-warning">
+            This person originally came from the Facebook WebCal feed, if you delete this person and you
+            <em>still</em> follow them on Facebook, they will show up again next time the system syncs. You can
+            <a href="/person/{{../person.id}}/hide">hide them</a> instead.
+          </div>
+          {{else}}
+          <div class="column notification is-danger">
+            This will completely remove the person from the system, all notes, addresses and other information will be lost forever!
+          </div>
+          {{/ifEqual}}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <input class="button is-danger" type="submit" name="action" value="Yes, delete this person">
+                </div>
+                <div class="level-item">
+                  <a class="button is-link" href="/person/{{person.id}}">Nope, go back</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </form>
+  {{>footer}}
+</body>
+
+</html>

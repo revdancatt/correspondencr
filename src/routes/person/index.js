@@ -2,14 +2,14 @@ const Person = require('../../classes/person')
 
 exports.index = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
-  //  Work out when their next birthday is
+  if (person.id === undefined) return res.redirect('/')
   req.templateValues.person = person
   return res.render('person/index', req.templateValues)
 }
 
 exports.edit = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
-  //  Work out when their next birthday is
+  if (person.id === undefined) return res.redirect('/')
   req.templateValues.person = person
   return res.render('person/edit', req.templateValues)
 }
@@ -36,6 +36,7 @@ exports.add = (req, res) => {
 
 exports.update = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
+  if (person.id === undefined) return res.redirect('/')
 
   //  Find out if we are doing notes or details
   if ('notes' in req.body) {
@@ -60,4 +61,48 @@ exports.update = (req, res) => {
   person.set('updated', new Date())
   person.save()
   return res.redirect(`/person/${req.params.id}`)
+}
+
+exports.hide = (req, res) => {
+  const person = new Person(parseInt(req.params.id, 10))
+  if (person.id === undefined) return res.redirect('/')
+
+  //  If we have been sent the hide action
+  if ('action' in req.body) {
+    person.set('hidden', true)
+    person.save()
+    return res.redirect('/')
+  }
+
+  req.templateValues.person = person
+  return res.render('person/hide', req.templateValues)
+}
+
+exports.unhide = (req, res) => {
+  const person = new Person(parseInt(req.params.id, 10))
+  if (person.id === undefined) return res.redirect('/')
+
+  //  If we have been sent the hide action
+  if ('action' in req.body) {
+    person.set('hidden', false)
+    person.save()
+    return res.redirect(`/person/${person.id}`)
+  }
+
+  req.templateValues.person = person
+  return res.render('person/unhide', req.templateValues)
+}
+
+exports.delete = (req, res) => {
+  const person = new Person(parseInt(req.params.id, 10))
+  if (person.id === undefined) return res.redirect('/')
+
+  //  If we have been sent the hide action
+  if ('action' in req.body) {
+    person.delete()
+    return res.redirect('/')
+  }
+
+  req.templateValues.person = person
+  return res.render('person/delete', req.templateValues)
 }

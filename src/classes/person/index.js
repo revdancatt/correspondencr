@@ -135,6 +135,14 @@ class Person {
     this.savePeopleJSON(peopleJSON)
   }
 
+  delete () {
+    let peopleJSON = this.loadPeopleJSON()
+    peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))
+    //  Make sure we remove the dynamically created entries
+    delete peopleJSON.people[this.id]
+    this.savePeopleJSON(peopleJSON)
+  }
+
   getUpcomingBirthday () {
     if (this.day === null || this.day === undefined || this.month === null || this.month === undefined) {
       return null

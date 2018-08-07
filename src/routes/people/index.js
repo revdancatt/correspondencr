@@ -20,3 +20,8 @@ exports.missingAddresses = (req, res) => {
   req.templateValues.people = new People().getMissingAddresses()
   return res.render('people/missingAddresses', req.templateValues)
 }
+
+exports.hidden = (req, res) => {
+  req.templateValues.people = new People().getHidden()
+  return res.render('people/hidden', req.templateValues)
+}
