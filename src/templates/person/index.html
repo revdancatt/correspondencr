@@ -95,6 +95,17 @@
                 <div class="level-item">
                   <a class="button is-link" href="/person/{{person.id}}/edit">Edit</a>
                 </div>
+                <div class="level-item">
+                  {{#if person.hidden}}
+                  <a class="button is-warning" href="/person/{{person.id}}/unhide">Unhide</a>
+                  {{else}}
+                  <a class="button is-warning" href="/person/{{person.id}}/hide">Hide</a>
+                  {{/if}}
+                </div>
+                <div class="level-item">
+                  <a class="button is-danger" href="/person/{{person.id}}/delete">Delete</a>
+                </div>
+
               </div>
             </div>
           </div>

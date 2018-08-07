@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Unhide {{fullname}}</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Unhide {{person.fullname}}
+        </h1>
+        <h2 class="subtitle">
+          Return this person into all results and listing
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <form method="POST" action="/person/{{person.id}}/unhide">
+
+    <section class="section">
+      <div class="container">
+
+        <div class="columns">
+          <div class="column notification is-info">
+            This will return this person into all results and listings!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <input class="button is-warning" type="submit" name="action" value="Yes, unhide this person">
+                </div>
+                <div class="level-item">
+                  <a class="button is-link" href="/person/{{person.id}}">Nope, go back</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </form>
+  {{>footer}}
+</body>
+
+</html>

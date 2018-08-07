@@ -1,10 +1,30 @@
-<html>
-  <head>
-    <title>main</title>
-  </head>
-  <body>
-    {{> header}}
-    404
-    {{>footer}}
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>404</title>
+  {{> head}}
+</head>
+
+<body>
+
+  {{> nav}}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          404
+        </h1>
+        <h2 class="subtitle">
+          That page is missing.
+        </h2>
+      </div>
+    </div>
+    {{> a2z-hero}}
+  </section>
+
+  {{>footer}}
+</body>
+
 </html>

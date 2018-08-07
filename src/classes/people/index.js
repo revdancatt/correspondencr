@@ -9,7 +9,9 @@ class People {
    * Grab the details based on the id or name.
    */
   constructor () {
-    this.people = this.getAll()
+    this.people = this.getAll().filter((person) => {
+      return !('hidden' in person && person.hidden === true)
+    })
   }
 
   getAll () {
@@ -23,9 +25,18 @@ class People {
     })
   }
 
+  getHidden () {
+    return this.getAll().filter((person) => {
+      return ('hidden' in person && person.hidden === true)
+    })
+  }
+
   getDiscoveredExternally (days = 7) {
     return this.people.filter((person) => {
       return person.source === 'facebook'
+    }).sort(function (a, b) {
+      if (new Date(a.created).getTime() < new Date(b.created).getTime()) return 1
+      return -1
     })
   }
 
