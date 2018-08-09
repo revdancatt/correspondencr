@@ -23,33 +23,41 @@
   <section class="section">
     <div class="container">
 
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Birthday</strong>
+        </div>
+        <div class="column">
+          {{#if person.nextBirthday}} {{datePretty person.nextBirthday}}
+          <small>({{timeAgo person.nextBirthday}})</small>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Address</strong>
+        </div>
+        <div class="column">{{{addReturns person.address}}}</div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Country</strong>
+        </div>
+        <div class="column">{{person.country}}</div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+
+        </div>
+        <div class="column">
+          <a class="button is-link" href="/person/{{person.id}}/edit">Edit</a>
+        </div>
+      </div>
+
       <form method="POST" action="/person/{{person.id}}">
-
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <strong>Birthday</strong>
-          </div>
-          <div class="column">
-            {{#if person.nextBirthday}} {{datePretty person.nextBirthday}}
-            <small>({{timeAgo person.nextBirthday}})</small>
-            {{/if}}
-          </div>
-        </div>
-
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <strong>Address</strong>
-          </div>
-          <div class="column">{{{addReturns person.address}}}</div>
-        </div>
-
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <strong>Country</strong>
-          </div>
-          <div class="column">{{person.country}}</div>
-        </div>
-
         <div class="columns">
           <div class="column is-one-quarter">
             <strong>Notes</strong>
@@ -58,7 +66,93 @@
             <textarea class="textarea is-small" name="notes" placeholder="Notes go here" rows="12">{{person.notes}}</textarea>
           </div>
         </div>
+        <div class="columns">
+          <div class="column level">
+            <div class="level-right">
+              <div class="level-item">
+                <input class="button is-primary" type="submit" name="action" value="Save notes">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
 
+      <hr />
+
+      <form method="POST" action="/person/{{person.id}}">
+        <div class="columns">
+          <div class="column is-one-quarter">
+            {{#if person.contacted}}
+            <strong>Contacted</strong>{{/if}}
+          </div>
+          <div class="column">
+            {{#each person.contacted}}
+            <div class="columns">
+              <div class="column control is-7">
+                <p>
+                  {{details}}
+                </p>
+                <p>
+                  <small>{{datePretty created}}
+                    <small>({{timeAgo created}})</small>
+                  </small>
+                </p>
+                <input type="hidden" name="ids" value="{{id}}" />
+              </div>
+              <div class="column control level is-3">
+                <div class="level">
+                  <label class="checkbox level-item">
+                    <input class="" type="checkbox" name="checkbox1_{{id}}" value="true" {{#if checked1}}checked{{/if}}> One
+                  </label>
+                  <label class="checkbox level-item">
+                    <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}}checked{{/if}}> Two
+                  </label>
+                </div>
+              </div>
+              <div class="column control level is-2">
+                <div class="level-right">
+                  <button class="level-item button is-danger" type="submit" name="action" value="remove_{{id}}">Delete</button>
+                </div>
+              </div>
+            </div>
+            {{/each}} {{#if person.contacted}}
+            <div class="columns level">
+              <div class="column level-item is-7">&nbsp;</div>
+              <div class="control level-item">
+                <button class="level-item button is-primary" type="submit" name="action" value="update_checkboxes">Update</button>
+              </div>
+              <div class="column level-item is-2">&nbsp;
+              </div>
+            </div>
+            <div class="columns level">
+              &nbsp;
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </form>
+
+      <form method="POST" action="/person/{{person.id}}">
+        <div class="columns">
+          <div class="column is-one-quarter">{{#unless person.contacted}}
+            <strong>Contacted</strong>{{/unless}}
+          </div>
+          <div class="column columns">
+            <div class="column control">
+              <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
+            </div>
+            <div class="column level is-2">
+              <div class="level-right">
+                <input class="level-item button is-primary" type="submit" name="action" value="Add contacted">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <hr />
+
+      <form method="POST" action="/person/{{person.id}}">
         <div class="columns">
           <div class="column is-one-quarter">
             <strong>Source</strong>
@@ -90,20 +184,14 @@
             <div class="level">
               <div class="level-left">
                 <div class="level-item">
-                  <input class="button is-primary" type="submit" name="action" value="Update">
-                </div>
-                <div class="level-item">
-                  <a class="button is-link" href="/person/{{person.id}}/edit">Edit</a>
-                </div>
-                <div class="level-item">
                   {{#if person.hidden}}
-                  <a class="button is-warning" href="/person/{{person.id}}/unhide">Unhide</a>
+                  <a class="button is-warning" href="/person/{{person.id}}/unhide">Unhide person</a>
                   {{else}}
-                  <a class="button is-warning" href="/person/{{person.id}}/hide">Hide</a>
+                  <a class="button is-warning" href="/person/{{person.id}}/hide">Hide person</a>
                   {{/if}}
                 </div>
                 <div class="level-item">
-                  <a class="button is-danger" href="/person/{{person.id}}/delete">Delete</a>
+                  <a class="button is-danger" href="/person/{{person.id}}/delete">Delete person</a>
                 </div>
 
               </div>
