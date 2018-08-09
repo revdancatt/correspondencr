@@ -127,6 +127,37 @@ class Person {
     this.updated = new Date()
   }
 
+  setContacted (details) {
+    if (!('contacted' in this)) {
+      this.contacted = []
+    }
+    this.contacted.push({
+      id: new Date().getTime(),
+      details,
+      checked1: false,
+      checked2: false,
+      created: new Date()
+    })
+  }
+
+  setCheckboxes (checkboxes, id) {
+    this.contacted.map((contact) => {
+      if (contact.id === parseInt(id, 10)) {
+        contact.checked1 = checkboxes.checkbox1
+        contact.checked2 = checkboxes.checkbox2
+      }
+      return contact
+    })
+  }
+
+  deleteContacted (id) {
+    if ('contacted' in this) {
+      this.contacted = this.contacted.filter((contact) => {
+        return contact.id !== parseInt(id, 10)
+      })
+    }
+  }
+
   save () {
     let peopleJSON = this.loadPeopleJSON()
     peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))
