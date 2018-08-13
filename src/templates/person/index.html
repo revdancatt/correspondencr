@@ -164,43 +164,106 @@
       <form method="POST" action="/person/{{person.id}}">
         <div class="columns">
           <div class="column is-one-quarter">
+            <strong>Other dates</strong>
+          </div>
+          <div class="column">
+            <div class="columns">
+              <div class="column is-2 field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Day</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <input class="input is-static" type="number" min="1" max="31" name="day" placeholder="1">
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Month</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="select">
+                        <select name="month">
+                          <option value='1'>01 - January</option>
+                          <option value='3'>03 - March</option>
+                          <option value='2'>02 - February</option>
+                          <option value='4'>04 - April</option>
+                          <option value='5'>05 - May</option>
+                          <option value='6'>06 - June</option>
+                          <option value='7'>07 - July</option>
+                          <option value='8'>08 - August</option>
+                          <option value='9'>09 - September</option>
+                          <option value='10'>10 - October</option>
+                          <option value='11'>11 - November</option>
+                          <option value='12'>12 - December</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4 field is-horizontal">
+                <div class="field-body">
+                  <input class="input" type="text" name="details" placeholder="Add details about the date here">
+                </div>
+              </div>
+              <div class="column is-2 level">
+                <div class="level-right">
+                  <input class="button is-primary level-item" type="submit" name="action" value="Add date">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <hr />
+
+      <form method="POST " action="/person/{{person.id}} ">
+        <div class="columns ">
+          <div class="column is-one-quarter ">
             <strong>Source</strong>
           </div>
-          <div class="column">{{person.source}}</div>
+          <div class="column ">{{person.source}}</div>
         </div>
 
-        <div class="columns">
-          <div class="column is-one-quarter">
+        <div class="columns ">
+          <div class="column is-one-quarter ">
             <strong>Last updated</strong>
           </div>
-          <div class="column">{{datePretty person.updated}}
+          <div class="column ">{{datePretty person.updated}}
             <small>({{timeAgo person.updated}})</small>
           </div>
         </div>
 
-        <div class="columns">
-          <div class="column is-one-quarter">
+        <div class="columns ">
+          <div class="column is-one-quarter ">
             <strong>Created</strong>
           </div>
-          <div class="column">{{datePretty person.created}}
+          <div class="column ">{{datePretty person.created}}
             <small>({{timeAgo person.created}})</small>
           </div>
         </div>
 
-        <div class="columns">
-          <div class="column is-one-quarter">&nbsp;</div>
-          <div class="column">
-            <div class="level">
-              <div class="level-left">
-                <div class="level-item">
+        <div class="columns ">
+          <div class="column is-one-quarter ">&nbsp;</div>
+          <div class="column ">
+            <div class="level ">
+              <div class="level-left ">
+                <div class="level-item ">
                   {{#if person.hidden}}
-                  <a class="button is-warning" href="/person/{{person.id}}/unhide">Unhide person</a>
+                  <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide person</a>
                   {{else}}
-                  <a class="button is-warning" href="/person/{{person.id}}/hide">Hide person</a>
+                  <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide person</a>
                   {{/if}}
                 </div>
-                <div class="level-item">
-                  <a class="button is-danger" href="/person/{{person.id}}/delete">Delete person</a>
+                <div class="level-item ">
+                  <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete person</a>
                 </div>
 
               </div>

@@ -191,6 +191,11 @@ class Person {
     }
   }
 
+  addDate (day, month) {
+    if (isNaN(day) || day === '') return
+    if (isNaN(month) || month === '') return
+  }
+
   save () {
     let peopleJSON = this.loadPeopleJSON()
     peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))

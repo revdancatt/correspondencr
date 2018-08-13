@@ -69,6 +69,10 @@ exports.update = (req, res) => {
       person.setContacted(req.body.newcontact)
     }
 
+    if (req.body.action === 'Add date') {
+      person.addDate(req.body.day, req.body.month)
+    }
+
     //  If we have been told to save the check values
     if ('ids' in req.body) {
       if (!Array.isArray(req.body.ids)) req.body.ids = [req.body.ids]
