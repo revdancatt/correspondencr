@@ -106,6 +106,9 @@ exports.datePretty = t => {
 
 exports.timeAgo = backThen => {
   if (backThen === null || backThen === undefined) return ''
+  const d = new Date()
+  const bd = new Date(backThen)
+  if (d.getMonth() === bd.getMonth() && d.getDate() === bd.getDate()) return 'Today'
   return moment(backThen).fromNow()
 }
 
@@ -128,7 +131,7 @@ exports.dumpJSON = object => {
 
 exports.addReturns = text => {
   if (text === null || text === undefined) return ''
-  return text.replace(/\n/g, "<br />")
+  return text.replace(/\n/g, '<br />')
 }
 
 exports.toUpperCase = text => {

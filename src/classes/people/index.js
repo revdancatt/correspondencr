@@ -40,11 +40,26 @@ class People {
     })
   }
 
+  getTodaysBirthdays () {
+    const d = new Date()
+    return this.people.filter((person) => {
+      if (parseInt(person.day, 10) === d.getDate() && parseInt(person.month, 10) === d.getMonth() + 1) return true
+      return false
+    }).map((person) => {
+      person.nextBirthday = new Date(new Date().getFullYear(), person.month - 1, person.day)
+      return person
+    })
+  }
+
   getUpcomingBirthdays (days = 30) {
     const msDiff = 1000 * 60 * 60 * 24 * days
     const futureDate = new Date(new Date().getTime() + msDiff)
+    const todaysBirthdays = this.getTodaysBirthdays().map((person) => {
+      return person.id
+    })
     return this.people.filter((person) => {
       if (person.nextBirthday === null || person.nextBirthday === undefined) return false
+      if (todaysBirthdays.includes(person.id)) return false
       return person.nextBirthday <= futureDate
     }).sort(function (a, b) {
       if (new Date(a.nextBirthday).getTime() > new Date(b.nextBirthday).getTime()) return 1
