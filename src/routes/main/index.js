@@ -19,6 +19,9 @@ exports.index = (req, res) => {
     }
   }
 
+  //  Grab all todays birthdays
+  req.templateValues.birthdaysToday = allPeople.getTodaysBirthdays()
+
   //  Grab all upcoming birthdays
   req.templateValues.birthdayPeople = allPeople.getUpcomingBirthdays()
 

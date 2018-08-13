@@ -55,6 +55,15 @@
       </form>
     </div>
   </section>
+  {{/if}} {{#if birthdaysToday}}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Birthdays today</h1>
+      <ul>
+        {{#each birthdaysToday}} {{>person @this}} {{/each}}
+      </ul>
+    </div>
+  </section>
   {{/if}} {{#if birthdayPeople}}
   <section class="section">
     <div class="container">
