@@ -20,6 +20,7 @@ class Person {
     if (person !== null) {
       Object.assign(this, person)
       person.nextBirthday = this.getUpcomingBirthday()
+      person.age = this.getAge()
       Object.assign(this, person)
     }
   }
@@ -123,8 +124,40 @@ class Person {
   }
 
   set (key, value) {
-    this[key] = value
-    this.updated = new Date()
+    //  Do the age separately
+    if (key === 'age') {
+      this.setAge(value)
+    } else {
+      this[key] = value
+      this.updated = new Date()
+    }
+  }
+
+  setAge (value) {
+    //  If we know the month and day of the person, we can calculate
+    //  the actual birthday here
+    if (isNaN(value)) return
+    if (value === '') {
+      delete this.birthdayFromAge
+      delete this.hardcodedAge
+      this.save()
+      return
+    }
+    if (value === null || value === undefined) return
+    const age = parseInt(value)
+    if (age < 0 || age > 200) return
+
+    if (this.month !== undefined && this.month !== null && this.month !== '' && this.day !== undefined && this.day !== null && this.day !== '') {
+      const d = new Date()
+      const thisYearsBirthday = new Date(d.getFullYear(), this.month - 1, this.day)
+      let bd = new Date(d.getFullYear() - age, this.month - 1, this.day)
+      if (thisYearsBirthday > d) {
+        bd = new Date(d.getFullYear() - age - 1, this.month - 1, this.day)
+      }
+      this.set('birthdayFromAge', bd)
+    } else {
+      this.set('hardcodedAge', age)
+    }
   }
 
   setContacted (details) {
@@ -163,6 +196,7 @@ class Person {
     peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))
     //  Make sure we remove the dynamically created entries
     delete peopleJSON.people[this.id].nextBirthday
+    delete peopleJSON.people[this.id].age
     this.savePeopleJSON(peopleJSON)
   }
 
@@ -186,6 +220,19 @@ class Person {
     let thisBirthday = thisYearBirthday
     if (thisDiff < 0) thisBirthday = nextYearBirthday
     return thisBirthday
+  }
+
+  getAge () {
+    //  If we have a birthday, we can use that to work out the age
+    if (this.birthdayFromAge && this.birthdayFromAge !== '') {
+      const bd = new Date(this.birthdayFromAge)
+      const ageDifMs = Date.now() - bd.getTime()
+      const ageDate = new Date(ageDifMs)
+      return Math.abs(ageDate.getUTCFullYear() - 1970)
+    }
+
+    if (this.hardcodedAge && this.hardcodedAge !== '') return this.hardcodedAge
+    return null
   }
 }
 module.exports = Person
