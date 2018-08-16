@@ -70,7 +70,7 @@ exports.update = (req, res) => {
     }
 
     if (req.body.action === 'Add date') {
-      person.addDate(req.body.day, req.body.month)
+      person.addDate(req.body.day, req.body.month, req.body.details)
     }
 
     //  If we have been told to save the check values

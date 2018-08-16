@@ -99,17 +99,39 @@ exports.timePretty = t => {
   return moment(t).format('dddd, MMMM Do YYYY, h:mm:ss a')
 }
 
-exports.datePretty = t => {
+const datePretty = t => {
   if (t === null || t === undefined) return ''
   return moment(t).format('dddd, MMMM Do YYYY')
 }
+exports.datePretty = datePretty
 
-exports.timeAgo = backThen => {
+exports.datePrettyDM = (day, month) => {
+  const d = new Date()
+  const thisYear = new Date(d.getFullYear(), month - 1, day)
+  const nextYear = new Date(d.getFullYear() + 1, month - 1, day)
+  if (thisYear < d) {
+    return datePretty(nextYear)
+  }
+  return datePretty(thisYear)
+}
+
+const timeAgo = backThen => {
   if (backThen === null || backThen === undefined) return ''
   const d = new Date()
   const bd = new Date(backThen)
   if (d.getMonth() === bd.getMonth() && d.getDate() === bd.getDate()) return 'Today'
   return moment(backThen).fromNow()
+}
+exports.timeAgo = timeAgo
+
+exports.timeAgoDM = (day, month) => {
+  const d = new Date()
+  const thisYear = new Date(d.getFullYear(), month - 1, day)
+  const nextYear = new Date(d.getFullYear() + 1, month - 1, day)
+  if (thisYear < d) {
+    return timeAgo(nextYear)
+  }
+  return timeAgo(thisYear)
 }
 
 exports.prettyNumber = x => {

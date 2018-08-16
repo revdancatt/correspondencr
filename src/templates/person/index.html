@@ -146,14 +146,14 @@
           <div class="column is-one-quarter">{{#unless person.contacted}}
             <strong>Contacted</strong>{{/unless}}
           </div>
-          <div class="column columns">
-            <div class="column control">
-              <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
-            </div>
-            <div class="column level is-2">
-              <div class="level-right">
+          <div class="column">
+            <div class="field has-addons">
+              <p class="control" style="display: contents">
+                <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
+              </p>
+              <p class="control">
                 <input class="level-item button is-primary" type="submit" name="action" value="Add contacted">
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -162,61 +162,70 @@
       <hr />
 
       <form method="POST" action="/person/{{person.id}}">
+
         <div class="columns">
           <div class="column is-one-quarter">
             <strong>Other dates</strong>
           </div>
+
           <div class="column">
+
+            {{#each person.otherDates}}
             <div class="columns">
-              <div class="column is-2 field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Day</label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                      <input class="input is-static" type="number" min="1" max="31" name="day" placeholder="1">
-                    </p>
-                  </div>
+              <div class="column control is-7">
+                <p>
+                  {{details}}
+                </p>
+                <p>
+                  <small>{{datePrettyDM day month}}
+                    <small>({{timeAgoDM day month}})</small>
+                  </small>
+                </p>
+              </div>
+            </div>
+            {{/each}}
+
+            <div class="columns">
+              <div class="column is-one-quarter">
+                <div class="field-label is-2">
+                  <label>Day</label>
                 </div>
               </div>
               <div class="column is-4">
-                <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Month</label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field">
-                      <div class="select">
-                        <select name="month">
-                          <option value='1'>01 - January</option>
-                          <option value='3'>03 - March</option>
-                          <option value='2'>02 - February</option>
-                          <option value='4'>04 - April</option>
-                          <option value='5'>05 - May</option>
-                          <option value='6'>06 - June</option>
-                          <option value='7'>07 - July</option>
-                          <option value='8'>08 - August</option>
-                          <option value='9'>09 - September</option>
-                          <option value='10'>10 - October</option>
-                          <option value='11'>11 - November</option>
-                          <option value='12'>12 - December</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+                <p class="control">
+                  <input style="width:100px" class="input" type="number" min="1" max="31" name="day" placeholder="1">
+                </p>
+              </div>
+              <div class="column is-2">
+                <label>Month</label>
+              </div>
+              <div class="column is-4">
+                <div class="select">
+                  <select name="month">
+                    <option value='1'>01 - January</option>
+                    <option value='3'>03 - March</option>
+                    <option value='2'>02 - February</option>
+                    <option value='4'>04 - April</option>
+                    <option value='5'>05 - May</option>
+                    <option value='6'>06 - June</option>
+                    <option value='7'>07 - July</option>
+                    <option value='8'>08 - August</option>
+                    <option value='9'>09 - September</option>
+                    <option value='10'>10 - October</option>
+                    <option value='11'>11 - November</option>
+                    <option value='12'>12 - December</option>
+                  </select>
                 </div>
               </div>
-              <div class="column is-4 field is-horizontal">
-                <div class="field-body">
-                  <input class="input" type="text" name="details" placeholder="Add details about the date here">
-                </div>
-              </div>
-              <div class="column is-2 level">
-                <div class="level-right">
-                  <input class="button is-primary level-item" type="submit" name="action" value="Add date">
-                </div>
-              </div>
+            </div>
+
+            <div class="field has-addons">
+              <p class="control" style="display: contents">
+                <input class="input" type="text" name="details" placeholder="Add details about the date here">
+              </p>
+              <p class="control">
+                <input class="button is-primary level-item" type="submit" name="action" value="Add date">
+              </p>
             </div>
           </div>
         </div>

@@ -191,9 +191,20 @@ class Person {
     }
   }
 
-  addDate (day, month) {
+  addDate (day, month, details) {
     if (isNaN(day) || day === '') return
     if (isNaN(month) || month === '') return
+    if (!('otherDates' in this)) {
+      this.otherDates = []
+    }
+    const newDate = {
+      id: this.otherDates.length,
+      day,
+      month,
+      details
+    }
+    this.otherDates.push(newDate)
+    this.save()
   }
 
   save () {
