@@ -69,6 +69,10 @@ exports.update = (req, res) => {
       person.setContacted(req.body.newcontact)
     }
 
+    if (req.body.action === 'Add date') {
+      person.addDate(req.body.day, req.body.month, req.body.details)
+    }
+
     //  If we have been told to save the check values
     if ('ids' in req.body) {
       if (!Array.isArray(req.body.ids)) req.body.ids = [req.body.ids]
@@ -82,6 +86,11 @@ exports.update = (req, res) => {
         person.setCheckboxes(checkboxes, id)
       })
     }
+
+    if (req.body.action === 'deleteOtherDate') {
+      person.deleteOtherDate(req.body.id)
+    }
+
     //  If we have been told to delete the contact
     const actionSplit = req.body.action.split('_')
     if (actionSplit.length === 2 && actionSplit[0] === 'remove') {

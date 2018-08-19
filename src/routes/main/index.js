@@ -25,6 +25,10 @@ exports.index = (req, res) => {
   //  Grab all upcoming birthdays
   req.templateValues.birthdayPeople = allPeople.getUpcomingBirthdays()
 
+  //  Grab all the upcoming other dates
+  req.templateValues.upcomingDates = allPeople.getUpcomingDates(30 * 2)
+  console.log(req.templateValues.upcomingDates)
+
   //  Get all the missing birthdays
   const missingBirthdays = allPeople.getMissingBirthdays().map(a => [Math.random(), a])
     .sort((a, b) => a[0] - b[0])

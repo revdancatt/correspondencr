@@ -105,5 +105,31 @@ class People {
       return false
     })
   }
+
+  getUpcomingDates (days = 30) {
+    const msDiff = 1000 * 60 * 60 * 24 * days
+    const futureDate = new Date(new Date().getTime() + msDiff)
+    const upcomingDates = []
+    this.people.forEach((person) => {
+      if ('upcomingDates' in person && person.upcomingDates !== null) {
+        person.upcomingDates.forEach((date) => {
+          if (date.nextOccurance < futureDate) {
+            const newDate = {
+              nextOccurance: date.nextOccurance,
+              details: date.details,
+              person: {
+                id: person.id,
+                fullname: person.fullname
+              }
+            }
+            upcomingDates.push(newDate)
+          }
+        })
+      }
+    })
+    return upcomingDates.sort((a, b) => {
+      return a.nextOccurance > b.nextOccurance
+    })
+  }
 }
 module.exports = People
