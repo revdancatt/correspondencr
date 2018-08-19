@@ -26,7 +26,7 @@ exports.index = (req, res) => {
   req.templateValues.birthdayPeople = allPeople.getUpcomingBirthdays()
 
   //  Grab all the upcoming other dates
-  req.templateValues.upcomingDates = allPeople.getUpcomingDates(90)
+  req.templateValues.upcomingDates = allPeople.getUpcomingDates(30 * 2)
   console.log(req.templateValues.upcomingDates)
 
   //  Get all the missing birthdays

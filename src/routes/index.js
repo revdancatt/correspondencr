@@ -11,6 +11,7 @@ const main = require('./main')
 const people = require('./people')
 const person = require('./person')
 const upcoming = require('./upcoming')
+const upcomingDates = require('./upcomingDates')
 
 // ############################################################################
 //
@@ -60,6 +61,7 @@ router.post('/login', auth.index)
 router.get('/logout', auth.logout)
 router.get('/discovered', discovered.index)
 router.get('/upcoming', upcoming.index)
+router.get('/upcomingDates', upcomingDates.index)
 router.get('/everyone', people.index)
 router.get('/people', people.index)
 router.get('/people/missing-birthdays', people.missingBirthdays)
