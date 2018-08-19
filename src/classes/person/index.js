@@ -20,6 +20,7 @@ class Person {
     if (person !== null) {
       Object.assign(this, person)
       person.nextBirthday = this.getUpcomingBirthday()
+      person.upcomingDates = this.getUpcomingDates()
       person.age = this.getAge()
       Object.assign(this, person)
     }
@@ -213,6 +214,7 @@ class Person {
     //  Make sure we remove the dynamically created entries
     delete peopleJSON.people[this.id].nextBirthday
     delete peopleJSON.people[this.id].age
+    delete peopleJSON.people[this.id].upcomingDates
     this.savePeopleJSON(peopleJSON)
   }
 
@@ -236,6 +238,30 @@ class Person {
     let thisBirthday = thisYearBirthday
     if (thisDiff < 0) thisBirthday = nextYearBirthday
     return thisBirthday
+  }
+
+  getUpcomingDates () {
+    const thisYear = new Date().getFullYear()
+    const nextYear = new Date().getFullYear() + 1
+    if (!('otherDates' in this)) return null
+    const otherDates = this.otherDates.map((date) => {
+      const thisYearDate = new Date(thisYear, date.month - 1, date.day, 12, 0, 0)
+      const nextYearDate = new Date(nextYear, date.month - 1, date.day, 12, 0, 0)
+      const thisDiff = thisYearDate.getTime() - new Date().getTime()
+      let thisDate = thisYearDate
+      if (thisDiff < 0) thisDate = nextYearDate
+      return {
+        id: date.id,
+        day: date.day,
+        month: date.month,
+        details: date.details,
+        nextOccurance: thisDate
+      }
+    })
+
+    return otherDates.sort((a, b) => {
+      return a.nextOccurance > b.nextOccurance
+    })
   }
 
   getAge () {

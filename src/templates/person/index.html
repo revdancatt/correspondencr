@@ -170,15 +170,15 @@
 
           <div class="column">
 
-            {{#each person.otherDates}}
+            {{#each person.upcomingDates}}
             <div class="columns">
               <div class="column control is-7">
                 <p>
                   {{details}}
                 </p>
                 <p>
-                  <small>{{datePrettyDM day month}}
-                    <small>({{timeAgoDM day month}})</small>
+                  <small>{{datePretty nextOccurance}}
+                    <small>({{timeAgo nextOccurance}})</small>
                   </small>
                 </p>
               </div>
