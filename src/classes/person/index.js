@@ -192,6 +192,14 @@ class Person {
     }
   }
 
+  deleteOtherDate (id) {
+    if ('otherDates' in this) {
+      this.otherDates = this.otherDates.filter((date) => {
+        return date.id !== parseInt(id, 10)
+      })
+    }
+  }
+
   addDate (day, month, details) {
     if (isNaN(day) || day === '') return
     if (isNaN(month) || month === '') return

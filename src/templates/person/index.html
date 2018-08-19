@@ -161,18 +161,18 @@
 
       <hr />
 
-      <form method="POST" action="/person/{{person.id}}">
 
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <strong>Other dates</strong>
-          </div>
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <strong>Other dates</strong>
+        </div>
 
-          <div class="column">
+        <div class="column">
 
-            {{#each person.upcomingDates}}
+          {{#each person.upcomingDates}}
+          <form method="POST" action="/person/{{../person.id}}">
             <div class="columns">
-              <div class="column control is-7">
+              <div class="column control is-10">
                 <p>
                   {{details}}
                 </p>
@@ -181,10 +181,18 @@
                     <small>({{timeAgo nextOccurance}})</small>
                   </small>
                 </p>
+                <input type="hidden" name="id" value="{{id}}" />
+              </div>
+              <div class="column control level is-2">
+                <div class="level-right">
+                  <button class="level-item button is-danger" type="submit" name="action" value="deleteOtherDate">Delete</button>
+                </div>
               </div>
             </div>
-            {{/each}}
+          </form>
+          {{/each}}
 
+          <form method="POST" action="/person/{{person.id}}">
             <div class="columns">
               <div class="column is-one-quarter">
                 <div class="field-label is-2">
@@ -227,8 +235,9 @@
                 <input class="button is-primary level-item" type="submit" name="action" value="Add date">
               </p>
             </div>
-          </div>
+          </form>
         </div>
+      </div>
       </form>
 
       <hr />

@@ -86,6 +86,11 @@ exports.update = (req, res) => {
         person.setCheckboxes(checkboxes, id)
       })
     }
+
+    if (req.body.action === 'deleteOtherDate') {
+      person.deleteOtherDate(req.body.id)
+    }
+
     //  If we have been told to delete the contact
     const actionSplit = req.body.action.split('_')
     if (actionSplit.length === 2 && actionSplit[0] === 'remove') {

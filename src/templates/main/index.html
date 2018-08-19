@@ -78,6 +78,35 @@
       <a href="/upcoming">upcoming birthdays here</a>.
     </div>
   </section>
+  {{/if}} {{#if upcomingDates}}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Upcoming Dates</h1>
+      <h2 class="subtitle">Are are other things that are upcoming in the next 90 days</h2>
+      <ul>
+        {{#each upcomingDates}}
+        <li>
+          <label class="label">{{details}}</label>
+        </li>
+        <li class="level">
+          <span class="level-left">
+            <span class="level-item">
+              <strong>
+                <a href="/person/{{person.id}}">{{person.fullname}}</a>
+              </strong>
+            </span>
+            <span class="level-item">{{datePretty nextOccurance}}</span>
+          </span>
+          <span class="level-right">
+            <span class="level-item">
+              <small> ({{timeAgo nextOccurance}})</small>
+            </span>
+          </span>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
   {{/if}} {{#if newPeople}}
   <section class="section">
     <div class="container">
