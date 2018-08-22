@@ -14,7 +14,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">Newly discovered people</h1>
-        <h2 class="subtitle">Here are the people we have found in the last 7 days</h2>
+        <h2 class="subtitle">Here are the people we have found in the last {{days}} days</h2>
       </div>
     </div>
     {{> a2z-hero}}
@@ -22,6 +22,7 @@
 
   <section class="section">
     <div class="container">
+      {{#if newPeople}}
       <ul>
         {{#each newPeople}}
         <li>
@@ -32,6 +33,11 @@
         </li>
         {{/each}}
       </ul>
+      {{else}}
+      <p>
+        No new people have been discovered in the last {{days}} days
+      </p>
+      {{/if}}
     </div>
   </section>
 
