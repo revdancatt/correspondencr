@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>{{fullname}}</title>
+  <title>CT - {{person.fullname}}</title>
   {{> head}}
 </head>
 
@@ -10,12 +10,14 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           {{person.fullname}}
         </h1>
+        {{#if person.nextBirthday}}
+        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}}</h2>{{/if}}
       </div>
     </div>
   </section>
@@ -23,6 +25,8 @@
   <section class="section">
     <div class="container">
 
+      <h2 class="title">When and where to send cards &amp; letters</h2>
+      <h3 class="subtitle">Here's where I keep all the information I need to get stuff sent off smartish</h3>
       <div class="columns">
         <div class="column is-one-quarter">
           <strong>Birthday</strong>
@@ -65,182 +69,235 @@
           <a class="button is-link" href="/person/{{person.id}}/edit">Edit</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="section">
+    <div class="container">
 
       <form method="POST" action="/person/{{person.id}}">
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <strong>Notes</strong>
-          </div>
-          <div class="column control">
-            <textarea class="textarea is-small" name="notes" placeholder="Notes go here" rows="12">{{person.notes}}</textarea>
+        <h2 class="title">Notes</h2>
+        <h3 class="subtitle">Pop all the stuff I know I should know in here but my memory isn't what it used to be</h3>
+
+        <div class="field">
+          <div class="control">
+            <textarea class="textarea" name="notes" placeholder="Notes go here" rows="12">{{person.notes}}</textarea>
           </div>
         </div>
-        <div class="columns">
-          <div class="column level">
-            <div class="level-right">
-              <div class="level-item">
-                <input class="button is-primary" type="submit" name="action" value="Save notes">
-              </div>
+
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">&nbsp;</div>
+          </div>
+          <div class="level-right">
+            <div class="level-item control">
+              <input class="button is-primary" type="submit" name="action" value="Save notes">
             </div>
           </div>
         </div>
       </form>
 
-      <hr />
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="section">
+    <div class="container">
+
+      <h2 class="title">
+        <a name="when-stuff-was-sent" class="has-text-black" style="cursor: default">When stuff was sent</a>
+      </h2>
+      {{#if person.contacted}}
+      <h3 class="subtitle">This is when I sent letters or cards, so when I go "Oh when did I send that letter?" I can see here.</h3>
+      <h4 class="subtitle is-6">The two checkboxes can help if I sent something with tracking, once I've checked it's arrived I can mark it off.</h4>
+      {{else}}
+      <h3 class="subtitle">Drop a quick note here when I sent something, to help me remember when I did it.</h3>
+      {{/if}}
 
       <form method="POST" action="/person/{{person.id}}">
-        <div class="columns">
-          <div class="column is-one-quarter">
-            {{#if person.contacted}}
-            <strong>Contacted</strong>{{/if}}
-          </div>
-          <div class="column">
-            {{#each person.contacted}}
-            <div class="columns">
-              <div class="column control is-7">
-                <p>
+        {{#each person.contacted}}
+        <div class="level highlight">
+          <div class="level-left">
+            <div class="level-item">
+              <div>
+                <div class="has-text-weight-semibold is-size-5">
                   {{details}}
-                </p>
-                <p>
-                  <small>{{datePretty created}}
-                    <small>({{timeAgo created}})</small>
-                  </small>
-                </p>
-                <input type="hidden" name="ids" value="{{id}}" />
-              </div>
-              <div class="column control level is-3">
-                <div class="level">
-                  <label class="checkbox level-item">
-                    <input class="" type="checkbox" name="checkbox1_{{id}}" value="true" {{#if checked1}}checked{{/if}}> One
-                  </label>
-                  <label class="checkbox level-item">
-                    <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}}checked{{/if}}> Two
-                  </label>
+                </div>
+                <div class="is-size-6">
+                  {{datePretty created}} ({{timeAgo created}})
                 </div>
               </div>
-              <div class="column control level is-2">
-                <div class="level-right">
-                  <button class="level-item button is-danger" type="submit" name="action" value="remove_{{id}}">Delete</button>
-                </div>
-              </div>
+
+              <input type="hidden" name="ids" value="{{id}}" />
             </div>
-            {{/each}} {{#if person.contacted}}
-            <div class="columns level">
-              <div class="column level-item is-7">&nbsp;</div>
-              <div class="control level-item">
-                <button class="level-item button is-primary" type="submit" name="action" value="update_checkboxes">Update</button>
-              </div>
-              <div class="column level-item is-2">&nbsp;
-              </div>
+          </div>
+
+          <div class="level-right">
+            <div class="level-item">
+              <label class="checkbox">
+                <input class="" type="checkbox" name="checkbox1_{{id}}" value="true" {{#if checked1}}checked{{/if}}> Check 1
+              </label>
             </div>
-            <div class="columns level">
-              &nbsp;
+
+            <div class="level-item">
+              <label class="checkbox">
+                <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}}checked{{/if}}> Check 2
+              </label>
             </div>
-            {{/if}}
+
+            <div class="level-item">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+
+            <div class="level-item">
+              <button class="level-item button is-danger" type="submit" name="action" value="remove_{{id}}">Delete</button>
+            </div>
           </div>
         </div>
+        {{/each}} {{#if person.contacted}}
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">&nbsp;</div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <button class="level-item button is-primary" type="submit" name="action" value="update_checkboxes">Update the checkboxes</button>
+            </div>
+          </div>
+        </div>
+        {{/if}}
       </form>
+
 
       <form method="POST" action="/person/{{person.id}}">
-        <div class="columns">
-          <div class="column is-one-quarter">{{#unless person.contacted}}
-            <strong>Contacted</strong>{{/unless}}
+        {{#if person.contacted}}
+        <div>&nbsp;</div>
+        <h3 class="subtitle">Drop a quick note here when I sent something, to help me remember when I did it.</h3>
+        {{/if}}
+        <div class="field">
+          <div class="control">
+            <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
           </div>
-          <div class="column">
-            <div class="field has-addons">
-              <p class="control" style="display: contents">
-                <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
-              </p>
-              <p class="control">
-                <input class="level-item button is-primary" type="submit" name="action" value="Add contacted">
-              </p>
+        </div>
+
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">&nbsp;</div>
+          </div>
+          <div class="level-right">
+            <div class="level-item control">
+              <button class="level-item button is-primary" type="submit" name="action" value="Add contacted">I just sent a thing!</button>
             </div>
           </div>
         </div>
+
+
       </form>
 
-      <hr />
+    </div>
+  </section>
 
+  <hr />
 
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <strong>Other dates</strong>
-        </div>
+  <section class="section">
+    <div class="container">
 
-        <div class="column">
-
-          {{#each person.upcomingDates}}
-          <form method="POST" action="/person/{{../person.id}}">
-            <div class="columns">
-              <div class="column control is-10">
-                <p>
+      <h2 class="title">
+        <a name="other-dates" class="has-text-black" style="cursor: default">Other dates</a>
+      </h2>
+      {{#if person.upcomingDates}}
+      <h3 class="subtitle">These are other things I figured I should remember.</h3>
+      {{else}}
+      <h3 class="subtitle">Add a date that I should pay attention to, like kids' birthdays or anniversaries.</h3>
+      {{/if}} {{#each person.upcomingDates}}
+      <form method="POST" action="/person/{{../person.id}}">
+        <div class="level highlight bottom-7">
+          <div class="level-left">
+            <div class="level-item">
+              <div>
+                <div class="has-text-weight-semibold is-size-5">
                   {{details}}
-                </p>
-                <p>
-                  <small>{{datePretty nextOccurance}}
-                    <small>({{timeAgo nextOccurance}})</small>
-                  </small>
-                </p>
-                <input type="hidden" name="id" value="{{id}}" />
-              </div>
-              <div class="column control level is-2">
-                <div class="level-right">
-                  <button class="level-item button is-danger" type="submit" name="action" value="deleteOtherDate">Delete</button>
+                </div>
+                <div class="is-size-6">
+                  {{datePretty nextOccurance}} ({{timeAgo nextOccurance}})
                 </div>
               </div>
+              <input type="hidden" name="dateId" value="{{id}}" />
             </div>
-          </form>
-          {{/each}}
-
-          <form method="POST" action="/person/{{person.id}}">
-            <div class="columns">
-              <div class="column is-one-quarter">
-                <div class="field-label is-2">
-                  <label>Day</label>
-                </div>
-              </div>
-              <div class="column is-4">
-                <p class="control">
-                  <input style="width:100px" class="input" type="number" min="1" max="31" name="day" placeholder="1">
-                </p>
-              </div>
-              <div class="column is-2">
-                <label>Month</label>
-              </div>
-              <div class="column is-4">
-                <div class="select">
-                  <select name="month">
-                    <option value='1'>01 - January</option>
-                    <option value='3'>03 - March</option>
-                    <option value='2'>02 - February</option>
-                    <option value='4'>04 - April</option>
-                    <option value='5'>05 - May</option>
-                    <option value='6'>06 - June</option>
-                    <option value='7'>07 - July</option>
-                    <option value='8'>08 - August</option>
-                    <option value='9'>09 - September</option>
-                    <option value='10'>10 - October</option>
-                    <option value='11'>11 - November</option>
-                    <option value='12'>12 - December</option>
-                  </select>
-                </div>
-              </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <button class="level-item button is-danger" type="submit" name="action" value="deleteOtherDate">Delete</button>
             </div>
-
-            <div class="field has-addons">
-              <p class="control" style="display: contents">
-                <input class="input" type="text" name="details" placeholder="Add details about the date here">
-              </p>
-              <p class="control">
-                <input class="button is-primary level-item" type="submit" name="action" value="Add date">
-              </p>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
       </form>
+      {{/each}}
 
-      <hr />
+      <form method="POST" action="/person/{{person.id}}">
+        {{#if person.upcomingDates}}
+        <div>&nbsp;</div>
+        <h3 class="subtitle">Add a date that I should pay attention to, like kids' birthdays or anniversaries.</h3>
+        {{/if}}
+
+        <div class="field">
+          <label class="label">Month</label>
+          <div class="select">
+            <select name="month">
+              <option value='1'>01 - January</option>
+              <option value='3'>03 - March</option>
+              <option value='2'>02 - February</option>
+              <option value='4'>04 - April</option>
+              <option value='5'>05 - May</option>
+              <option value='6'>06 - June</option>
+              <option value='7'>07 - July</option>
+              <option value='8'>08 - August</option>
+              <option value='9'>09 - September</option>
+              <option value='10'>10 - October</option>
+              <option value='11'>11 - November</option>
+              <option value='12'>12 - December</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Day</label>
+          <div class="control">
+            <input class="input narrow-input" type="number" min="1" max="31" name="day" placeholder="1">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Details of the thing</label>
+          <div class="control">
+            <input class="input" type="text" name="details" placeholder="Add details about the date here">
+          </div>
+        </div>
+
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">&nbsp;</div>
+          </div>
+          <div class="level-right">
+            <div class="level-item control">
+              <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new date</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title">Metadata &amp; danger settings</h2>
+      <h3 class="subtitle">Here's the stuff that the system knows but is only kinda useful, and the hide/delete user buttons.</h3>
 
       <form method="POST " action="/person/{{person.id}} ">
         <div class="columns ">
@@ -292,6 +349,7 @@
       </form>
     </div>
   </section>
+
   {{>footer}}
 </body>
 

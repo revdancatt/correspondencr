@@ -99,6 +99,13 @@ exports.timePretty = t => {
   return moment(t).format('dddd, MMMM Do YYYY, h:mm:ss a')
 }
 
+const datePrettyNoYear = t => {
+  if (t === null || t === undefined) return ''
+  return moment(t).format('dddd, MMMM Do')
+}
+exports.datePrettyNoYear = datePrettyNoYear
+
+
 const datePretty = t => {
   if (t === null || t === undefined) return ''
   return moment(t).format('dddd, MMMM Do YYYY')
