@@ -10,27 +10,23 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           Everyone
         </h1>
-        <h2 class="subtitle">
+        <h2 class="subtitle is-3">
           Here are all the people
         </h2>
       </div>
     </div>
-    {{> a2z-hero}}
   </section>
-
-  {{#if people}}
+  {{> a2z-hero}} {{#if people}}
   <section class="section">
     <div class="container">
       <ul>
-        {{#each people}}
-          {{>person @this}}
-        {{/each}}
+        {{#each people}} {{>person @this}} {{/each}}
       </ul>
     </div>
   </section>

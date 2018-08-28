@@ -10,27 +10,23 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           Upcoming birthdays
         </h1>
-        <h2 class="subtitle">
+        <h2 class="subtitle is-3">
           Here are some upcoming birthdays
         </h2>
       </div>
     </div>
-    {{> a2z-hero}}
   </section>
-
-  {{#if birthdayPeople}}
+  {{> a2z-hero}} {{#if birthdayPeople}}
   <section class="section">
     <div class="container">
       <ul>
-        {{#each birthdayPeople}}
-          {{>person @this}}
-        {{/each}}
+        {{#each birthdayPeople}} {{>person @this}} {{/each}}
       </ul>
     </div>
   </section>

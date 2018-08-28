@@ -10,12 +10,15 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
-          Login
+        <h1 class="title is-1">
+          Create your account
         </h1>
+        <h2 class="subtitle is-3">
+          Make your master username/password to start using the site
+        </h2>
       </div>
     </div>
   </section>
@@ -28,7 +31,9 @@
         </p>
         <br />
         <p>
-          There will be only one account and that will be this one. Should you ever forget your password you will need to edit out the password field in the <code>config.json</code> file in your apps install folder.
+          There will be only one account and that will be this one. Should you ever forget your password you will need to edit out
+          the password field in the
+          <code>config.json</code> file in your apps install folder.
         </p>
       </div>
 
@@ -37,7 +42,7 @@
         {{error}}
       </div>
       {{/if}}
-    
+
     </div>
   </section>
 
@@ -52,16 +57,18 @@
             <label class="label">Username</label>
           </div>
           <div class="column control">
-            <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username" value="{{username}}" {{#ifEqual focus 'username'}}autofocus{{/ifEqual}} required>
+            <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username" value="{{username}}"
+              {{#ifEqual focus 'username'}}autofocus{{/ifEqual}} required>
           </div>
         </div>
-  
+
         <div class="columns field">
           <div class="column is-one-quarter">
             <label class="label">Password</label>
           </div>
           <div class="column control">
-            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password1" {{#ifEqual focus 'password'}}autofocus{{/ifEqual}} required>
+            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password1" {{#ifEqual
+              focus 'password'}}autofocus{{/ifEqual}} required>
           </div>
         </div>
 
@@ -73,14 +80,14 @@
             <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password2" required>
           </div>
         </div>
-        
+
         <div class="columns field">
           <div class="column is-one-quarter">
             &nbsp;
           </div>
           <div class="column control">
             <input class="button is-primary" type="submit" name="action" value="Create user">
-          </div>      
+          </div>
         </div>
 
       </form>
