@@ -2,26 +2,24 @@
 <html lang="en">
 
 <head>
-  <title>main</title>
+  <title>Correspondence tracker</title>
   {{> head}}
 </head>
 
 <body>
 
   {{> nav}}
-
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
-          Address Book
+        <h1 class="title is-1">
+          Correspondence tracker
         </h1>
+        <h2 class="subtitle is-3">What did I send to who and what should I be sending next?</h2>
       </div>
     </div>
-    {{> a2z-hero}}
   </section>
-
-  {{#if hasFacebookFeed}} {{else}}
+  {{> a2z-hero}} {{#if hasFacebookFeed}} {{else}}
   <section class="section">
     <div class="container notification is-primary">
       <h1 class="title">Facebook Feed</h1>
