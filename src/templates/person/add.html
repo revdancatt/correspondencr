@@ -10,12 +10,13 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           Add new person
         </h1>
+        <h2 class="subtitle is-3">If the person isn't on Facebook (yay for them) add them here</h2>
       </div>
     </div>
   </section>
@@ -25,83 +26,79 @@
 
       <form method="POST" action="/person/add">
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
-            <label class="label">Name</label>
-          </div>
-          <div class="column control">
-            <input class="input" type="text" name="fullname" placeholder="Person's name" value="{{person.fullname}}">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" name="fullname" placeholder="Person's name"">
           </div>
         </div>
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
+        <div class="
+              field">
             <label class="label">Month</label>
+            <div class="select">
+              <select name="month">
+                <option value='1'>01 - January</option>
+                <option value='2'>02 - February</option>
+                <option value='3'>03 - March</option>
+                <option value='4'>04 - April</option>
+                <option value='5'>05 - May</option>
+                <option value='6'>06 - June</option>
+                <option value='7'>07 - July</option>
+                <option value='8'>08 - August</option>
+                <option value='9'>09 - September</option>
+                <option value='10'>10 - October</option>
+                <option value='11'>11 - November</option>
+                <option value='12'>12 - December</option>
+              </select>
+            </div>
           </div>
-          <div class="column control select">
-            <select name="month">
-              <option {{#ifEqual 1 person.month}}selected{{/ifEqual}} value='1'>01 - January</option>
-              <option {{#ifEqual 2 person.month}}selected{{/ifEqual}} value='2'>02 - February</option>
-              <option {{#ifEqual 3 person.month}}selected{{/ifEqual}} value='3'>03 - March</option>
-              <option {{#ifEqual 4 person.month}}selected{{/ifEqual}} value='4'>04 - April</option>
-              <option {{#ifEqual 5 person.month}}selected{{/ifEqual}} value='5'>05 - May</option>
-              <option {{#ifEqual 6 person.month}}selected{{/ifEqual}} value='6'>06 - June</option>
-              <option {{#ifEqual 7 person.month}}selected{{/ifEqual}} value='7'>07 - July</option>
-              <option {{#ifEqual 8 person.month}}selected{{/ifEqual}} value='8'>08 - August</option>
-              <option {{#ifEqual 9 person.month}}selected{{/ifEqual}} value='9'>09 - September</option>
-              <option {{#ifEqual 10 person.month}}selected{{/ifEqual}} value='10'>10 - October</option>
-              <option {{#ifEqual 11 person.month}}selected{{/ifEqual}} value='11'>11 - November</option>
-              <option {{#ifEqual 12 person.month}}selected{{/ifEqual}} value='12'>12 - December</option>
-            </select>
-          </div>
-        </div>
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
+          <div class="field">
             <label class="label">Day</label>
+            <div class="control">
+              <input class="input narrow-input" type="number" min="1" max="31" name="day" placeholder="1">
+            </div>
           </div>
-          <div class="column control">
-            <input class="input" type="number" min="1" max="31" name="day" placeholder="1" value="{{person.day}}">
-          </div>
-        </div>
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
-            &nbsp;
-          </div>
-          <div class="column control">
+          <div class="field">
             <label class="checkbox">
-              <input type="checkbox" name="idontknowbirthday" value="true"> I don't know the birthday
-            </label>
+              <input type="checkbox" name="idontknowbirthday" value="true"> I
+              don't know the birthday </label> </div>
+          <div class="field">
+            <label class="label">Age</label>
+            <div class="control">
+              <input class="input" type="text" name="age" placeholder="If you know the persons age *and* birthday, add the *age* here"
+                value="">
+            </div>
           </div>
-        </div>
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
+          <div class="field">
             <label class="label">Address</label>
+            <div class="control">
+              <textarea class="textarea" name="address" placeholder="Enter the address"></textarea>
+            </div>
           </div>
-          <div class="column control">
-            <textarea class="textarea" name="address" placeholder="Enter the address">{{person.address}}</textarea>
-          </div>
-        </div>
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
+          <div class="field">
             <label class="label">Country</label>
+            <div class="control">
+              <input class="input" type="text" name="country" placeholder="Enter a country" value="">
+            </div>
           </div>
-          <div class="column control">
-            <input class="input" type="text" name="country" placeholder="Enter a country" value="{{person.country}}">
-          </div>
-        </div>
 
-        <div class="columns field">
-          <div class="column is-one-quarter">
-            &nbsp;
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                &nbsp;
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item control">
+                <button class="button is-primary" type="submit" name="action" value="Add">Add this person</button>
+              </div>
+            </div>
           </div>
-          <div class="column control">
-            <input class="button is-primary" type="submit" name="action" value="Add">
-          </div>
-        </div>
 
       </form>
 

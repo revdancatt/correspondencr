@@ -30,14 +30,15 @@
 
         <div class="columns">
           {{#ifEqual person.source 'facebook'}}
-          <div class="column notification is-warning">
+          <div class="column notification has-text-weight-bold">
             This person originally came from the Facebook WebCal feed, if you delete this person and you
             <em>still</em> follow them on Facebook, they will show up again next time the system syncs. You can
             <a href="/person/{{../person.id}}/hide">hide them</a> instead.
           </div>
           {{else}}
-          <div class="column notification is-danger">
-            This will completely remove the person from the system, all notes, addresses and other information will be lost forever!
+          <div class="column notification has-text-weight-bold">
+            This will completely remove the person from the system, all notes, addresses and other information will be
+            lost forever!
           </div>
           {{/ifEqual}}
         </div>

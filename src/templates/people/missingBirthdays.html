@@ -17,20 +17,28 @@
           Missing Birthdays
         </h1>
         <h2 class="subtitle is-3">
-          These are all the people we are missing birthdays for.
+          These are all the people for whom I'm are missing birthdays.
         </h2>
       </div>
     </div>
   </section>
-  {{> a2z-hero}} {{#if people}}
+  {{> a2z-hero}}
   <section class="section">
     <div class="container">
+      {{#if people}}
       <ul>
         {{#each people}} {{>person @this}} {{/each}}
       </ul>
+      {{else}}
+      <div class="columns">
+        <div class="column notification has-text-weight-bold">
+          I have birthdays for everyone, go me!
+        </div>
+      </div>
+      {{/if}}
     </div>
   </section>
-  {{/if}} {{>footer}}
+  {{>footer}}
 </body>
 
 </html>

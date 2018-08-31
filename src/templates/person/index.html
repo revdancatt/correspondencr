@@ -78,7 +78,7 @@
     <div class="container">
 
       <form method="POST" action="/person/{{person.id}}">
-        <h2 class="title">Notes</h2>
+        <h2 class="title"><a name="notes" class="has-text-black" style="cursor: default">Notes</a></h2>
         <h3 class="subtitle">Pop all the stuff I know I should know in here but my memory isn't what it used to be</h3>
 
         <div class="field">
@@ -111,8 +111,10 @@
         <a name="when-stuff-was-sent" class="has-text-black" style="cursor: default">When stuff was sent</a>
       </h2>
       {{#if person.contacted}}
-      <h3 class="subtitle">This is when I sent letters or cards, so when I go "Oh when did I send that letter?" I can see here.</h3>
-      <h4 class="subtitle is-6">The two checkboxes can help if I sent something with tracking, once I've checked it's arrived I can mark it off.</h4>
+      <h3 class="subtitle">This is when I sent letters or cards, so when I go "Oh when did I send that letter?" I can
+        see here.</h3>
+      <h4 class="subtitle is-6">The two checkboxes can help if I sent something with tracking, once I've checked it's
+        arrived I can mark it off.</h4>
       {{else}}
       <h3 class="subtitle">Drop a quick note here when I sent something, to help me remember when I did it.</h3>
       {{/if}}
@@ -138,18 +140,12 @@
           <div class="level-right">
             <div class="level-item">
               <label class="checkbox">
-                <input class="" type="checkbox" name="checkbox1_{{id}}" value="true" {{#if checked1}}checked{{/if}}> Check 1
-              </label>
-            </div>
-
-            <div class="level-item">
-              <label class="checkbox">
-                <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}}checked{{/if}}> Check 2
-              </label>
-            </div>
-
-            <div class="level-item">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="" type="checkbox" name="checkbox1_{{id}}" value="true" {{#if checked1}} checked{{/if}}>
+                  Check 1 </label> </div> <div class="level-item">
+                <label class="checkbox">
+                  <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}} checked{{/if}}>
+                    Check 2 </label> </div> <div class="level-item">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
 
             <div class="level-item">
@@ -164,7 +160,8 @@
           </div>
           <div class="level-right">
             <div class="level-item">
-              <button class="level-item button is-primary" type="submit" name="action" value="update_checkboxes">Update the checkboxes</button>
+              <button class="level-item button is-primary" type="submit" name="action" value="update_checkboxes">Update
+                the checkboxes</button>
             </div>
           </div>
         </div>
@@ -189,7 +186,8 @@
           </div>
           <div class="level-right">
             <div class="level-item control">
-              <button class="level-item button is-primary" type="submit" name="action" value="Add contacted">I just sent a thing!</button>
+              <button class="level-item button is-primary" type="submit" name="action" value="Add contacted">I just
+                sent a thing!</button>
             </div>
           </div>
         </div>
@@ -283,7 +281,8 @@
           </div>
           <div class="level-right">
             <div class="level-item control">
-              <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new date</button>
+              <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new
+                date</button>
             </div>
           </div>
         </div>
@@ -297,7 +296,8 @@
   <section class="section">
     <div class="container">
       <h2 class="title">Metadata &amp; danger settings</h2>
-      <h3 class="subtitle">Here's the stuff that the system knows but is only kinda useful, and the hide/delete user buttons.</h3>
+      <h3 class="subtitle">Here's the stuff that the system knows but is only kinda useful, and the hide/delete user
+        buttons.</h3>
 
       <form method="POST " action="/person/{{person.id}} ">
         <div class="columns ">

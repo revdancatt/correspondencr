@@ -34,9 +34,11 @@
         {{/each}}
       </ul>
       {{else}}
-      <p>
-        No new people have been discovered in the last {{days}} days
-      </p>
+      <div class="columns">
+        <div class="column notification has-text-weight-bold">
+          No new people have been discovered in the last {{days}} days
+        </div>
+      </div>
       {{/if}}
     </div>
   </section>

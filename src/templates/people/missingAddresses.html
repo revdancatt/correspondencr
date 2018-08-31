@@ -22,15 +22,22 @@
       </div>
     </div>
   </section>
-  {{> a2z-hero}} {{#if people}}
+  {{> a2z-hero}}
   <section class="section">
     <div class="container">
+      {{#if people}}
       <ul>
         {{#each people}} {{>person @this}} {{/each}}
       </ul>
+      {{else}}
+      <div class="columns">
+        <div class="column notification has-text-weight-bold">
+          I have addresses for everyone, go me!
+        </div>
+      </div>
+      {{/if}}
     </div>
-  </section>
-  {{/if}} {{>footer}}
+  </section>{{>footer}}
 </body>
 
 </html>

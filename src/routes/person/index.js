@@ -19,14 +19,19 @@ exports.add = (req, res) => {
   if ('action' in req.body && req.body.action === 'Add') {
     const person = new Person(req.body.fullname)
     if (('idontknowbirthday' in req.body && req.body.idontknowbirthday === 'true') || req.body.day === '') {
-      // don't add birthday information
+      person.set('month', null)
+      person.set('day', null)
     } else {
       person.set('month', parseInt(req.body.month, 10))
       person.set('day', parseInt(req.body.day, 10))
     }
-    person.set('source', 'direct')
     person.set('address', req.body.address)
     person.set('country', req.body.country)
+
+    const nameSplit = req.body.fullname.split(' ')
+    if (nameSplit.length > 0) person.set('firstname', nameSplit[0])
+    if (nameSplit.length > 1) person.set('lastname', nameSplit[1])
+    person.set('age', req.body.age)
     person.save()
     return res.redirect(`/person/${person.id}`)
   }
@@ -45,6 +50,7 @@ exports.update = (req, res) => {
     if (req.body.action === 'Save notes') {
       if (!('notes' in req.body)) req.body.notes = ''
       person.set('notes', req.body.notes)
+      anchor = '#notes'
     }
 
     //  If we have been sent new details from the add or edit page
