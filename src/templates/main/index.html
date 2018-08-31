@@ -2,30 +2,28 @@
 <html lang="en">
 
 <head>
-  <title>main</title>
+  <title>Correspondence tracker</title>
   {{> head}}
 </head>
 
 <body>
 
   {{> nav}}
-
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
-          Address Book
+        <h1 class="title is-1">
+          Correspondence tracker
         </h1>
+        <h2 class="subtitle is-3">What did I send to who and what should I be sending next?</h2>
       </div>
     </div>
-    {{> a2z-hero}}
   </section>
-
-  {{#if hasFacebookFeed}} {{else}}
+  {{> a2z-hero}} {{#if hasFacebookFeed}} {{else}}
   <section class="section">
     <div class="container notification is-primary">
       <h1 class="title">Facebook Feed</h1>
-      <h2 class="subtitle">You have no facebook birthday webcal feed set up, you should do that now</h2>
+      <h2 class="subtitle">There is no facebook birthday webcal feed set up, fill in the details below to do that.</h2>
     </div>
 
     <div class="container">
@@ -82,7 +80,7 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Upcoming Dates</h1>
-      <h2 class="subtitle">Are are other things that are upcoming in the next 60 days</h2>
+      <h2 class="subtitle">Here are other things that are upcoming in the next 60 days</h2>
       <ul>
         {{#each upcomingDates}}
         <li>
@@ -106,12 +104,16 @@
         {{/each}}
       </ul>
     </div>
+    <div class="container content">
+      <br /> You can see more
+      <a href="/upcomingDates">upcoming dates here</a>.
+    </div>
   </section>
   {{/if}} {{#if newPeople}}
   <section class="section">
     <div class="container">
       <h1 class="title">Newly discovered people</h1>
-      <h2 class="subtitle">Here are the people we have found in the last 7 days</h2>
+      <h2 class="subtitle">Here are the people added from Facebook in the last 7 days</h2>
       <ul>
         {{#each newPeople}}
         <li>
@@ -129,7 +131,7 @@
     <div class="container">
       <h1 class="title">Newly discovered people</h1>
       <div class="notification is-info">
-        We have found lots of new people, too many to display here. Go to the
+        There are too many new people to display here. Go to the
         <a href="/discovered">newly discovered</a> page to see them all.
       </div>
     </div>
@@ -138,14 +140,14 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Missing birthdays</h1>
-      <h2 class="subtitle">Here's a handful of people you don't have birthday's for, perhaps you can go ask them.</h2>
+      <h2 class="subtitle">Here's a handful of people with no birthdays set, time to go ask them.</h2>
       <ul>
         {{#each missingBirthdays}} {{>person @this}} {{/each}}
       </ul>
     </div>
     {{#if showMoreMissingBirthdays}}
     <div class="container content">
-      <br /> You can see more
+      <br /> See more
       <a href="/people/missing-birthdays">missing birthdays here</a>.
     </div>
     {{/if}}
@@ -154,14 +156,14 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Missing addresses</h1>
-      <h2 class="subtitle">Here's a handful of people you don't have an address for, perhaps you can go ask them.</h2>
+      <h2 class="subtitle">Here's a handful of people with no addresses set, perhaps go ask them.</h2>
       <ul>
         {{#each missingAddresses}} {{>person @this}} {{/each}}
       </ul>
     </div>
     {{#if showMoreMissingAddresses}}
     <div class="container content">
-      <br /> You can see more
+      <br /> See more
       <a href="/people/missing-addresses">missing addresses here</a>.
     </div>
     {{/if}}

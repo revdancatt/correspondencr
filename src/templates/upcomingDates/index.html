@@ -10,23 +10,22 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           Upcoming other dates
         </h1>
-        <h2 class="subtitle">
-          Here are some upcoming dates to keep an eye on
+        <h2 class="subtitle is-3">
+          Here are some upcoming dates in the next 4 months to keep an eye on
         </h2>
       </div>
     </div>
-    {{> a2z-hero}}
   </section>
-
-  {{#if upcomingDates}}
+  {{> a2z-hero}}
   <section class="section">
     <div class="container">
+      {{#if upcomingDates}}
       <ul>
         {{#each upcomingDates}}
         <li>
@@ -49,9 +48,16 @@
         </li>
         {{/each}}
       </ul>
+      {{else}}
+      <div class="columns">
+        <div class="column notification has-text-weight-bold">
+          There are no upcoming events, time to relax or plan!
+        </div>
+      </div>
+      {{/if}}
     </div>
   </section>
-  {{/if}} {{>footer}}
+  {{>footer}}
 </body>
 
 </html>

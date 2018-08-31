@@ -12,12 +12,18 @@ exports.byFirstLetter = (req, res) => {
 }
 
 exports.missingBirthdays = (req, res) => {
-  req.templateValues.people = new People().getMissingBirthdays()
+  req.templateValues.people = new People().getMissingBirthdays().sort(function (a, b) {
+    if (new Date(a.nextBirthday).getTime() > new Date(b.nextBirthday).getTime()) return 1
+    return -1
+  })
   return res.render('people/missingBirthdays', req.templateValues)
 }
 
 exports.missingAddresses = (req, res) => {
-  req.templateValues.people = new People().getMissingAddresses()
+  req.templateValues.people = new People().getMissingAddresses().sort(function (a, b) {
+    if (new Date(a.nextBirthday).getTime() > new Date(b.nextBirthday).getTime()) return 1
+    return -1
+  })
   return res.render('people/missingAddresses', req.templateValues)
 }
 

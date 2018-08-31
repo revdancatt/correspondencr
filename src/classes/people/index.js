@@ -32,8 +32,12 @@ class People {
   }
 
   getDiscoveredExternally (days = 7) {
+    const msDiff = 1000 * 60 * 60 * 24 * days
+    const pastDate = new Date(new Date().getTime() - msDiff)
     return this.people.filter((person) => {
       return person.source === 'facebook'
+    }).filter((person) => {
+      return new Date(person.created) > pastDate
     }).sort(function (a, b) {
       if (new Date(a.created).getTime() < new Date(b.created).getTime()) return 1
       return -1

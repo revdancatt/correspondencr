@@ -19,14 +19,19 @@ exports.add = (req, res) => {
   if ('action' in req.body && req.body.action === 'Add') {
     const person = new Person(req.body.fullname)
     if (('idontknowbirthday' in req.body && req.body.idontknowbirthday === 'true') || req.body.day === '') {
-      // don't add birthday information
+      person.set('month', null)
+      person.set('day', null)
     } else {
       person.set('month', parseInt(req.body.month, 10))
       person.set('day', parseInt(req.body.day, 10))
     }
-    person.set('source', 'direct')
     person.set('address', req.body.address)
     person.set('country', req.body.country)
+
+    const nameSplit = req.body.fullname.split(' ')
+    if (nameSplit.length > 0) person.set('firstname', nameSplit[0])
+    if (nameSplit.length > 1) person.set('lastname', nameSplit[1])
+    person.set('age', req.body.age)
     person.save()
     return res.redirect(`/person/${person.id}`)
   }
@@ -38,11 +43,14 @@ exports.update = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
   if (person.id === undefined) return res.redirect('/')
 
+  let anchor = ''
+
   if ('action' in req.body) {
     //  Find out if we are saving notes
     if (req.body.action === 'Save notes') {
       if (!('notes' in req.body)) req.body.notes = ''
       person.set('notes', req.body.notes)
+      anchor = '#notes'
     }
 
     //  If we have been sent new details from the add or edit page
@@ -67,10 +75,7 @@ exports.update = (req, res) => {
     //  If we are adding a new contact information thingy
     if (req.body.action === 'Add contacted' && 'newcontact' in req.body && req.body.newcontact !== '') {
       person.setContacted(req.body.newcontact)
-    }
-
-    if (req.body.action === 'Add date') {
-      person.addDate(req.body.day, req.body.month, req.body.details)
+      anchor = '#when-stuff-was-sent'
     }
 
     //  If we have been told to save the check values
@@ -85,21 +90,29 @@ exports.update = (req, res) => {
         if (`checkbox2_${id}` in req.body) checkboxes.checkbox2 = true
         person.setCheckboxes(checkboxes, id)
       })
-    }
-
-    if (req.body.action === 'deleteOtherDate') {
-      person.deleteOtherDate(req.body.id)
+      anchor = '#when-stuff-was-sent'
     }
 
     //  If we have been told to delete the contact
     const actionSplit = req.body.action.split('_')
     if (actionSplit.length === 2 && actionSplit[0] === 'remove') {
       person.deleteContacted(actionSplit[1])
+      anchor = '#when-stuff-was-sent'
+    }
+
+    if (req.body.action === 'Add date') {
+      person.addDate(req.body.day, req.body.month, req.body.details)
+      anchor = '#other-dates'
+    }
+
+    if (req.body.action === 'deleteOtherDate') {
+      person.deleteOtherDate(req.body.dateId)
+      anchor = '#other-dates'
     }
   }
   person.set('updated', new Date())
   person.save()
-  return res.redirect(`/person/${req.params.id}`)
+  return res.redirect(`/person/${req.params.id}${anchor}`)
 }
 
 exports.hide = (req, res) => {

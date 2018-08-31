@@ -10,31 +10,35 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           Upcoming birthdays
         </h1>
-        <h2 class="subtitle">
+        <h2 class="subtitle is-3">
           Here are some upcoming birthdays
         </h2>
       </div>
     </div>
-    {{> a2z-hero}}
   </section>
-
-  {{#if birthdayPeople}}
+  {{> a2z-hero}}
   <section class="section">
     <div class="container">
+      {{#if birthdayPeople}}
       <ul>
-        {{#each birthdayPeople}}
-          {{>person @this}}
-        {{/each}}
+        {{#each birthdayPeople}} {{>person @this}} {{/each}}
       </ul>
+      {{else}}
+      <div class="columns">
+        <div class="column notification has-text-weight-bold">
+          There are no upcoming birthdays.
+        </div>
+      </div>
+      {{/if}}
     </div>
   </section>
-  {{/if}} {{>footer}}
+  {{>footer}}
 </body>
 
 </html>

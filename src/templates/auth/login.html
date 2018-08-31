@@ -10,24 +10,25 @@
 
   {{> nav}}
 
-  <section class="hero">
+  <section class="hero is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-1">
           Login
         </h1>
+        <h2 class="subtitle is-3">Enter your username and password to begin</h2>
       </div>
     </div>
   </section>
 
   {{#if error}}
-    <section class="section">
-      <div class="container">
-        <div class="notification is-warning">
-          {{error}}
-        </div>
+  <section class="section">
+    <div class="container">
+      <div class="notification is-warning">
+        {{error}}
       </div>
-    </section>
+    </div>
+  </section>
   {{/if}}
 
   <section class="section">
@@ -40,27 +41,29 @@
             <label class="label">Username</label>
           </div>
           <div class="column control">
-              <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username" value="{{username}}" {{#ifEqual focus 'username'}}autofocus{{/ifEqual}}>
-            </div>
+            <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username" value="{{username}}"
+              {{#ifEqual focus 'username'}}autofocus{{/ifEqual}}>
+          </div>
         </div>
-  
+
         <div class="columns field">
           <div class="column is-one-quarter">
             <label class="label">Password</label>
           </div>
           <div class="column control">
-            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password" {{#ifEqual focus 'password'}}autofocus{{/ifEqual}}>
+            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password" {{#ifEqual
+              focus 'password'}}autofocus{{/ifEqual}}>
           </div>
         </div>
 
-        
+
         <div class="columns field">
           <div class="column is-one-quarter">
             &nbsp;
           </div>
           <div class="column control">
             <input class="button is-primary" type="submit" name="action" value="Login">
-          </div>      
+          </div>
         </div>
 
       </form>
