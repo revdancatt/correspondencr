@@ -83,6 +83,16 @@
 
         <div class="columns field">
           <div class="column is-one-quarter">
+            <label class="label">Handshake</label>
+          </div>
+          <div class="column control">
+            <input class="input {{#ifEqual errorPlace 'handshake'}}is-warning{{/ifEqual}}" type="text" name="handshake" value="{{handshake}}"
+              required placeholder="Enter the handshake value that can be found in the config.json file">
+          </div>
+        </div>
+
+        <div class="columns field">
+          <div class="column is-one-quarter">
             &nbsp;
           </div>
           <div class="column control">
