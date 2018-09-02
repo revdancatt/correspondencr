@@ -16,7 +16,8 @@ const rootDir = __dirname
 
 //  Before we do anything else we need to check that the checking checks
 console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
-console.log('Making sure we are up to date, please wait...')
+console.log('Making sure we are up to date')
+console.log('Please wait, this may take a while.')
 const spawnSync = require('child_process').spawnSync
 const yarn = spawnSync('yarn', ['install'])
 console.log(yarn.stdout.toString())
@@ -43,30 +44,30 @@ console.log(`server.js exists in this directory: ${rootDir}`.help)
  * the port, host, environment and if we want to skip any build steps
  */
 const argOptionDefinitions = [{
-  name: 'port',
-  alias: 'p',
-  type: Number
-},
-{
-  name: 'host',
-  alias: 'h',
-  type: String
-},
-{
-  name: 'env',
-  alias: 'e',
-  type: String
-},
-{
-  name: 'skipBuild',
-  alias: 's',
-  type: Boolean,
-  defaultOption: false
-},
-{
-  name: 'skipOpen',
-  type: Boolean
-}
+    name: 'port',
+    alias: 'p',
+    type: Number
+  },
+  {
+    name: 'host',
+    alias: 'h',
+    type: String
+  },
+  {
+    name: 'env',
+    alias: 'e',
+    type: String
+  },
+  {
+    name: 'skipBuild',
+    alias: 's',
+    type: Boolean,
+    defaultOption: false
+  },
+  {
+    name: 'skipOpen',
+    type: Boolean
+  }
 ]
 const commandLineArgs = require('command-line-args')
 const argOptions = commandLineArgs(argOptionDefinitions)
@@ -390,7 +391,7 @@ if (process.env.NODE_ENV === 'development') {
   console.log(
     `
 >> Welcome to the Dashboard, please visit the site however you have your host and ports setup to see it from the outside world`
-      .info
+    .info
   )
   if (config.get('auth0') === null) {
     console.log(

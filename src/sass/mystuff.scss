@@ -33,3 +33,13 @@
 .narrow-input {
   max-width: 200px;
 }
+
+.container blockquote:not(:last-child),
+.container dl:not(:last-child),
+.container ol:not(:last-child),
+.container p:not(:last-child),
+.container pre:not(:last-child),
+.container table:not(:last-child),
+.container ul:not(:last-child) {
+  margin-bottom: 1em;
+}
