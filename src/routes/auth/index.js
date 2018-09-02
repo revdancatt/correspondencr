@@ -1,29 +1,40 @@
 const crypto = require('crypto')
+const url = require('url')
 
 exports.index = (req, res) => {
-
   let userExists = true
   if (req.config.get('username') === null || req.config.get('username') === '') userExists = false
   if (req.config.get('password') === null || req.config.get('password') === '') userExists = false
 
   req.templateValues.focus = 'username'
 
+  const urlParts = url.parse(req.url, true)
+
+  req.templateValues.handshake = urlParts.query.handshake
+
   //  Check to see if we've been passed the instruction to create a new user, if we have then
   //  and the user doesn't exist already then we create the account
   if ('action' in req.body && req.body.action === 'Create user' && userExists === false) {
     //  Check to see if we have a username
     if (!('username' in req.body) || req.body.username === '') {
-      req.templateValues.error = "You must supply a username"
-      req.templateValues.errorPlace = "username"
+      req.templateValues.error = 'You must supply a username'
+      req.templateValues.errorPlace = 'username'
       return res.render('auth/createUser', req.templateValues)
     }
     req.templateValues.username = req.body.username
 
     //  Check to see if we have both passwords entered and they match.
     if (!('password1' in req.body) || req.body.password1 === '' || !('password2' in req.body) || req.body.password2 === '' || req.body.password1 !== req.body.password2) {
-      req.templateValues.error = "You must supply passwords that match"
-      req.templateValues.errorPlace = "password"
+      req.templateValues.error = 'You must supply passwords that match'
+      req.templateValues.errorPlace = 'password'
       req.templateValues.focus = 'password'
+      return res.render('auth/createUser', req.templateValues)
+    }
+
+    if (!('handshake' in req.body) || req.body.handshake !== req.config.get('handshake')) {
+      req.templateValues.error = 'You must supply a handshake that matches the one in config.json'
+      req.templateValues.errorPlace = 'handshake'
+      req.templateValues.focus = 'handshake'
       return res.render('auth/createUser', req.templateValues)
     }
 
@@ -33,8 +44,8 @@ exports.index = (req, res) => {
     req.config.set('username', req.body.username)
     const saltedPassword = `${req.body.password1}${process.env.SALT}`
     const hashedPassword = crypto.createHmac('sha256', 'fnord')
-    .update(saltedPassword)
-    .digest('hex')
+      .update(saltedPassword)
+      .digest('hex')
     req.config.set('password', hashedPassword)
     return res.redirect('/login')
   }
@@ -42,16 +53,16 @@ exports.index = (req, res) => {
   if ('action' in req.body && req.body.action === 'Login') {
     //  Check to see if we have a username
     if (!('username' in req.body) || req.body.username === '') {
-      req.templateValues.error = "You must supply a username"
-      req.templateValues.errorPlace = "username"
+      req.templateValues.error = 'You must supply a username'
+      req.templateValues.errorPlace = 'username'
       return res.render('auth/login', req.templateValues)
     }
     req.templateValues.username = req.body.username
 
     //  Check to see if we have both passwords entered and they match.
     if (!('password' in req.body) || req.body.password === '') {
-      req.templateValues.error = "You must supply a password"
-      req.templateValues.errorPlace = "password"
+      req.templateValues.error = 'You must supply a password'
+      req.templateValues.errorPlace = 'password'
       req.templateValues.focus = 'password'
       return res.render('auth/login', req.templateValues)
     }
@@ -59,13 +70,13 @@ exports.index = (req, res) => {
     //  Hash the password
     const saltedPassword = `${req.body.password}${process.env.SALT}`
     const hashedPassword = crypto.createHmac('sha256', 'fnord')
-    .update(saltedPassword)
-    .digest('hex')
+      .update(saltedPassword)
+      .digest('hex')
 
     //  Check that the username and password match
     if (req.body.username !== req.config.get('username') || hashedPassword !== req.config.get('password')) {
-      req.templateValues.error = "Username or password did not match"
-      req.templateValues.errorPlace = "username"
+      req.templateValues.error = 'Username or password did not match'
+      req.templateValues.errorPlace = 'username'
       return res.render('auth/login', req.templateValues)
     }
 

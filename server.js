@@ -16,7 +16,8 @@ const rootDir = __dirname
 
 //  Before we do anything else we need to check that the checking checks
 console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
-console.log('Making sure we are up to date, please wait...')
+console.log('Making sure we are up to date')
+console.log('Please wait, this may take a while.')
 const spawnSync = require('child_process').spawnSync
 const yarn = spawnSync('yarn', ['install'])
 console.log(yarn.stdout.toString())
@@ -43,30 +44,30 @@ console.log(`server.js exists in this directory: ${rootDir}`.help)
  * the port, host, environment and if we want to skip any build steps
  */
 const argOptionDefinitions = [{
-  name: 'port',
-  alias: 'p',
-  type: Number
-},
-{
-  name: 'host',
-  alias: 'h',
-  type: String
-},
-{
-  name: 'env',
-  alias: 'e',
-  type: String
-},
-{
-  name: 'skipBuild',
-  alias: 's',
-  type: Boolean,
-  defaultOption: false
-},
-{
-  name: 'skipOpen',
-  type: Boolean
-}
+    name: 'port',
+    alias: 'p',
+    type: Number
+  },
+  {
+    name: 'host',
+    alias: 'h',
+    type: String
+  },
+  {
+    name: 'env',
+    alias: 'e',
+    type: String
+  },
+  {
+    name: 'skipBuild',
+    alias: 's',
+    type: Boolean,
+    defaultOption: false
+  },
+  {
+    name: 'skipOpen',
+    type: Boolean
+  }
 ]
 const commandLineArgs = require('command-line-args')
 const argOptions = commandLineArgs(argOptionDefinitions)
@@ -85,8 +86,6 @@ NODE_ENV=${nodeEnv}
 `
   fs.writeFileSync(path.join(rootDir, '.env'), env, 'utf-8')
 }
-
-
 
 //  Here we are managing if we are going to skip the build step
 //  we'll want to do that if we are forcing a restart of the app.
@@ -360,8 +359,6 @@ if (fs.existsSync(pidFile)) {
   }
 }
 
-fs.writeFileSync(pidFile, process.pid, 'utf-8')
-
 let skipOpen = false
 if ('skipOpen' in argOptions && argOptions.skipOpen === true) {
   skipOpen = true
@@ -377,38 +374,69 @@ if (process.env.NODE_ENV === 'development') {
     const opn = require('opn')
     // If there is no auth0 entry in the config file then we need
     // to pass over the handshake value
-    if (!('auth0' in config)) {
-      opn(
-        `http://${process.env.HOST}:${process.env.PORT}?handshake=${config.handshake}`
-      )
-    } else {
-      opn(`http://${process.env.HOST}:${process.env.PORT}`)
-    }
+    opn(
+      `http://${process.env.HOST}:${process.env.PORT}/login?handshake=${config.handshake}`
+    )
   }
   console.log(`>> Connect to: ${process.env.HOST}:${process.env.PORT}`.alert)
 } else {
   console.log(
     `
->> Welcome to the Dashboard, please visit the site however you have your host and ports setup to see it from the outside world`
-      .info
+>> Welcome to the correspondence tracker, please visit the site however you have your host and ports setup to see it from the outside world`
+    .info
   )
-  if (config.get('auth0') === null) {
-    console.log(
-      `>> You will be asked for a 'handshake' code while setting up the next step, please use the following value
-      `.info
-    )
-    console.log(config.get('handshake').bold.warn)
-    console.log('')
-    console.log(
-      '>> You can also find the value in the '.info +
-      'config.json'.bold.data +
-      ' file'.info
-    )
-    console.log('')
-  }
+  console.log(
+    `>> You will be asked for a 'handshake' code while setting up the next step, please use the following value
+    `.info
+  )
+  console.log(config.get('handshake').bold.warn)
+  console.log('')
+  console.log(
+    '>> You can also find the value in the '.info +
+    'config.json'.bold.data +
+    ' file'.info
+  )
+  console.log('')
 }
 
+process.on('uncaughtException', err => {
+  if (err.errno === 'EADDRINUSE') {
+    console.log('')
+    console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+    console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+    console.log('')
+    console.log('                 DON\'T PANIC'.bold)
+    console.log('')
+    console.log('The server did not shut down properly last time'.warn)
+    console.log('  please try starting it up again, everything'.warn)
+    console.log('      sould be cleaned up now, thank you.'.warn)
+    console.log('')
+    console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+    console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+    console.log('')
+  }
+  process.exit()
+})
+
 http.createServer(app).listen(process.env.PORT)
+
+console.log('')
+console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+console.log('')
+console.log('                 SERVER STARTED'.bold)
+console.log('')
+console.log('           Everything is up and running'.info)
+console.log('')
+console.log(`    The process id for the server is ${process.pid}, use`.info)
+console.log(`                 'kill -9 ${process.pid}'`.bold)
+console.log('         should you wish to force stop it'.info)
+console.log('')
+console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'.rainbow)
+console.log('')
+
+fs.writeFileSync(pidFile, process.pid, 'utf-8')
 
 const facebookFetcher = require('./app/modules/facebook-fetcher')
 facebookFetcher.startCheckingFacebook()

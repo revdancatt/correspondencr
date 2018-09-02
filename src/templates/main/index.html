@@ -19,41 +19,7 @@
       </div>
     </div>
   </section>
-  {{> a2z-hero}} {{#if hasFacebookFeed}} {{else}}
-  <section class="section">
-    <div class="container notification is-primary">
-      <h1 class="title">Facebook Feed</h1>
-      <h2 class="subtitle">There is no facebook birthday webcal feed set up, fill in the details below to do that.</h2>
-    </div>
-
-    <div class="container">
-      <form method="POST">
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Webcal Feed</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <p class="control">
-                <input class="input" type="text" name="facebookFeed">
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="control field is-horizontal">
-          <div class="field-label">
-            &nbsp;
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <button class="button is-link" name="action" value="saveWebcal">Submit</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-  {{/if}} {{#if birthdaysToday}}
+  {{> a2z-hero}} {{#if hasFacebookFeed}} {{else}} {{#if hideFacebook}}{{else}}{{> facebook}} {{/if}}{{/if}} {{#if birthdaysToday}}
   <section class="section">
     <div class="container">
       <h1 class="title">Birthdays today</h1>

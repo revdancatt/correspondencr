@@ -1,0 +1,75 @@
+<section class="section">
+  <div class="container notification">
+    <h1 class="title">Facebook Feed</h1>
+    <h2 class="subtitle">There is no facebook birthday webcal feed set up, fill in the form below to do that.</h2>
+  </div>
+
+  <div class="container">
+    <form method="POST" action="/">
+
+      <div class="field">
+        <label class="label">Webcal Feed</label>
+        <div class="control">
+          <input class="input" type="text" name="facebookFeed" placeholder="Looks like webcal://www.facebook.com/ical/b.php?uid=000000000000000&key=AAAAAAAAAAAAAAAA">
+        </div>
+      </div>
+
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            &nbsp;
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item control">
+            <button class="button is-primary" name="action" value="saveWebcal">Submit</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-light" name="action" value="hideWebcal">Skip webcal import</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p>
+          Importing the webcal link can always be done at a later date by clicking the
+          <a href="/facebook">Facebook feed</a> link in the footer
+        </p>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="container">
+    <hr />
+    <h1 class="title">How to find the Facebook Webcal feed</h1>
+    <p>
+      To grab all the birthdays from Facebook you'll need to get to the webcal feed, to do that you first need to click on the
+      <a href="https://www.facebook.com/events/">Events</a> link over on the left hand side of the page.
+    </p>
+    <figure class="image">
+      <img src="/images/events.png">
+    </figure>
+    <p>
+      &nbsp;
+    </p>
+    <p>
+      Then scroll down, down, down the right hand side until you see the whole
+      <em>"You can add your events to Microsoft Outlook, Google Calendar or Apple Calendar. Once you add them, they'll stay updated"</em>
+      panel. Right click on the
+      <span class="has-text-weight-semibold">"Birthdays"</span> link and select
+      <span class="has-text-weight-semibold">"Copy Link Address"</span>, see the image below for help.
+    </p>
+    <p>
+      The link will look something like
+      <code>webcal://www.facebook.com/ical/b.php?uid=000000000000000&key=AAAAAAAAAAAAAAAA</code>
+    </p>
+    <p>
+      Copy that and paste it into the form above.
+    </p>
+    <figure class="image">
+      <img src="/images/webcallink.png">
+    </figure>
+
+  </div>
+</section>

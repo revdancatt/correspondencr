@@ -7,6 +7,7 @@ const People = require('../classes/people')
 /* eslint-disable import/no-unresolved */
 const auth = require('./auth')
 const discovered = require('./discovered')
+const facebook = require('./facebook')
 const main = require('./main')
 const people = require('./people')
 const person = require('./person')
@@ -32,12 +33,13 @@ router.use(function (req, res, next) {
 
   //  If there is no username/password in conf then we need to redirect to
   //  the login page
-  if ((configObj.get('username') === null || configObj.get('password') === null || configObj.get('password') === '') && req.url !== '/login') {
+  const urlFragment = req.url.split('?')[0]
+  if ((configObj.get('username') === null || configObj.get('password') === null || configObj.get('password') === '') && urlFragment !== '/login') {
     return res.redirect('/login')
   }
 
   //  If there's no user session then we redirect to the login page
-  if ((!('loggedin' in req.session) || req.session.loggedin === false) && req.url !== '/login') {
+  if ((!('loggedin' in req.session) || req.session.loggedin === false) && urlFragment !== '/login') {
     return res.redirect('/login')
   }
 
@@ -60,6 +62,7 @@ router.get('/login', auth.index)
 router.post('/login', auth.index)
 router.get('/logout', auth.logout)
 router.get('/discovered', discovered.index)
+router.get('/facebook', facebook.index)
 router.get('/upcoming', upcoming.index)
 router.get('/upcomingDates', upcomingDates.index)
 router.get('/everyone', people.index)

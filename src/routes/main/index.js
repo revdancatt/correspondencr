@@ -7,6 +7,7 @@ exports.index = (req, res) => {
 
   //  Check to see if we have a facebook feed setup
   req.templateValues.hasFacebookFeed = 'facebookFeed' in req.config
+  req.templateValues.hideFacebook = 'hideFacebook' in req.config
   const allPeople = new People()
 
   //  Grab all the latest people we have found in the last week
@@ -55,7 +56,7 @@ exports.index = (req, res) => {
   return res.render('main/index', req.templateValues)
 }
 
-exports.posted = (req, res) => {
+exports.posted = async (req, res) => {
   const config = new Config()
 
   //  If we have an action, then try to do it
@@ -63,7 +64,11 @@ exports.posted = (req, res) => {
     //  If that action is set a webCal link, add it to the config
     if (req.body.action === 'saveWebcal' && 'facebookFeed' in req.body && req.body.facebookFeed !== '') {
       config.set('facebookFeed', req.body.facebookFeed)
-      facebookFetcher.checkFacebook()
+      await facebookFetcher.checkFacebook()
+    }
+
+    if (req.body.action === 'hideWebcal') {
+      config.set('hideFacebook', true)
     }
   }
   res.redirect('/')

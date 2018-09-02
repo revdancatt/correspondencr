@@ -25,7 +25,7 @@
 
   <section class="section">
     <div class="container">
-      <div class="notification is-info">
+      <div class="notification">
         <p>
           Hey there, looks like you're visiting the app for the first time. You will need to create a username and password.
         </p>
@@ -78,6 +78,16 @@
           </div>
           <div class="column control">
             <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password2" required>
+          </div>
+        </div>
+
+        <div class="columns field">
+          <div class="column is-one-quarter">
+            <label class="label">Handshake</label>
+          </div>
+          <div class="column control">
+            <input class="input {{#ifEqual errorPlace 'handshake'}}is-warning{{/ifEqual}}" type="text" name="handshake" value="{{handshake}}"
+              required placeholder="Enter the handshake value that can be found in the config.json file">
           </div>
         </div>
 
