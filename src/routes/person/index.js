@@ -48,7 +48,7 @@ exports.add = (req, res) => {
 
     const nameSplit = req.body.fullname.split(' ')
     if (nameSplit.length > 0) person.set('firstname', nameSplit[0])
-    if (nameSplit.length > 1) person.set('lastname', nameSplit[1])
+    if (nameSplit.length > 1) person.set('lastname', nameSplit.pop())
     person.set('age', req.body.age)
     person.save()
     return res.redirect(`/person/${person.id}`)
