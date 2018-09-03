@@ -298,7 +298,8 @@
         <a name="connections" class="has-text-black" style="cursor: default">Connections</a>
       </h2>
       {{#if person.connections}}
-      <h3 class="subtitle">These are the other people this person is connected to</h3>
+      <h3 class="subtitle">These are the other people <span class="has-text-weight-bold">{{person.fullname}}</span> is
+        connected to</h3>
       <p>
         {{#each person.connections}}
         <form method="POST" action="/person/{{../person.id}}">
@@ -312,7 +313,7 @@
                   </div>
                 </div>
                 <input type="hidden" name="relationship" value="{{relationship}}" />
-                <input type="hidden" name="connector" value="{{id}}" />
+                <input type="hidden" name="connector" value="{{connector}}" />
               </div>
             </div>
             <div class="level-right">
@@ -329,14 +330,16 @@
 
       {{#ifEqual config.startConnection person.id}}
       <div class="notification is-info">
-        This person is set to be connected to someone else. I should <a href="/everyone">go and find</a> the person I
+        <span class="has-text-weight-bold">{{../person.fullname}}</span> is set to be connected to someone else. I
+        should <a href="/everyone">go and find</a>
+        the person I
         need to connect them to.
       </div>
       <div class="field">
         <div class="control has-text-centered">
           <form method="POST" action="/person/{{../person.id}}">
             <button class="button is-warning" type="submit" name="action" value="stopConnecting">
-              Stop trying to connect this person
+              Stop trying to connect {{../person.firstname}}
             </button>
           </form>
         </div>
@@ -372,12 +375,13 @@
         </div>
       </form>
       {{else}}
-      <h3 class="subtitle">Is this person connected to someone else, if so make that connection here.</h3>
+      <h3 class="subtitle">Is {{../../person.fullname}} connected to someone else, if so make that connection here.</h3>
       <div class="field">
         <div class="control has-text-centered">
           <form method="POST" action="/person/{{../../person.id}}">
             <button class="button is-primary" type="submit" name="action" value="startConnecting">
-              Start connecting this person to someone else
+              Start connecting <span class="has-text-weight-bold">&nbsp;{{../../person.firstname}}&nbsp;</span> to
+              someone else
             </button>
           </form>
         </div>

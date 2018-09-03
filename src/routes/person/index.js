@@ -62,6 +62,7 @@ exports.update = (req, res) => {
   if (person.id === undefined) return res.redirect('/')
 
   let anchor = ''
+  let targetId = req.params.id
 
   if ('action' in req.body) {
     //  Find out if we are saving notes
@@ -144,6 +145,7 @@ exports.update = (req, res) => {
         const connector = new Person(req.config.startConnection)
         person.setConnection('partner', req.config.startConnection)
         connector.setConnection('partner', person.id)
+        targetId = req.config.startConnection
         req.config.delete('startConnection')
       }
       anchor = '#connections'
@@ -154,6 +156,7 @@ exports.update = (req, res) => {
         const connector = new Person(req.config.startConnection)
         person.setConnection('child', req.config.startConnection)
         connector.setConnection('parent', person.id)
+        targetId = req.config.startConnection
         req.config.delete('startConnection')
       }
       anchor = '#connections'
@@ -164,6 +167,7 @@ exports.update = (req, res) => {
         const connector = new Person(req.config.startConnection)
         person.setConnection('parent', req.config.startConnection)
         connector.setConnection('child', person.id)
+        targetId = req.config.startConnection
         req.config.delete('startConnection')
       }
       anchor = '#connections'
@@ -174,6 +178,7 @@ exports.update = (req, res) => {
         const connector = new Person(req.config.startConnection)
         person.setConnection('sibling', req.config.startConnection)
         connector.setConnection('sibling', person.id)
+        targetId = req.config.startConnection
         req.config.delete('startConnection')
       }
       anchor = '#connections'
@@ -184,7 +189,30 @@ exports.update = (req, res) => {
         const connector = new Person(req.config.startConnection)
         person.setConnection('other', req.config.startConnection)
         connector.setConnection('other', person.id)
+        targetId = req.config.startConnection
         req.config.delete('startConnection')
+      }
+      anchor = '#connections'
+    }
+
+    //  We want to delete a connection
+    if (req.body.action === 'deleteRelationship') {
+      // Grab the id of the other person
+      const connectorId = parseInt(req.body.connector, 10)
+      //  Delete the relationship from this end
+      person.deleteConnection(req.body.relationship, connectorId)
+      //  Grab the other person
+      const connector = new Person(connectorId)
+      //  If they exist remove the relationship from them too
+      if (connector !== null) {
+        //  If it's a symetrical relationship delete it from the other person too
+        if (['sibling', 'other', 'partner'].includes(req.body.relationship)) {
+          connector.deleteConnection(req.body.relationship, person.id)
+        } else {
+          //  Otherwise delete the opposite relationship from the other person
+          if (req.body.relationship === 'parent') connector.deleteConnection('child', person.id)
+          if (req.body.relationship === 'child') connector.deleteConnection('parent', person.id)
+        }
       }
       anchor = '#connections'
     }
@@ -192,7 +220,7 @@ exports.update = (req, res) => {
 
   person.set('updated', new Date())
   person.save()
-  return res.redirect(`/person/${req.params.id}${anchor}`)
+  return res.redirect(`/person/${targetId}${anchor}`)
 }
 
 exports.hide = (req, res) => {

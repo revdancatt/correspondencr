@@ -192,14 +192,6 @@ class Person {
     }
   }
 
-  deleteOtherDate (id) {
-    if ('otherDates' in this) {
-      this.otherDates = this.otherDates.filter((date) => {
-        return date.id !== parseInt(id, 10)
-      })
-    }
-  }
-
   addDate (day, month, details) {
     if (isNaN(day) || day === '') return
     if (isNaN(month) || month === '') return
@@ -216,6 +208,14 @@ class Person {
     this.save()
   }
 
+  deleteOtherDate (id) {
+    if ('otherDates' in this) {
+      this.otherDates = this.otherDates.filter((date) => {
+        return date.id !== parseInt(id, 10)
+      })
+    }
+  }
+
   setConnection (relationship, connector) {
     if (!('connections' in this)) {
       this.connections = []
@@ -225,6 +225,13 @@ class Person {
       connector
     }
     this.connections.push(newConnection)
+    this.save()
+  }
+
+  deleteConnection (relationship, connector) {
+    this.connections = this.connections.filter((connection) => {
+      return !(connection.relationship === relationship && connection.connector === connector)
+    })
     this.save()
   }
 
