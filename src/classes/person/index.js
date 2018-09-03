@@ -59,13 +59,7 @@ class Person {
       let lastname = null
       const nameSplit = fullname.split(' ')
       if (nameSplit.length > 0) firstname = nameSplit[0]
-      //  NOTE: Here we are taking the 2nd name as the last name. We could in
-      //  theory take the last name (which would seem to make sense) only
-      //  in my case, most people with more than two names have kept their
-      //  maiden name and then tagged their married name onto the end. But in
-      //  most cases I still know them by the maiden name, so as weird as it
-      //  seems I can find people better with first name, second name.
-      if (nameSplit.length > 1) lastname = nameSplit[1]
+      if (nameSplit.length > 1) lastname = nameSplit.pop()
       person = {
         id,
         fullname,
