@@ -15,6 +15,7 @@ exports.index = (req, res) => {
       const connectedPerson = new Person(connection.connector)
       if (connectedPerson === null) return null
       connection.fullname = connectedPerson.fullname
+      connection.nextBirthday = connectedPerson.nextBirthday
       return connection
     }).filter(Boolean)
   }

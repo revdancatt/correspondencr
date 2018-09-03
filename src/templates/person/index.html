@@ -309,7 +309,9 @@
                 <div>
                   <div class="is-size-5">
                     <span class="has-text-weight-bold">{{../person.fullname}}</span> is {{relationship}} to <a class="has-text-weight-bold"
-                      href="/person/{{connector}}">{{fullname}}</a>
+                      href="/person/{{connector}}">{{fullname}}</a> {{#if nextBirthday}}<small class="is-size-7">(birthday
+                      {{timeAgo
+                      nextBirthday}})</small>{{/if}}
                   </div>
                 </div>
                 <input type="hidden" name="relationship" value="{{relationship}}" />
