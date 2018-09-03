@@ -175,7 +175,7 @@
         {{/if}}
         <div class="field">
           <div class="control">
-            <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
+            <input class="input" type="text" name="newcontact" placeholder="Add details about how and why I contacted someone here">
           </div>
         </div>
 
@@ -298,7 +298,7 @@
         <a name="connections" class="has-text-black" style="cursor: default">Connections</a>
       </h2>
       {{#if person.connections}}
-      <h3 class="subtitle">These are the other people <span class="has-text-weight-bold">{{person.fullname}}</span> is
+      <h3 class="subtitle">These are people <span class="has-text-weight-bold">{{person.fullname}}</span> is
         connected to</h3>
       <p>
         {{#each person.connections}}
@@ -346,7 +346,7 @@
       </div>
       {{else}}
       {{#if ../connector}}
-      <h3 class="subtitle">Do you wish to connect <a class="has-text-weight-bold" href="/person/{{../../connector.id}}#connections">{{../../connector.fullname}}</a>
+      <h3 class="subtitle">Do I wish to connect <a class="has-text-weight-bold" href="/person/{{../../connector.id}}#connections">{{../../connector.fullname}}</a>
         to
         <span class="has-text-weight-bold">{{../../person.fullname}}?</span></h3>
       <div class="level">
@@ -373,9 +373,18 @@
         <div class="level">
           <h2 class="title level-item">...{{../../person.fullname}}</h2>
         </div>
+        <div class="notification has-text-centered">
+          <h1 class="heading is-size-5">NOTICE</h1>
+          <p>
+            "Parent/Child" here is used in a network diagram sense, and doesn't literally mean parent and child
+            although it can be that. It applies to "up/down" relationships including guardian, carer, ward, company,
+            organisation and so on. Sibling and partner act as "sideways" relationships, while other is everything
+            else.
+          </p>
+        </div>
       </form>
       {{else}}
-      <h3 class="subtitle">Is {{../../person.fullname}} connected to someone else, if so make that connection here.</h3>
+      <h3 class="subtitle">Is {{../../person.fullname}} connected to someone else? If so make that connection here.</h3>
       <div class="field">
         <div class="control has-text-centered">
           <form method="POST" action="/person/{{../../person.id}}">
