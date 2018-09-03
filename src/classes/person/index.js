@@ -213,6 +213,8 @@ class Person {
       this.otherDates = this.otherDates.filter((date) => {
         return date.id !== parseInt(id, 10)
       })
+      if (this.otherDates.length === 0) delete this.otherDates
+      this.save()
     }
   }
 
@@ -229,10 +231,14 @@ class Person {
   }
 
   deleteConnection (relationship, connector) {
-    this.connections = this.connections.filter((connection) => {
-      return !(connection.relationship === relationship && connection.connector === connector)
-    })
-    this.save()
+    if ('connections' in this) {
+      this.connections = this.connections.filter((connection) => {
+        return !(connection.relationship === relationship && connection.connector === connector)
+      })
+      //  Clear up the empty array
+      if (this.connections.length === 0) delete this.connections
+      this.save()
+    }
   }
 
   save () {

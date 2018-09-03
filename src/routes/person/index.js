@@ -257,8 +257,27 @@ exports.delete = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
   if (person.id === undefined) return res.redirect('/')
 
-  //  If we have been sent the hide action
+  //  If we have been sent the delete action
   if ('action' in req.body) {
+    //  First we need to delete all the connections
+    if ('connections' in person) {
+      person.connections.forEach((connection) => {
+        person.deleteConnection(connection.relationship, connection.connector)
+        //  Grab the other person
+        const connector = new Person(connection.connector)
+        //  If they exist remove the relationship from them too
+        if (connector !== null) {
+          //  If it's a symetrical relationship delete it from the other person too
+          if (['sibling', 'other', 'partner'].includes(connection.relationship)) {
+            connector.deleteConnection(connection.relationship, person.id)
+          } else {
+            //  Otherwise delete the opposite relationship from the other person
+            if (connection.relationship === 'parent') connector.deleteConnection('child', person.id)
+            if (connection.relationship === 'child') connector.deleteConnection('parent', person.id)
+          }
+        }
+      })
+    }
     person.delete()
     return res.redirect('/')
   }
