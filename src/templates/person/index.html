@@ -21,7 +21,7 @@
       </div>
     </div>
   </section>
-
+  {{> a2z-hero}}
   <section class="section">
     <div class="container">
 
@@ -72,10 +72,10 @@
     </div>
   </section>
 
-  <hr />
 
   <section class="section">
     <div class="container">
+      <hr />
 
       <form method="POST" action="/person/{{person.id}}">
         <h2 class="title"><a name="notes" class="has-text-black" style="cursor: default">Notes</a></h2>
@@ -102,10 +102,9 @@
     </div>
   </section>
 
-  <hr />
-
   <section class="section">
     <div class="container">
+      <hr />
 
       <h2 class="title">
         <a name="when-stuff-was-sent" class="has-text-black" style="cursor: default">When stuff was sent</a>
@@ -198,10 +197,10 @@
     </div>
   </section>
 
-  <hr />
 
   <section class="section">
     <div class="container">
+      <hr />
 
       <h2 class="title">
         <a name="other-dates" class="has-text-black" style="cursor: default">Other dates</a>
@@ -291,10 +290,51 @@
     </div>
   </section>
 
-  <hr />
+  <section class="section">
+    <div class="container">
+      <hr />
+
+      <h2 class="title">
+        <a name="connections" class="has-text-black" style="cursor: default">Connections</a>
+      </h2>
+      {{#if person.connections}}
+      {{else}}
+      <h3 class="subtitle">Is this person connected to someone else, if so make that connection here.</h3>
+      {{/if}}
+
+      {{#ifEqual config.startConnection person.id}}
+      <div class="notification is-info">
+        This person is set to be connected to someone else. I should <a href="/everyone">go and find</a> the person I
+        need to connect them to.
+      </div>
+      <div class="field">
+        <div class="control has-text-centered">
+          <form method="POST" action="/person/{{../person.id}}">
+            <button class="button is-warning" type="submit" name="action" value="stopConnecting">
+              Stop connecting this person
+            </button>
+          </form>
+        </div>
+      </div>
+      {{else}}
+      <div class="field">
+        <div class="control has-text-centered">
+          <form method="POST" action="/person/{{../person.id}}">
+            <button class="button is-primary" type="submit" name="action" value="startConnecting">
+              Start connecting this person to someone else
+            </button>
+          </form>
+        </div>
+      </div>
+      {{/ifEqual}}
+
+
+    </div>
+  </section>
 
   <section class="section">
     <div class="container">
+      <hr />
       <h2 class="title">Metadata &amp; danger settings</h2>
       <h3 class="subtitle">Here's the stuff that the system knows but is only kinda useful, and the hide/delete user
         buttons.</h3>

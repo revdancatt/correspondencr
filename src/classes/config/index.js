@@ -108,6 +108,31 @@ class Config {
     this.save()
   }
 
+  /**
+   * This will delete an entry
+   * @param {string} key This is the node path you want to set the value on, can be
+   * a single top level node, i.e. 'alpha' or a full path 'alpha.beta.gamma'
+   */
+  delete (key) {
+    //  This is easier than the above code, we basically walk down
+    //  the node path, creating the nodes if we need to.
+    const keyPath = key.split('.')
+    let thisNode = keyPath.shift()
+    let rootNode = this
+    while (keyPath.length > 0) {
+      if (!(thisNode in rootNode)) {
+        delete rootNode[thisNode]
+      }
+      rootNode = rootNode[thisNode]
+      thisNode = keyPath.shift()
+    }
+    //  Then pop the final value in
+    delete rootNode[thisNode]
+
+    //  Now save the config file
+    this.save()
+  }
+
   save () {
     const configFile = path.join(rootDir, 'config.json')
     const configJSONPretty = JSON.stringify(this, null, 4)

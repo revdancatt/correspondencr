@@ -109,7 +109,19 @@ exports.update = (req, res) => {
       person.deleteOtherDate(req.body.dateId)
       anchor = '#other-dates'
     }
+
+    //  If we have been told to start a connection then we do that here
+    if (req.body.action === 'startConnecting') {
+      req.config.set('startConnection', person.id)
+      anchor = '#connections'
+    }
+
+    if (req.body.action === 'stopConnecting') {
+      req.config.delete('startConnection')
+      anchor = '#connections'
+    }
   }
+
   person.set('updated', new Date())
   person.save()
   return res.redirect(`/person/${req.params.id}${anchor}`)
