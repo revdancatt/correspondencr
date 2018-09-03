@@ -44,30 +44,30 @@ console.log(`server.js exists in this directory: ${rootDir}`.help)
  * the port, host, environment and if we want to skip any build steps
  */
 const argOptionDefinitions = [{
-    name: 'port',
-    alias: 'p',
-    type: Number
-  },
-  {
-    name: 'host',
-    alias: 'h',
-    type: String
-  },
-  {
-    name: 'env',
-    alias: 'e',
-    type: String
-  },
-  {
-    name: 'skipBuild',
-    alias: 's',
-    type: Boolean,
-    defaultOption: false
-  },
-  {
-    name: 'skipOpen',
-    type: Boolean
-  }
+  name: 'port',
+  alias: 'p',
+  type: Number
+},
+{
+  name: 'host',
+  alias: 'h',
+  type: String
+},
+{
+  name: 'env',
+  alias: 'e',
+  type: String
+},
+{
+  name: 'skipBuild',
+  alias: 's',
+  type: Boolean,
+  defaultOption: false
+},
+{
+  name: 'skipOpen',
+  type: Boolean
+}
 ]
 const commandLineArgs = require('command-line-args')
 const argOptions = commandLineArgs(argOptionDefinitions)
@@ -183,6 +183,15 @@ if (skipBuild === false) {
     'src/public/css',
     '--out-dir',
     'app/public/css',
+    '--copy-files'
+  ])
+
+  // Copy naked webfonts files
+  spawnSync('npx', [
+    'babel',
+    'src/public/webfonts',
+    '--out-dir',
+    'app/public/webfonts',
     '--copy-files'
   ])
 
@@ -383,7 +392,7 @@ if (process.env.NODE_ENV === 'development') {
   console.log(
     `
 >> Welcome to the correspondence tracker, please visit the site however you have your host and ports setup to see it from the outside world`
-    .info
+      .info
   )
   console.log(
     `>> You will be asked for a 'handshake' code while setting up the next step, please use the following value
