@@ -59,13 +59,7 @@ class Person {
       let lastname = null
       const nameSplit = fullname.split(' ')
       if (nameSplit.length > 0) firstname = nameSplit[0]
-      //  NOTE: Here we are taking the 2nd name as the last name. We could in
-      //  theory take the last name (which would seem to make sense) only
-      //  in my case, most people with more than two names have kept their
-      //  maiden name and then tagged their married name onto the end. But in
-      //  most cases I still know them by the maiden name, so as weird as it
-      //  seems I can find people better with first name, second name.
-      if (nameSplit.length > 1) lastname = nameSplit[1]
+      if (nameSplit.length > 1) lastname = nameSplit.pop()
       person = {
         id,
         fullname,
@@ -192,14 +186,6 @@ class Person {
     }
   }
 
-  deleteOtherDate (id) {
-    if ('otherDates' in this) {
-      this.otherDates = this.otherDates.filter((date) => {
-        return date.id !== parseInt(id, 10)
-      })
-    }
-  }
-
   addDate (day, month, details) {
     if (isNaN(day) || day === '') return
     if (isNaN(month) || month === '') return
@@ -214,6 +200,39 @@ class Person {
     }
     this.otherDates.push(newDate)
     this.save()
+  }
+
+  deleteOtherDate (id) {
+    if ('otherDates' in this) {
+      this.otherDates = this.otherDates.filter((date) => {
+        return date.id !== parseInt(id, 10)
+      })
+      if (this.otherDates.length === 0) delete this.otherDates
+      this.save()
+    }
+  }
+
+  setConnection (relationship, connector) {
+    if (!('connections' in this)) {
+      this.connections = []
+    }
+    const newConnection = {
+      relationship,
+      connector
+    }
+    this.connections.push(newConnection)
+    this.save()
+  }
+
+  deleteConnection (relationship, connector) {
+    if ('connections' in this) {
+      this.connections = this.connections.filter((connection) => {
+        return !(connection.relationship === relationship && connection.connector === connector)
+      })
+      //  Clear up the empty array
+      if (this.connections.length === 0) delete this.connections
+      this.save()
+    }
   }
 
   save () {

@@ -1,7 +1,11 @@
 const People = require('../../classes/people')
 
 exports.index = (req, res) => {
-  req.templateValues.people = new People().people
+  req.templateValues.people = new People().people.sort(function (a, b) {
+    if (a.lastname > b.lastname) return 1
+    return -1
+  })
+
   return res.render('people/index', req.templateValues)
 }
 

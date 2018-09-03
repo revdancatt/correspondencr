@@ -21,7 +21,7 @@
       </div>
     </div>
   </section>
-
+  {{> a2z-hero}}
   <section class="section">
     <div class="container">
 
@@ -72,10 +72,10 @@
     </div>
   </section>
 
-  <hr />
 
   <section class="section">
     <div class="container">
+      <hr />
 
       <form method="POST" action="/person/{{person.id}}">
         <h2 class="title"><a name="notes" class="has-text-black" style="cursor: default">Notes</a></h2>
@@ -102,10 +102,9 @@
     </div>
   </section>
 
-  <hr />
-
   <section class="section">
     <div class="container">
+      <hr />
 
       <h2 class="title">
         <a name="when-stuff-was-sent" class="has-text-black" style="cursor: default">When stuff was sent</a>
@@ -176,7 +175,7 @@
         {{/if}}
         <div class="field">
           <div class="control">
-            <input class="input" type="text" name="newcontact" placeholder="Add details about how, why you contacted someone here">
+            <input class="input" type="text" name="newcontact" placeholder="Add details about how and why I contacted someone here">
           </div>
         </div>
 
@@ -198,10 +197,10 @@
     </div>
   </section>
 
-  <hr />
 
   <section class="section">
     <div class="container">
+      <hr />
 
       <h2 class="title">
         <a name="other-dates" class="has-text-black" style="cursor: default">Other dates</a>
@@ -291,10 +290,122 @@
     </div>
   </section>
 
-  <hr />
+  <section class="section">
+    <div class="container">
+      <hr />
+
+      <h2 class="title">
+        <a name="connections" class="has-text-black" style="cursor: default">Connections</a>
+      </h2>
+      {{#if person.connections}}
+      <h3 class="subtitle">These are people <span class="has-text-weight-bold">{{person.fullname}}</span> is
+        connected to</h3>
+      <p>
+        {{#each person.connections}}
+        <form method="POST" action="/person/{{../person.id}}">
+          <div class="level highlight bottom-7">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <div class="is-size-5">
+                    <span class="has-text-weight-bold">{{../person.fullname}}</span> is {{relationship}} to <a class="has-text-weight-bold"
+                      href="/person/{{connector}}">{{fullname}}</a>
+                  </div>
+                </div>
+                <input type="hidden" name="relationship" value="{{relationship}}" />
+                <input type="hidden" name="connector" value="{{connector}}" />
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <button class="level-item button is-danger" type="submit" name="action" value="deleteRelationship">Delete</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        {{/each}}
+        &nbsp;
+      </p>
+      {{/if}}
+
+      {{#ifEqual config.startConnection person.id}}
+      <div class="notification is-info">
+        <span class="has-text-weight-bold">{{../person.fullname}}</span> is set to be connected to someone else. I
+        should <a href="/everyone">go and find</a>
+        the person I
+        need to connect them to.
+      </div>
+      <div class="field">
+        <div class="control has-text-centered">
+          <form method="POST" action="/person/{{../person.id}}">
+            <button class="button is-warning" type="submit" name="action" value="stopConnecting">
+              Stop trying to connect {{../person.firstname}}
+            </button>
+          </form>
+        </div>
+      </div>
+      {{else}}
+      {{#if ../connector}}
+      <h3 class="subtitle">Do I wish to connect <a class="has-text-weight-bold" href="/person/{{../../connector.id}}#connections">{{../../connector.fullname}}</a>
+        to
+        <span class="has-text-weight-bold">{{../../person.fullname}}?</span></h3>
+      <div class="level">
+        <h2 class="title level-item">{{../../connector.fullname}} is...</h2>
+      </div>
+      <form method="POST" action="/person/{{../../person.id}}">
+        <div class="level">
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="parentOf">...parent of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="childOf">...child of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="siblingOf">...sibling of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="partnerOf">...partner of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="otherOf">...other of...</button>
+          </div>
+        </div>
+        <div class="level">
+          <h2 class="title level-item">...{{../../person.fullname}}</h2>
+        </div>
+        <div class="notification has-text-centered">
+          <h1 class="heading is-size-5">NOTICE</h1>
+          <p>
+            "Parent/Child" here is used in a network diagram sense, and doesn't literally mean parent and child
+            although it can be that. It applies to "up/down" relationships including guardian, carer, ward, company,
+            organisation and so on. Sibling and partner act as "sideways" relationships, while other is everything
+            else.
+          </p>
+        </div>
+      </form>
+      {{else}}
+      <h3 class="subtitle">Is {{../../person.fullname}} connected to someone else? If so make that connection here.</h3>
+      <div class="field">
+        <div class="control has-text-centered">
+          <form method="POST" action="/person/{{../../person.id}}">
+            <button class="button is-primary" type="submit" name="action" value="startConnecting">
+              Start connecting <span class="has-text-weight-bold">&nbsp;{{../../person.firstname}}&nbsp;</span> to
+              someone else
+            </button>
+          </form>
+        </div>
+      </div>
+      {{/if}}
+      {{/ifEqual}}
+
+
+
+    </div>
+  </section>
 
   <section class="section">
     <div class="container">
+      <hr />
       <h2 class="title">Metadata &amp; danger settings</h2>
       <h3 class="subtitle">Here's the stuff that the system knows but is only kinda useful, and the hide/delete user
         buttons.</h3>
@@ -332,13 +443,13 @@
               <div class="level-left ">
                 <div class="level-item ">
                   {{#if person.hidden}}
-                  <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide person</a>
+                  <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide {{person.firstname}}</a>
                   {{else}}
-                  <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide person</a>
+                  <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide {{person.firstname}}</a>
                   {{/if}}
                 </div>
                 <div class="level-item ">
-                  <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete person</a>
+                  <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete {{person.firstname}}</a>
                 </div>
 
               </div>
