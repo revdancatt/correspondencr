@@ -298,8 +298,33 @@
         <a name="connections" class="has-text-black" style="cursor: default">Connections</a>
       </h2>
       {{#if person.connections}}
-      {{else}}
-      <h3 class="subtitle">Is this person connected to someone else, if so make that connection here.</h3>
+      <h3 class="subtitle">These are the other people this person is connected to</h3>
+      <p>
+        {{#each person.connections}}
+        <form method="POST" action="/person/{{../person.id}}">
+          <div class="level highlight bottom-7">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <div class="is-size-5">
+                    <span class="has-text-weight-bold">{{../person.fullname}}</span> is {{relationship}} to <a class="has-text-weight-bold"
+                      href="/person/{{connector}}">{{fullname}}</a>
+                  </div>
+                </div>
+                <input type="hidden" name="relationship" value="{{relationship}}" />
+                <input type="hidden" name="connector" value="{{id}}" />
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <button class="level-item button is-danger" type="submit" name="action" value="deleteRelationship">Delete</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        {{/each}}
+        &nbsp;
+      </p>
       {{/if}}
 
       {{#ifEqual config.startConnection person.id}}
@@ -311,22 +336,55 @@
         <div class="control has-text-centered">
           <form method="POST" action="/person/{{../person.id}}">
             <button class="button is-warning" type="submit" name="action" value="stopConnecting">
-              Stop connecting this person
+              Stop trying to connect this person
             </button>
           </form>
         </div>
       </div>
       {{else}}
+      {{#if ../connector}}
+      <h3 class="subtitle">Do you wish to connect <a class="has-text-weight-bold" href="/person/{{../../connector.id}}#connections">{{../../connector.fullname}}</a>
+        to
+        <span class="has-text-weight-bold">{{../../person.fullname}}?</span></h3>
+      <div class="level">
+        <h2 class="title level-item">{{../../connector.fullname}} is...</h2>
+      </div>
+      <form method="POST" action="/person/{{../../person.id}}">
+        <div class="level">
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="parentOf">...parent of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="childOf">...child of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="siblingOf">...sibling of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="partnerOf">...partner of...</button>
+          </div>
+          <div class="level-item control">
+            <button class="button is-primary" type="submit" name="action" value="otherOf">...other of...</button>
+          </div>
+        </div>
+        <div class="level">
+          <h2 class="title level-item">...{{../../person.fullname}}</h2>
+        </div>
+      </form>
+      {{else}}
+      <h3 class="subtitle">Is this person connected to someone else, if so make that connection here.</h3>
       <div class="field">
         <div class="control has-text-centered">
-          <form method="POST" action="/person/{{../person.id}}">
+          <form method="POST" action="/person/{{../../person.id}}">
             <button class="button is-primary" type="submit" name="action" value="startConnecting">
               Start connecting this person to someone else
             </button>
           </form>
         </div>
       </div>
+      {{/if}}
       {{/ifEqual}}
+
 
 
     </div>

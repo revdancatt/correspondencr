@@ -216,6 +216,18 @@ class Person {
     this.save()
   }
 
+  setConnection (relationship, connector) {
+    if (!('connections' in this)) {
+      this.connections = []
+    }
+    const newConnection = {
+      relationship,
+      connector
+    }
+    this.connections.push(newConnection)
+    this.save()
+  }
+
   save () {
     let peopleJSON = this.loadPeopleJSON()
     peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))

@@ -3,7 +3,25 @@ const Person = require('../../classes/person')
 exports.index = (req, res) => {
   const person = new Person(parseInt(req.params.id, 10))
   if (person.id === undefined) return res.redirect('/')
+
+  let connector = null
+  if (req.config.startConnection) {
+    connector = new Person(req.config.startConnection)
+  }
+
+  //  Get the connections
+  if (person.connections) {
+    person.connections = person.connections.map((connection) => {
+      const connectedPerson = new Person(connection.connector)
+      if (connectedPerson === null) return null
+      connection.fullname = connectedPerson.fullname
+      return connection
+    }).filter(Boolean)
+  }
+
   req.templateValues.person = person
+  req.templateValues.connector = connector
+
   return res.render('person/index', req.templateValues)
 }
 
@@ -118,6 +136,56 @@ exports.update = (req, res) => {
 
     if (req.body.action === 'stopConnecting') {
       req.config.delete('startConnection')
+      anchor = '#connections'
+    }
+
+    if (req.body.action === 'partnerOf') {
+      if (req.config.startConnection) {
+        const connector = new Person(req.config.startConnection)
+        person.setConnection('partner', req.config.startConnection)
+        connector.setConnection('partner', person.id)
+        req.config.delete('startConnection')
+      }
+      anchor = '#connections'
+    }
+
+    if (req.body.action === 'parentOf') {
+      if (req.config.startConnection) {
+        const connector = new Person(req.config.startConnection)
+        person.setConnection('child', req.config.startConnection)
+        connector.setConnection('parent', person.id)
+        req.config.delete('startConnection')
+      }
+      anchor = '#connections'
+    }
+
+    if (req.body.action === 'childOf') {
+      if (req.config.startConnection) {
+        const connector = new Person(req.config.startConnection)
+        person.setConnection('parent', req.config.startConnection)
+        connector.setConnection('child', person.id)
+        req.config.delete('startConnection')
+      }
+      anchor = '#connections'
+    }
+
+    if (req.body.action === 'siblingOf') {
+      if (req.config.startConnection) {
+        const connector = new Person(req.config.startConnection)
+        person.setConnection('sibling', req.config.startConnection)
+        connector.setConnection('sibling', person.id)
+        req.config.delete('startConnection')
+      }
+      anchor = '#connections'
+    }
+
+    if (req.body.action === 'otherOf') {
+      if (req.config.startConnection) {
+        const connector = new Person(req.config.startConnection)
+        person.setConnection('other', req.config.startConnection)
+        connector.setConnection('other', person.id)
+        req.config.delete('startConnection')
+      }
       anchor = '#connections'
     }
   }
