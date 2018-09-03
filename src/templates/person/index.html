@@ -434,13 +434,13 @@
               <div class="level-left ">
                 <div class="level-item ">
                   {{#if person.hidden}}
-                  <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide person</a>
+                  <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide {{person.firstname}}</a>
                   {{else}}
-                  <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide person</a>
+                  <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide {{person.firstname}}</a>
                   {{/if}}
                 </div>
                 <div class="level-item ">
-                  <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete person</a>
+                  <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete {{person.firstname}}</a>
                 </div>
 
               </div>

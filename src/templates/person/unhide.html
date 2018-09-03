@@ -43,7 +43,9 @@
             <div class="level">
               <div class="level-left">
                 <div class="level-item">
-                  <input class="button is-warning" type="submit" name="action" value="Yes, unhide this person">
+                  <button class="button is-warning" type="submit" name="action" value="Yes, unhide this person">
+                    Yes, unhide <span class="has-text-weight-bold">&nbsp;{{person.fullname}}&nbsp;</span>
+                  </button>
                 </div>
                 <div class="level-item">
                   <a class="button is-link" href="/person/{{person.id}}">Nope, go back</a>
