@@ -23,6 +23,32 @@ exports.index = (req, res) => {
   req.templateValues.person = person
   req.templateValues.connector = connector
 
+  //  Give us a bunch of icon helpers
+  const icons = ['star', 'envelope', 'pen-fancy', 'coffee', 'camera']
+  const styles = ['fas']
+  const colours = ['danger', 'warning', 'success']
+  const showIcons = {}
+  icons.forEach((icon) => {
+    showIcons[icon] = {}
+    styles.forEach((style) => {
+      showIcons[icon][style] = []
+      colours.forEach((colour) => {
+        const iconThing = {
+          style,
+          colour,
+          selected: false
+        }
+        if ('icon' in person) {
+          if (person.icon.icon === icon && person.icon.style === style && person.icon.colour === colour) {
+            iconThing.selected = true
+          }
+        }
+        showIcons[icon][style].push(iconThing)
+      })
+    })
+  })
+  req.templateValues.showIcons = showIcons
+
   return res.render('person/index', req.templateValues)
 }
 
@@ -217,6 +243,19 @@ exports.update = (req, res) => {
       }
       anchor = '#connections'
     }
+  }
+
+  if ('setIcon' in req.body) {
+    const iconSplit = req.body.setIcon.split(',')
+    person.set('icon', {
+      style: iconSplit[0],
+      icon: iconSplit[1],
+      colour: iconSplit[2]
+    })
+  }
+
+  if ('removeIcon' in req.body) {
+    person.remove('icon')
   }
 
   person.set('updated', new Date())
