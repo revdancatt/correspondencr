@@ -15,6 +15,9 @@
       <div class="container">
         <h1 class="title is-1">
           {{person.fullname}}
+          {{#if person.icon}}&nbsp;<span class="icon">
+            <i class="{{person.icon.style}} fa-{{person.icon.icon}} has-text-{{person.icon.colour}}"></i>
+          </span>{{/if}}
         </h1>
         {{#if person.nextBirthday}}
         <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}}</h2>{{/if}}
@@ -69,6 +72,36 @@
           <a class="button is-link" href="/person/{{person.id}}/edit">Edit</a>
         </div>
       </div>
+
+      <h2 class="title">Icon?</h2>
+      <h3 class="subtitle">Do I want to assign an arbitrary icon? If so click on one below.</h3>
+
+      <form method="POST" action="/person/{{person.id}}">
+        <div class="level">
+          <div class="level-item buttons has-addons" style="margin-bottom:0">
+            <button class="button is-large is-light" name="removeIcon">
+              <span class="icon">
+                <i class="fas fa-ban fa-lg has-text-dark"></i>
+              </span>
+            </button>
+          </div>
+
+          {{#each showIcons}}
+          {{#each @this}}
+          <div class="level-item buttons has-addons" style="margin-bottom:0">
+            {{#each @this}}
+            <button class="button is-large {{#if selected}}is-dark{{else}}is-light{{/if}}" name="setIcon" value="{{@../key}},{{@../../key}},{{colour}}">
+              <span class="icon">
+                <i class="{{@../key}} fa-{{@../../key}} fa-lg has-text-{{colour}}"></i>
+              </span>
+            </button>
+            {{/each}}
+          </div>
+          {{/each}}
+          {{/each}}
+        </div>
+      </form>
+
     </div>
   </section>
 
@@ -190,8 +223,6 @@
             </div>
           </div>
         </div>
-
-
       </form>
 
     </div>

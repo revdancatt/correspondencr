@@ -1,7 +1,9 @@
 <li class="level">
   <span class="level-left">
     <span class="level-item icon has-text-warning">
-      {{#ifEqual id 52}}<i class="fas fa-star"></i>{{/ifEqual}}
+      {{#if icon}}&nbsp;<span class="icon">
+        <i class="{{icon.style}} fa-{{icon.icon}} has-text-{{icon.colour}}"></i>
+      </span>{{/if}}
     </span>
     <span class="level-item">
       <strong>

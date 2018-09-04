@@ -128,6 +128,11 @@ class Person {
     }
   }
 
+  remove (key) {
+    delete this[key]
+    this.save()
+  }
+
   setAge (value) {
     //  If we know the month and day of the person, we can calculate
     //  the actual birthday here
