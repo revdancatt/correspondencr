@@ -484,16 +484,16 @@
         <div class="column is-one-quarter ">
           <strong>&nbsp;</strong>
         </div>
-        <div class="column ">I am this user, this use is I.
+        <div class="column ">I am this user, this user is I.
         </div>
       </div>
       {{/ifEqual}}
 
       <div class="columns ">
         <div class="column is-one-quarter ">&nbsp;</div>
-        <div class="column ">
-          <div class="level ">
-            <div class="level-left ">
+        <div class="column">
+          <div class="level">
+            <div class="level-left">
               <div class="level-item ">
                 {{#if person.hidden}}
                 <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide {{person.firstname}}</a>
@@ -524,6 +524,19 @@
               </div>
             </div>
           </div>
+          {{#ifNotEqual person.id thisIsMe.id}}
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">&nbsp;</div>
+            </div>
+            <div class="level-right">
+              <div class="level-item is-size-7 has-text-centered">
+                Setting myself as this person<br />will add a plane icon to people<br />who live in other countries<br />
+                (so I can post stuff sooner).
+              </div>
+            </div>
+          </div>
+          {{/ifNotEqual}}
         </div>
       </div>
 
