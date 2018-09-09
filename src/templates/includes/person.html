@@ -15,7 +15,15 @@
   {{#if nextBirthday}}
   <span class="level-right">
     <span class="level-item">
-      <small>({{timeAgo nextBirthday}})</small>
+      {{#ifNotEqual country thisIsMe.country}}
+      {{#if ../country}}
+      <small>({{timeAgo ../../nextBirthday}} <span class="icon is-small has-text-grey-light"><i class="fas fa-plane"></i></span>)</small>
+      {{else}}
+      <small>({{timeAgo ../../nextBirthday}})</small>
+      {{/if}}
+      {{else}}
+      <small>({{timeAgo ../nextBirthday}})</small>
+      {{/ifNotEqual}}
     </span>
   </span>
   {{/if}}

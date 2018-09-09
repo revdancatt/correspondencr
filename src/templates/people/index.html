@@ -27,7 +27,7 @@
     <div class="container">
       {{#if people}}
       <ul>
-        {{#each people}} {{>person @this}} {{/each}}
+        {{#each people}} {{>person @this thisIsMe=../thisIsMe}} {{/each}}
       </ul>
       {{else}}
       <div class="columns">

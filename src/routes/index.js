@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Config = require('../classes/config')
 const People = require('../classes/people')
+const Person = require('../classes/person')
 
 // Break out all the seperate parts of the site
 /* eslint-disable import/no-unresolved */
@@ -47,6 +48,10 @@ router.use(function (req, res, next) {
   req.templateValues.loggedIn = ('loggedin' in req.session && req.session.loggedin === true)
   req.templateValues.a2z = new People().getA2Z()
 
+  //  See if a thisIsMe user has been set, if so go and grab that user
+  if ('thisIsMe' in configObj) {
+    req.templateValues.thisIsMe = new Person(parseInt(configObj.thisIsMe), 10)
+  }
   next()
 })
 

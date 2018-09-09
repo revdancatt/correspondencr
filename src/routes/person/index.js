@@ -251,6 +251,12 @@ exports.update = (req, res) => {
       config.set('thisIsMe', person.id)
       anchor = '#metadata'
     }
+
+    if (req.body.action === 'thisIsNotMe') {
+      const config = new Config()
+      config.delete('thisIsMe')
+      anchor = '#metadata'
+    }
   }
 
   if ('setIcon' in req.body) {

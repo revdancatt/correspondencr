@@ -18,9 +18,18 @@
           {{#if person.icon}}&nbsp;<span class="icon">
             <i class="{{person.icon.style}} fa-{{person.icon.icon}} has-text-{{person.icon.colour}}"></i>
           </span>{{/if}}
+
         </h1>
         {{#if person.nextBirthday}}
-        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}}</h2>{{/if}}
+        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}} {{#if person.country}}
+          {{#if thisIsMe}}
+          {{#ifNotEqual person.country thisIsMe.country}}
+          &nbsp;<span class="icon">
+            <i class="fas fa-plane has-text-grey-lighter"></i>
+          </span>
+          {{/ifNotEqual}}
+          {{/if}}
+          {{/if}}</h2>{{/if}}
       </div>
     </div>
   </section>
@@ -498,11 +507,8 @@
             <div class="level-right">
               <div class="level-item">
                 <form method="POST" action="/person/{{person.id}} ">
-                  {{#ifEqual person.id owner.id}}
+                  {{#ifEqual person.id thisIsMe.id}}
                   <button class="button is-primary" type="submit" name="action" value="thisIsNotMe">
-                    <span class="icon is-small">
-                      <i class="fas fa-home"></i>
-                    </span>
                     <span>I'm not this person anymore!</span>
                   </button>
                   {{else}}
