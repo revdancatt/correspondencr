@@ -19,12 +19,13 @@
       </div>
     </div>
   </section>
-  {{> a2z-hero}} {{#if hasFacebookFeed}} {{else}} {{#if hideFacebook}}{{else}}{{> facebook}} {{/if}}{{/if}} {{#if birthdaysToday}}
+  {{> a2z-hero}} {{#if hasFacebookFeed}} {{else}} {{#if hideFacebook}}{{else}}{{> facebook}} {{/if}}{{/if}} {{#if
+  birthdaysToday}}
   <section class="section">
     <div class="container">
       <h1 class="title">Birthdays today</h1>
       <ul>
-        {{#each birthdaysToday}} {{>person @this}} {{/each}}
+        {{#each birthdaysToday}} {{>person @this thisIsMe=../thisIsMe}} {{/each}}
       </ul>
     </div>
   </section>
@@ -34,11 +35,11 @@
       <h1 class="title">Upcoming birthdays</h1>
       <h2 class="subtitle">Here are some upcoming birthdays</h2>
       <ul>
-        {{#each birthdayPeople}} {{>person @this}} {{/each}}
+        {{#each birthdayPeople}} {{>person @this thisIsMe=../thisIsMe}} {{/each}}
       </ul>
     </div>
     <div class="container content">
-      <br /> You can see more
+      <br /> See more
       <a href="/upcoming">upcoming birthdays here</a>.
     </div>
   </section>
@@ -108,7 +109,7 @@
       <h1 class="title">Missing birthdays</h1>
       <h2 class="subtitle">Here's a handful of people with no birthdays set, time to go ask them.</h2>
       <ul>
-        {{#each missingBirthdays}} {{>person @this}} {{/each}}
+        {{#each missingBirthdays}} {{>person @this thisIsMe=../thisIsMe}} {{/each}}
       </ul>
     </div>
     {{#if showMoreMissingBirthdays}}
@@ -124,7 +125,7 @@
       <h1 class="title">Missing addresses</h1>
       <h2 class="subtitle">Here's a handful of people with no addresses set, perhaps go ask them.</h2>
       <ul>
-        {{#each missingAddresses}} {{>person @this}} {{/each}}
+        {{#each missingAddresses}} {{>person @this thisIsMe=../thisIsMe}} {{/each}}
       </ul>
     </div>
     {{#if showMoreMissingAddresses}}

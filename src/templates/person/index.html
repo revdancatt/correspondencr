@@ -18,9 +18,18 @@
           {{#if person.icon}}&nbsp;<span class="icon">
             <i class="{{person.icon.style}} fa-{{person.icon.icon}} has-text-{{person.icon.colour}}"></i>
           </span>{{/if}}
+
         </h1>
         {{#if person.nextBirthday}}
-        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}}</h2>{{/if}}
+        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}} {{#if person.country}}
+          {{#if thisIsMe}}
+          {{#ifNotEqual person.country thisIsMe.country}}
+          &nbsp;<span class="icon">
+            <i class="fas fa-plane has-text-grey-lighter"></i>
+          </span>
+          {{/ifNotEqual}}
+          {{/if}}
+          {{/if}}</h2>{{/if}}
       </div>
     </div>
   </section>
@@ -439,58 +448,84 @@
   <section class="section">
     <div class="container">
       <hr />
-      <h2 class="title">Metadata &amp; danger settings</h2>
+      <h2 class="title"><a name="metadata" class="has-text-black" style="cursor: default">Metadata &amp; danger
+          settings</a></h2>
       <h3 class="subtitle">Here's the stuff that the system knows but is only kinda useful, and the hide/delete user
         buttons.</h3>
 
-      <form method="POST " action="/person/{{person.id}} ">
-        <div class="columns ">
-          <div class="column is-one-quarter ">
-            <strong>Source</strong>
-          </div>
-          <div class="column ">{{person.source}}</div>
+      <div class="columns ">
+        <div class="column is-one-quarter ">
+          <strong>Source</strong>
         </div>
+        <div class="column ">{{person.source}}</div>
+      </div>
 
-        <div class="columns ">
-          <div class="column is-one-quarter ">
-            <strong>Last updated</strong>
-          </div>
-          <div class="column ">{{datePretty person.updated}}
-            <small>({{timeAgo person.updated}})</small>
-          </div>
+      <div class="columns ">
+        <div class="column is-one-quarter ">
+          <strong>Last updated</strong>
         </div>
-
-        <div class="columns ">
-          <div class="column is-one-quarter ">
-            <strong>Created</strong>
-          </div>
-          <div class="column ">{{datePretty person.created}}
-            <small>({{timeAgo person.created}})</small>
-          </div>
+        <div class="column ">{{datePretty person.updated}}
+          <small>({{timeAgo person.updated}})</small>
         </div>
+      </div>
 
-        <div class="columns ">
-          <div class="column is-one-quarter ">&nbsp;</div>
-          <div class="column ">
-            <div class="level ">
-              <div class="level-left ">
-                <div class="level-item ">
-                  {{#if person.hidden}}
-                  <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide {{person.firstname}}</a>
+      <div class="columns ">
+        <div class="column is-one-quarter ">
+          <strong>Created</strong>
+        </div>
+        <div class="column ">{{datePretty person.created}}
+          <small>({{timeAgo person.created}})</small>
+        </div>
+      </div>
+
+      {{#ifEqual person.id owner.id}}
+      <div class="columns ">
+        <div class="column is-one-quarter ">
+          <strong>&nbsp;</strong>
+        </div>
+        <div class="column ">I am this user, this use is I.
+        </div>
+      </div>
+      {{/ifEqual}}
+
+      <div class="columns ">
+        <div class="column is-one-quarter ">&nbsp;</div>
+        <div class="column ">
+          <div class="level ">
+            <div class="level-left ">
+              <div class="level-item ">
+                {{#if person.hidden}}
+                <a class="button is-warning " href="/person/{{person.id}}/unhide ">Unhide {{person.firstname}}</a>
+                {{else}}
+                <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide {{person.firstname}}</a>
+                {{/if}}
+              </div>
+              <div class="level-item ">
+                <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete {{person.firstname}}</a>
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <form method="POST" action="/person/{{person.id}} ">
+                  {{#ifEqual person.id thisIsMe.id}}
+                  <button class="button is-primary" type="submit" name="action" value="thisIsNotMe">
+                    <span>I'm not this person anymore!</span>
+                  </button>
                   {{else}}
-                  <a class="button is-warning " href="/person/{{person.id}}/hide ">Hide {{person.firstname}}</a>
-                  {{/if}}
-                </div>
-                <div class="level-item ">
-                  <a class="button is-danger " href="/person/{{person.id}}/delete ">Delete {{person.firstname}}</a>
-                </div>
-
+                  <button class="button is-primary" type="submit" name="action" value="thisIsMe">
+                    <span class="icon is-small">
+                      <i class="fas fa-home"></i>
+                    </span>
+                    <span>This person is me!</span>
+                  </button>
+                  {{/ifEqual}}
+                </form>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-      </form>
     </div>
   </section>
 
