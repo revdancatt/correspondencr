@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-
+const Config = require('../config')
 const rootDir = path.join(__dirname, '../../..')
 
 /** Class representing a person. */
@@ -255,6 +255,13 @@ class Person {
     peopleJSON.people[this.id] = JSON.parse(JSON.stringify(this))
     //  Make sure we remove the dynamically created entries
     delete peopleJSON.people[this.id]
+
+    //  If we are marked as this person in the config we need to remove
+    //  it from there.
+    const configObj = new Config()
+    if (configObj.thisIsMe === this.id) {
+      configObj.delete('thisIsMe')
+    }
     this.savePeopleJSON(peopleJSON)
   }
 
