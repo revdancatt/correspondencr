@@ -1,3 +1,4 @@
+const Config = require('../../classes/config')
 const Person = require('../../classes/person')
 
 exports.index = (req, res) => {
@@ -242,6 +243,13 @@ exports.update = (req, res) => {
         }
       }
       anchor = '#connections'
+    }
+
+    //  If we want to mark a person as the main user
+    if (req.body.action === 'thisIsMe') {
+      const config = new Config()
+      config.set('thisIsMe', person.id)
+      anchor = '#metadata'
     }
   }
 
