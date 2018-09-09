@@ -21,7 +21,8 @@
 
         </h1>
         {{#if person.nextBirthday}}
-        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}} {{#if person.country}}
+        <h2 class="subtitle is-3">{{datePrettyNoYear person.nextBirthday}}
+          {{#if person.country}}
           {{#if thisIsMe}}
           {{#ifNotEqual person.country thisIsMe.country}}
           &nbsp;<span class="icon">
