@@ -33,6 +33,12 @@ router.use(function (req, res, next) {
   req.templateValues.config = req.config
   req.templateValues.NODE_ENV = process.env.NODE_ENV
 
+  const d = new Date()
+  req.templateValues.today = {
+    day: d.getDate(),
+    month: d.getMonth() + 1
+  }
+
   //  If there is no username/password in conf then we need to redirect to
   //  the login page
   const urlFragment = req.url.split('?')[0]

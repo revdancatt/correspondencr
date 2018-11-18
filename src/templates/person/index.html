@@ -296,47 +296,43 @@
           <label class="label">Month</label>
           <div class="select">
             <select name="month">
-              <option value='1'>01 - January</option>
-              <option value='2'>02 - February</option>
-              <option value='3'>03 - March</option>
-              <option value='4'>04 - April</option>
-              <option value='5'>05 - May</option>
-              <option value='6'>06 - June</option>
-              <option value='7'>07 - July</option>
-              <option value='8'>08 - August</option>
-              <option value='9'>09 - September</option>
-              <option value='10'>10 - October</option>
-              <option value='11'>11 - November</option>
-              <option value='12'>12 - December</option>
-            </select>
+              <option value='1' {{#ifEqual today.month 1}} selected{{/ifEqual}}>01 - January</option> <option value='2'
+                {{#ifEqual today.month 2}} selected{{/ifEqual}}>02- February</option> <option value='3'
+                {{#ifEqual today.month 3}} selected{{/ifEqual}}>03 - March</option> <option value='4'
+                {{#ifEqual today.month 4}} selected{{/ifEqual}}>04 - April</option> <option value='5'
+                {{#ifEqual today.month 5}} selected{{/ifEqual}}>05 - May</option> <option value='6'
+                {{#ifEqual today.month 6}} selected{{/ifEqual}}>06 - June</option> <option value='7'
+                {{#ifEqual today.month 7}} selected{{/ifEqual}}>07 - July</option> <option value='8'
+                {{#ifEqual today.month 8}} selected{{/ifEqual}}>08 - August</option> <option value='9'
+                {{#ifEqual today.month 9}} selected{{/ifEqual}}>09 - September</option> <option value='10'
+                {{#ifEqual today.month 10}} selected{{/ifEqual}}>10 - October</option> <option value='11'
+                {{#ifEqual today.month 11}} selected{{/ifEqual}}>11 - November</option> <option value='12'
+                {{#ifEqual today.month 12}} selected{{/ifEqual}}>12 - December</option> </select> </div> </div> <div
+                class="field">
+                <label class="label">Day</label>
+                <div class="control">
+                  <input class="input narrow-input" type="number" min="1" max="31" name="day" placeholder="1" value="{{today.day}}">
+                </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label class="label">Day</label>
-          <div class="control">
-            <input class="input narrow-input" type="number" min="1" max="31" name="day" placeholder="1">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Details of the thing</label>
-          <div class="control">
-            <input class="input" type="text" name="details" placeholder="Add details about the date here">
-          </div>
-        </div>
-
-        <div class="level">
-          <div class="level-left">
-            <div class="level-item">&nbsp;</div>
-          </div>
-          <div class="level-right">
-            <div class="level-item control">
-              <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new
-                date</button>
+          <div class="field">
+            <label class="label">Details of the thing</label>
+            <div class="control">
+              <input class="input" type="text" name="details" placeholder="Add details about the date here">
             </div>
           </div>
-        </div>
+
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">&nbsp;</div>
+            </div>
+            <div class="level-right">
+              <div class="level-item control">
+                <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new
+                  date</button>
+              </div>
+            </div>
+          </div>
 
       </form>
     </div>
