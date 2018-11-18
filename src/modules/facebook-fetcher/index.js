@@ -9,9 +9,9 @@ const checkFacebook = async () => {
 
   const url = facebookFeed.replace('webcal:', 'https:')
   const bdays = await request({
-    url: url,
+    url,
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Node.js 6.0.0) MagicMirror/2.0 (https://github.com/MichMich/MagicMirror)'
+      'User-Agent': 'Mozilla/5.0 (Node.js 6.0.0)'
     }
   })
     .then(response => {
@@ -31,9 +31,10 @@ const checkFacebook = async () => {
     })
     .catch(error => {
       console.log(error)
-      return [error]
+      return null
     })
 
+  if (bdays === null) return
   bdays.forEach((entry) => {
     const person = new Person(entry.name)
     person.set('month', entry.month)

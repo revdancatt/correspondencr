@@ -1,7 +1,11 @@
 <section class="section">
   <div class="container notification">
     <h1 class="title">Facebook Feed</h1>
-    <h2 class="subtitle">There is no facebook birthday webcal feed set up, fill in the form below to do that.</h2>
+    {{#if hasFacebookFeed}}
+      <h2 class="subtitle">Your Facebook feed is already set up.</h2>
+    {{else}}
+      <h2 class="subtitle">There is no facebook birthday webcal feed set up, fill in the form below to do that.</h2>
+    {{/if}}
   </div>
 
   <div class="container">
@@ -10,7 +14,8 @@
       <div class="field">
         <label class="label">Webcal Feed</label>
         <div class="control">
-          <input class="input" type="text" name="facebookFeed" placeholder="Looks like webcal://www.facebook.com/ical/b.php?uid=000000000000000&key=AAAAAAAAAAAAAAAA">
+          <input class="input" type="text" name="facebookFeed" placeholder="Looks like webcal://www.facebook.com/ical/b.php?uid=000000000000000&key=AAAAAAAAAAAAAAAA"
+            value="{{config.facebookFeed}}">
         </div>
       </div>
 
@@ -44,7 +49,8 @@
     <hr />
     <h1 class="title">How to find the Facebook Webcal feed</h1>
     <p>
-      To grab all the birthdays from Facebook you'll need to get to the webcal feed, to do that you first need to click on the
+      To grab all the birthdays from Facebook you'll need to get to the webcal feed, to do that you first need to click
+      on the
       <a href="https://www.facebook.com/events/">Events</a> link over on the left hand side of the page.
     </p>
     <figure class="image">
@@ -55,7 +61,8 @@
     </p>
     <p>
       Then scroll down, down, down the right hand side until you see the whole
-      <em>"You can add your events to Microsoft Outlook, Google Calendar or Apple Calendar. Once you add them, they'll stay updated"</em>
+      <em>"You can add your events to Microsoft Outlook, Google Calendar or Apple Calendar. Once you add them, they'll
+        stay updated"</em>
       panel. Right click on the
       <span class="has-text-weight-semibold">"Birthdays"</span> link and select
       <span class="has-text-weight-semibold">"Copy Link Address"</span>, see the image below for help.
