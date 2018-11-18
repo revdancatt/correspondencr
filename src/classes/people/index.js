@@ -95,8 +95,9 @@ class People {
     for (let i = 0; i < alphabet.length; i++) {
       const letter = alphabet.charAt(i)
       index[letter] = this.people.filter((person) => {
+        if (person.lastname === null) return false
         return person.lastname[0].toLowerCase() === letter
-      }).length
+      }).filter(Boolean).length
     }
     return index
   }
