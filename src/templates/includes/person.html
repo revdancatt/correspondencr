@@ -2,8 +2,8 @@
   <span class="level-left">
     <span class="level-item icon has-text-warning">
       {{#if icon}}&nbsp;<span class="icon">
-        <i class="{{icon.style}} fa-{{icon.icon}} has-text-{{icon.colour}}"></i>
-      </span>{{/if}}
+          <i class="{{icon.style}} fa-{{icon.icon}} has-text-{{icon.colour}}"></i>
+        </span>{{/if}}
     </span>
     <span class="level-item">
       <strong>
@@ -13,22 +13,34 @@
     <span class="level-item">{{datePretty nextBirthday}}</span>
   </span>
   {{#if nextBirthday}}
-  <span class="level-right">
-    <span class="level-item">
-      {{#if country}}
-      {{#if thisIsMe}}
-      {{#ifNotEqual country thisIsMe.country}}
-      <small>({{timeAgo ../nextBirthday}} <span class="icon is-small has-text-grey-light"><i class="fas fa-plane"></i></span>)</small>
-      {{else}}
-      <small>({{timeAgo ../nextBirthday}})</small>
-      {{/ifNotEqual}}
-      {{else}}
-      <small>({{timeAgo nextBirthday}})</small>
-      {{/if}}
-      {{else}}
-      <small>({{timeAgo nextBirthday}})</small>
-      {{/if}}
+    <span class="level-right">
+      <span class="level-item">
+        {{#if country}}
+          {{#if thisIsMe}}
+            {{#ifNotEqual country thisIsMe.country}}
+              <small>({{timeAgo ../nextBirthday}} <span class="icon is-small has-text-grey-light"><i class="fas fa-plane"></i></span>)</small>
+          {{else}}
+            <small>({{timeAgo ../nextBirthday}})</small>
+            {{/ifNotEqual}}
+          {{else}}
+            <small>({{timeAgo nextBirthday}})</small>
+          {{/if}}
+        {{else}}
+          <small>({{timeAgo nextBirthday}})</small>
+        {{/if}}
+      </span>
     </span>
-  </span>
+  {{else}}
+    {{#if country}}
+      {{#if thisIsMe}}
+        {{#ifNotEqual country thisIsMe.country}}
+          <span class="level-right">
+            <span class="level-item">
+              <small>({{timeAgo ../nextBirthday}} <span class="icon is-small has-text-grey-light"><i class="fas fa-plane"></i></span>)</small>
+            </span>
+          </span>
+        {{/ifNotEqual}}
+      {{/if}}
+    {{/if}}
   {{/if}}
 </li>
