@@ -392,7 +392,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   console.log(
     `
->> Welcome to the correspondence tracker, please visit the site however you have your host and ports setup to see it from the outside world`
+>> Welcome to the awesome person tracker, please visit the site however you have your host and ports setup to see it from the outside world`
       .info
   )
   console.log(
