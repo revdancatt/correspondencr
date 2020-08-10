@@ -318,6 +318,7 @@ const hbs = exphbs.create({
 
 app.engine('html', hbs.engine)
 app.set('view engine', 'html')
+app.locals.layout = false
 app.set('views', `${__dirname}/app/templates`)
 app.use(
   express.static(`${__dirname}/app/public`, {
