@@ -9,7 +9,7 @@
 <body>
 
   {{> nav}}
-  <section class="hero is-info is-bold">
+  <section class="hero is-bold {{#if isBusiness}}is-danger{{else}}is-info{{/if}}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1">

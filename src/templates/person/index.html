@@ -10,7 +10,7 @@
 
   {{> nav}}
 
-  <section class="hero is-info is-bold">
+  <section class="hero is-bold {{#if isBusiness}}is-danger{{else}}is-info{{/if}}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1">
@@ -111,7 +111,8 @@
             {{#each @this}}
               <div class="level-item buttons has-addons" style="margin-bottom:0">
                 {{#each @this}}
-                  <button class="button is-large {{#if selected}}is-dark{{else}}is-light{{/if}}" name="setIcon" value="{{@../key}},{{@../../key}},{{colour}}">
+                  <button class="button is-large {{#if selected}}is-dark{{else}}is-light{{/if}}" name="setIcon"
+                    value="{{@../key}},{{@../../key}},{{colour}}">
                     <span class="icon">
                       <i class="{{@../key}} fa-{{@../../key}} fa-lg has-text-{{colour}}"></i>
                     </span>
@@ -156,6 +157,44 @@
     </div>
   </section>
 
+  {{#if isBusiness}}
+    <section class="section">
+      <div class="container">
+        <hr />
+
+        <form method="POST" action="/person/{{person.id}}">
+          <h2 class="title"><a name="socialmedias" class="has-text-black" style="cursor: default">Social Media</a></h2>
+          <h3 class="subtitle">Where are they on social media</h3>
+
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" name="instagram" placeholder="@instagram"
+                value="{{person.socialmedias.instagram}}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" name="twitter" placeholder="@twitter"
+                value="{{person.socialmedias.twitter}}">
+            </div>
+          </div>
+
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">&nbsp;</div>
+            </div>
+            <div class="level-right">
+              <div class="level-item control">
+                <input class="button is-primary" type="submit" name="action" value="Save social media accounts">
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </section>
+  {{/if}}
+
   <section class="section">
     <div class="container">
       <hr />
@@ -194,15 +233,18 @@
               <div class="level-item">
                 <label class="checkbox">
                   <input class="" type="checkbox" name="checkbox1_{{id}}" value="true" {{#if checked1}} checked{{/if}}>
-                    Check 1 </label> </div> <div class="level-item">
-                  <label class="checkbox">
-                    <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}} checked{{/if}}>
-                      Check 2 </label> </div> <div class="level-item">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Check 1 </label> </div>
+              <div class="level-item">
+                <label class="checkbox">
+                  <input class="" type="checkbox" name="checkbox2_{{id}}" value="true" {{#if checked2}} checked{{/if}}>
+                  Check 2 </label> </div>
+              <div class="level-item">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </div>
 
               <div class="level-item">
-                <button class="level-item button is-danger" type="submit" name="action" value="remove_{{id}}">Delete</button>
+                <button class="level-item button is-danger" type="submit" name="action"
+                  value="remove_{{id}}">Delete</button>
               </div>
             </div>
           </div>
@@ -213,7 +255,8 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="level-item button is-primary" type="submit" name="action" value="update_checkboxes">Update
+                <button class="level-item button is-primary" type="submit" name="action"
+                  value="update_checkboxes">Update
                   the checkboxes</button>
               </div>
             </div>
@@ -229,7 +272,8 @@
         {{/if}}
         <div class="field">
           <div class="control">
-            <input class="input" type="text" name="newcontact" placeholder="Add details about how and why I contacted someone here">
+            <input class="input" type="text" name="newcontact"
+              placeholder="Add details about how and why I contacted someone here">
           </div>
         </div>
 
@@ -279,7 +323,8 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="level-item button is-danger" type="submit" name="action" value="deleteOtherDate">Delete</button>
+                <button class="level-item button is-danger" type="submit" name="action"
+                  value="deleteOtherDate">Delete</button>
               </div>
             </div>
           </div>
@@ -296,43 +341,46 @@
           <label class="label">Month</label>
           <div class="select">
             <select name="month">
-              <option value='1' {{#ifEqual today.month 1}} selected{{/ifEqual}}>01 - January</option> <option value='2'
-                {{#ifEqual today.month 2}} selected{{/ifEqual}}>02- February</option> <option value='3'
-                {{#ifEqual today.month 3}} selected{{/ifEqual}}>03 - March</option> <option value='4'
-                {{#ifEqual today.month 4}} selected{{/ifEqual}}>04 - April</option> <option value='5'
-                {{#ifEqual today.month 5}} selected{{/ifEqual}}>05 - May</option> <option value='6'
-                {{#ifEqual today.month 6}} selected{{/ifEqual}}>06 - June</option> <option value='7'
-                {{#ifEqual today.month 7}} selected{{/ifEqual}}>07 - July</option> <option value='8'
-                {{#ifEqual today.month 8}} selected{{/ifEqual}}>08 - August</option> <option value='9'
-                {{#ifEqual today.month 9}} selected{{/ifEqual}}>09 - September</option> <option value='10'
-                {{#ifEqual today.month 10}} selected{{/ifEqual}}>10 - October</option> <option value='11'
-                {{#ifEqual today.month 11}} selected{{/ifEqual}}>11 - November</option> <option value='12'
-                {{#ifEqual today.month 12}} selected{{/ifEqual}}>12 - December</option> </select> </div> </div> <div
-                class="field">
-                <label class="label">Day</label>
-                <div class="control">
-                  <input class="input narrow-input" type="number" min="1" max="31" name="day" placeholder="1" value="{{today.day}}">
-                </div>
+              <option value='1' {{#ifEqual today.month 1}} selected{{/ifEqual}}>01 - January</option>
+              <option value='2' {{#ifEqual today.month 2}} selected{{/ifEqual}}>02- February</option>
+              <option value='3' {{#ifEqual today.month 3}} selected{{/ifEqual}}>03 - March</option>
+              <option value='4' {{#ifEqual today.month 4}} selected{{/ifEqual}}>04 - April</option>
+              <option value='5' {{#ifEqual today.month 5}} selected{{/ifEqual}}>05 - May</option>
+              <option value='6' {{#ifEqual today.month 6}} selected{{/ifEqual}}>06 - June</option>
+              <option value='7' {{#ifEqual today.month 7}} selected{{/ifEqual}}>07 - July</option>
+              <option value='8' {{#ifEqual today.month 8}} selected{{/ifEqual}}>08 - August</option>
+              <option value='9' {{#ifEqual today.month 9}} selected{{/ifEqual}}>09 - September</option>
+              <option value='10' {{#ifEqual today.month 10}} selected{{/ifEqual}}>10 - October</option>
+              <option value='11' {{#ifEqual today.month 11}} selected{{/ifEqual}}>11 - November</option>
+              <option value='12' {{#ifEqual today.month 12}} selected{{/ifEqual}}>12 - December</option>
+            </select> </div>
+        </div>
+        <div class="field">
+          <label class="label">Day</label>
+          <div class="control">
+            <input class="input narrow-input" type="number" min="1" max="31" name="day" placeholder="1"
+              value="{{today.day}}">
           </div>
+        </div>
 
-          <div class="field">
-            <label class="label">Details of the thing</label>
-            <div class="control">
-              <input class="input" type="text" name="details" placeholder="Add details about the date here">
-            </div>
+        <div class="field">
+          <label class="label">Details of the thing</label>
+          <div class="control">
+            <input class="input" type="text" name="details" placeholder="Add details about the date here">
           </div>
+        </div>
 
-          <div class="level">
-            <div class="level-left">
-              <div class="level-item">&nbsp;</div>
-            </div>
-            <div class="level-right">
-              <div class="level-item control">
-                <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new
-                  date</button>
-              </div>
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">&nbsp;</div>
+          </div>
+          <div class="level-right">
+            <div class="level-item control">
+              <button class="level-item button is-primary" type="submit" name="action" value="Add date">Save this new
+                date</button>
             </div>
           </div>
+        </div>
 
       </form>
     </div>
@@ -357,8 +405,8 @@
                     <div>
                       <div class="is-size-5">
                         <span class="has-text-weight-bold">{{../person.fullname}}</span> is {{relationship}} to <a
-                          class="has-text-weight-bold" href="/person/{{connector}}">{{fullname}}</a> {{#if nextBirthday}}<small
-                            class="is-size-7">(birthday
+                          class="has-text-weight-bold" href="/person/{{connector}}">{{fullname}}</a>
+                        {{#if nextBirthday}}<small class="is-size-7">(birthday
                             {{timeAgo
                       nextBirthday}})</small>{{/if}}
                       </div>
@@ -369,7 +417,8 @@
                 </div>
                 <div class="level-right">
                   <div class="level-item">
-                    <button class="level-item button is-danger" type="submit" name="action" value="deleteRelationship">Delete</button>
+                    <button class="level-item button is-danger" type="submit" name="action"
+                      value="deleteRelationship">Delete</button>
                   </div>
                 </div>
               </div>
@@ -397,7 +446,8 @@
         </div>
         {{else}}
           {{#if ../connector}}
-            <h3 class="subtitle">Do I wish to connect <a class="has-text-weight-bold" href="/person/{{../../connector.id}}#connections">{{../../connector.fullname}}</a>
+            <h3 class="subtitle">Do I wish to connect <a class="has-text-weight-bold"
+                href="/person/{{../../connector.id}}#connections">{{../../connector.fullname}}</a>
               to
               <span class="has-text-weight-bold">{{../../person.fullname}}?</span></h3>
             <div class="level">
@@ -406,16 +456,19 @@
             <form method="POST" action="/person/{{../../person.id}}">
               <div class="level">
                 <div class="level-item control">
-                  <button class="button is-primary" type="submit" name="action" value="parentOf">...parent of...</button>
+                  <button class="button is-primary" type="submit" name="action" value="parentOf">...parent
+                    of...</button>
                 </div>
                 <div class="level-item control">
                   <button class="button is-primary" type="submit" name="action" value="childOf">...child of...</button>
                 </div>
                 <div class="level-item control">
-                  <button class="button is-primary" type="submit" name="action" value="siblingOf">...sibling of...</button>
+                  <button class="button is-primary" type="submit" name="action" value="siblingOf">...sibling
+                    of...</button>
                 </div>
                 <div class="level-item control">
-                  <button class="button is-primary" type="submit" name="action" value="partnerOf">...partner of...</button>
+                  <button class="button is-primary" type="submit" name="action" value="partnerOf">...partner
+                    of...</button>
                 </div>
                 <div class="level-item control">
                   <button class="button is-primary" type="submit" name="action" value="otherOf">...other of...</button>
@@ -543,7 +596,8 @@
               </div>
               <div class="level-right">
                 <div class="level-item is-size-7 has-text-centered">
-                  Setting myself as this person<br />will add a plane icon to people<br />who live in other countries<br />
+                  Setting myself as this person<br />will add a plane icon to people<br />who live in other
+                  countries<br />
                   (so I can post stuff sooner).
                 </div>
               </div>

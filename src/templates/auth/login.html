@@ -10,7 +10,7 @@
 
   {{> nav}}
 
-  <section class="hero is-info is-bold">
+  <section class="hero is-bold {{#if isBusiness}}is-danger{{else}}is-info{{/if}}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1">
@@ -22,13 +22,13 @@
   </section>
 
   {{#if error}}
-  <section class="section">
-    <div class="container">
-      <div class="notification is-warning">
-        {{error}}
+    <section class="section">
+      <div class="container">
+        <div class="notification is-warning">
+          {{error}}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   {{/if}}
 
   <section class="section">
@@ -41,8 +41,8 @@
             <label class="label">Username</label>
           </div>
           <div class="column control">
-            <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username" value="{{username}}"
-              {{#ifEqual focus 'username'}}autofocus{{/ifEqual}}>
+            <input class="input {{#ifEqual errorPlace 'username'}}is-warning{{/ifEqual}}" type="text" name="username"
+              value="{{username}}" {{#ifEqual focus 'username'}}autofocus{{/ifEqual}}>
           </div>
         </div>
 
@@ -51,7 +51,8 @@
             <label class="label">Password</label>
           </div>
           <div class="column control">
-            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password" name="password" {{#ifEqual
+            <input class="input {{#ifEqual errorPlace 'password'}}is-warning{{/ifEqual}}" type="password"
+              name="password" {{#ifEqual
               focus 'password'}}autofocus{{/ifEqual}}>
           </div>
         </div>
