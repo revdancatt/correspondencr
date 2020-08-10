@@ -55,6 +55,10 @@ router.use(function (req, res, next) {
   req.templateValues.loggedIn = ('loggedin' in req.session && req.session.loggedin === true)
   req.templateValues.a2z = new People().getA2Z()
 
+  //  If we are marked as a business account, then do that here
+  req.templateValues.isBusiness = false
+  if (process.env.BUSINESS === true || process.env.BUSINESS === 'true') req.templateValues.isBusiness = true
+
   //  See if a thisIsMe user has been set, if so go and grab that user
   if ('thisIsMe' in configObj) {
     req.templateValues.thisIsMe = new Person(parseInt(configObj.thisIsMe), 10)

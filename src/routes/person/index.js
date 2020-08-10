@@ -100,6 +100,14 @@ exports.update = (req, res) => {
       anchor = '#notes'
     }
 
+    if (req.body.action === 'Save social media accounts') {
+      const sms = {}
+      if (req.body.instagram) sms.instagram = req.body.instagram
+      if (req.body.twitter) sms.twitter = req.body.twitter
+      person.set('socialmedias', sms)
+      anchor = '#socialmedias'
+    }
+
     //  If we have been sent new details from the add or edit page
     if (req.body.action === 'Update') {
       person.set('fullname', req.body.fullname)
