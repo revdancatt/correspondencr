@@ -163,9 +163,16 @@
         <hr />
 
         <form method="POST" action="/person/{{person.id}}">
-          <h2 class="title"><a name="socialmedias" class="has-text-black" style="cursor: default">Social Media</a></h2>
+          <h2 class="title"><a name="socialmedias" class="has-text-black" style="cursor: default">Social media &amp;
+              contact</a></h2>
           <h3 class="subtitle">Where are they on social media</h3>
 
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" name="email" placeholder="someone@gmail.com"
+                value="{{person.socialmedias.email}}">
+            </div>
+          </div>
           <div class="field">
             <div class="control">
               <input class="input" type="text" name="instagram" placeholder="@instagram"
