@@ -102,6 +102,7 @@ exports.update = (req, res) => {
 
     if (req.body.action === 'Save social media accounts') {
       const sms = {}
+      if (req.body.email) sms.email = req.body.email
       if (req.body.instagram) sms.instagram = req.body.instagram
       if (req.body.twitter) sms.twitter = req.body.twitter
       person.set('socialmedias', sms)
