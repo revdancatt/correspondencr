@@ -105,7 +105,6 @@ const datePrettyNoYear = t => {
 }
 exports.datePrettyNoYear = datePrettyNoYear
 
-
 const datePretty = t => {
   if (t === null || t === undefined) return ''
   return moment(t).format('dddd, MMMM Do YYYY')
@@ -166,4 +165,8 @@ exports.addReturns = text => {
 exports.toUpperCase = text => {
   if (text === null || text === undefined) return ''
   return text.toUpperCase()
+}
+
+exports.stripAt = text => {
+  return text.replace('@', '')
 }
