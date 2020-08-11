@@ -174,26 +174,28 @@
             </div>
           </div>
           <div class="field has-addons">
-            <div class="control">
+            <div class="control is-expanded">
               <input class="input" type="text" name="instagram" placeholder="@instagram"
                 value="{{person.socialmedias.instagram}}">
             </div>
             {{#if person.socialmedias.instagram}}
               <div class="control">
-                <a href="https://instagram.com/{{stripAt person.socialmedias.instagram}}" class="button is-link">
+                <a href="https://instagram.com/{{stripAt person.socialmedias.instagram}}" class="button is-link"
+                  target="_blank">
                   Go
                 </a>
               </div>
             {{/if}}
           </div>
           <div class="field has-addons">
-            <div class="control">
+            <div class="control is-expanded">
               <input class="input" type="text" name="twitter" placeholder="@twitter"
                 value="{{person.socialmedias.twitter}}">
             </div>
             {{#if person.socialmedias.twitter}}
               <div class="control">
-                <a href="https://twitter.com/{{stripAt person.socialmedias.twitter}}" class="button is-link">
+                <a href="https://twitter.com/{{stripAt person.socialmedias.twitter}}" class="button is-link"
+                  target="_blank">
                   Go
                 </a>
               </div>
